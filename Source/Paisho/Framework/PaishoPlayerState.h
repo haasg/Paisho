@@ -10,6 +10,7 @@ class PAISHO_API APaishoPlayerState : public APlayerState
 	GENERATED_BODY()
 
 public:
+	UFUNCTION(BlueprintCallable)
 	void SetPlayerLocation(const FVector& NewLocation) { PlayerLocation = NewLocation; }
 
 protected:
