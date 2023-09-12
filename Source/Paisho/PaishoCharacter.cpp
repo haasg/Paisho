@@ -12,7 +12,7 @@ APaishoCharacter::APaishoCharacter()
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
 	SpringArm->bDoCollisionTest = false;
-	//SpringArm->bUsePawnControlRotation = true;
+	SpringArm->bUsePawnControlRotation = false;
 	// const FRotator SpringArmRotation = FRotator(-90.f, 0.f, 270.f);
 	// SpringArm->SetWorldRotation(SpringArmRotation);
 	SpringArm->TargetArmLength = 1920.0f;
