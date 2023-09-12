@@ -2,6 +2,12 @@
 
 #include "Framework/PaishoPlayerState.h"
 
+APaishoCharacter::APaishoCharacter()
+{
+	bReplicates = true;
+	//SetReplicatedMovement(true);
+}
+
 void APaishoCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
