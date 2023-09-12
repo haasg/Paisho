@@ -12,7 +12,7 @@ class PAISHO_API APaishoPlayerState : public APlayerState
 public:
 	void SetPlayerLocation(const FVector& NewLocation) { PlayerLocation = NewLocation; }
 
-private:
+protected:
 	UPROPERTY(Replicated, BlueprintReadOnly)
 	FVector PlayerLocation;
 };
