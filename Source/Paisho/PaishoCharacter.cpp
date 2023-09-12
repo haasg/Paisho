@@ -11,4 +11,6 @@ void APaishoCharacter::Tick(float DeltaSeconds)
 	{
 		PS->SetPlayerLocation(GetActorLocation()); 
 	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Player Location: %s"), *GetActorLocation().ToString());
 }

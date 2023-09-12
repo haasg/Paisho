@@ -5,7 +5,7 @@
 #include "PaishoGameState.generated.h"
 
 UCLASS()
-class PAISHO_API APaishoGameState : public AGameState
+class PAISHO_API APaishoGameState : public AGameStateBase
 {
 	GENERATED_BODY()
 	
