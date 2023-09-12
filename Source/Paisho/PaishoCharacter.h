@@ -10,12 +10,5 @@ class PAISHO_API APaishoCharacter : public APaperZDCharacter
 	GENERATED_BODY()
 
 	APaishoCharacter(){};
-
-	virtual void PostInitializeComponents() override;
 	
 };
-
-inline void APaishoCharacter::PostInitializeComponents()
-{
-	Super::PostInitializeComponents();
-}
