@@ -10,5 +10,7 @@ class PAISHO_API APaishoCharacter : public APaperZDCharacter
 	GENERATED_BODY()
 
 	APaishoCharacter(){};
+
+	virtual void Tick(float DeltaSeconds) override;
 	
 };
