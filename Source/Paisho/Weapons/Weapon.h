@@ -18,5 +18,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	UWeaponData* WeaponData;
+
+	UPROPERTY(VisibleAnywhere)
+	float SecondsSinceLastFire = FLT_MAX;
 	
 };

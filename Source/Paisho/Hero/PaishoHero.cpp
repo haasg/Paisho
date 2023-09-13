@@ -46,5 +46,8 @@ void APaishoHero::Tick(float DeltaSeconds)
 		PS->SetPlayerLocation(GetActorLocation()); 
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Player Location: %s"), *GetActorLocation().ToString());
+	if(Arsenal) // probably has authority here
+	{
+		Arsenal->Poll();
+	}
 }

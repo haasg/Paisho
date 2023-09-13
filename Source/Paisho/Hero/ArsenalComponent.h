@@ -14,6 +14,9 @@ class UArsenalComponent : public UActorComponent
 public:
 	UArsenalComponent() {}
 
+	void Poll();
+
+private:
 	UPROPERTY(VisibleAnywhere)
 	TArray<AWeapon*> Weapons;
 };
