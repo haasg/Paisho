@@ -4,6 +4,8 @@
 #include "PaperZDCharacter.h"
 #include "PaishoHero.generated.h"
 
+class UHeroData;
+class UPaperFlipbook;
 class UArsenalComponent;
 class UCameraComponent;
 class USpringArmComponent;
@@ -14,8 +16,12 @@ class PAISHO_API APaishoHero : public APaperZDCharacter
 	GENERATED_BODY()
 
 	APaishoHero();
+	static APaishoHero* FromData(UHeroData* HeroData, UWorld* World);
 
 	virtual void Tick(float DeltaSeconds) override;
+
+	UPROPERTY(EditAnywhere)
+	UHeroData* HeroData;
 
 	/* Camera Components */
 	UPROPERTY(EditAnywhere, Category = "Camera")
@@ -31,5 +37,13 @@ class PAISHO_API APaishoHero : public APaperZDCharacter
 	UArsenalComponent* Arsenal;
 
 	/* End Combat Components */
+
+	/* Visual Components */
+	UPROPERTY(EditAnywhere, Category = "Visual")
+	UPaperFlipbook* IdleAnimation;
+
+	UPROPERTY(EditAnywhere, Category = "Visual")
+	UPaperFlipbook* WalkAnimation;
+	/* End Visual Components */
 	
 };
