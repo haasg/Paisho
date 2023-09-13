@@ -15,10 +15,10 @@ class UHeroData : public UPrimaryDataAsset
 	FText HeroName;
 
 	UPROPERTY(EditDefaultsOnly)
-	float StartingHealth;
+	float StartingHealth = 100.0;
 
 	UPROPERTY(EditDefaultsOnly)
-	float MovementSpeed;
+	float MovementSpeed = 300.0;
 
 	UPROPERTY(EditDefaultsOnly)
 	UPaperFlipbook* IdleAnimation;

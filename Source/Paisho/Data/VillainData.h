@@ -15,10 +15,10 @@ class PAISHO_API UVillainData : public UPrimaryDataAsset
 	FText VillainName;
 
 	UPROPERTY(EditDefaultsOnly)
-	float StartingHealth;
+	float StartingHealth = 10.0;
 
 	UPROPERTY(EditDefaultsOnly)
-	float MovementSpeed;
+	float MovementSpeed = 100.0;
 
 	UPROPERTY(EditDefaultsOnly)
 	UPaperFlipbook* WalkAnimation;
