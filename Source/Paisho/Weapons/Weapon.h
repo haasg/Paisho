@@ -4,14 +4,19 @@
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
 
+class UWeaponData;
+
 UCLASS()
 class AWeapon : public AActor
 {
 	GENERATED_BODY()
 	
 public:
-	AWeapon() {}
+	AWeapon();
 
 	virtual void Fire();
+
+	UPROPERTY(EditDefaultsOnly)
+	UWeaponData* WeaponData;
 	
 };
