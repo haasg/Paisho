@@ -2,18 +2,18 @@
 
 #include "CoreMinimal.h"
 #include "PaperZDCharacter.h"
-#include "PaishoCharacter.generated.h"
+#include "PaishoHero.generated.h"
 
 class UArsenalComponent;
 class UCameraComponent;
 class USpringArmComponent;
 
 UCLASS()
-class PAISHO_API APaishoCharacter : public APaperZDCharacter
+class PAISHO_API APaishoHero : public APaperZDCharacter
 {
 	GENERATED_BODY()
 
-	APaishoCharacter();
+	APaishoHero();
 
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -25,7 +25,7 @@ class PAISHO_API APaishoCharacter : public APaperZDCharacter
 	UCameraComponent* Camera;
 	/* End Camera Components */
 
-
+	
 	/* Combat Components */
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	UArsenalComponent* Arsenal;

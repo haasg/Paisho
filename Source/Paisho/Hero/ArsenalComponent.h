@@ -3,6 +3,8 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 
+#include "ArsenalComponent.generated.h"
+
 class AWeapon;
 
 UCLASS()

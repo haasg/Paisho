@@ -1,10 +1,11 @@
-#include "PaishoCharacter.h"
+#include "PaishoHero.h"
 
+#include "ArsenalComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Framework/PaishoPlayerState.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Paisho/Framework/PaishoPlayerState.h"
 
-APaishoCharacter::APaishoCharacter()
+APaishoHero::APaishoHero()
 {
 	bReplicates = true;
 	//SetReplicatedMovement(true);
@@ -21,9 +22,11 @@ APaishoCharacter::APaishoCharacter()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	Camera->bUsePawnControlRotation = false;
+
+	Arsenal = CreateDefaultSubobject<UArsenalComponent>(TEXT("Arsenal"));
 }
 
-void APaishoCharacter::Tick(float DeltaSeconds)
+void APaishoHero::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
