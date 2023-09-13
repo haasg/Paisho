@@ -4,6 +4,10 @@
 #include "PaperZDCharacter.h"
 #include "PaishoCharacter.generated.h"
 
+class UArsenalComponent;
+class UCameraComponent;
+class USpringArmComponent;
+
 UCLASS()
 class PAISHO_API APaishoCharacter : public APaperZDCharacter
 {
@@ -13,11 +17,19 @@ class PAISHO_API APaishoCharacter : public APaperZDCharacter
 
 	virtual void Tick(float DeltaSeconds) override;
 
-private:
+	/* Camera Components */
 	UPROPERTY(EditAnywhere, Category = "Camera")
-	class USpringArmComponent* SpringArm;
+	USpringArmComponent* SpringArm;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
-	class UCameraComponent* Camera;
+	UCameraComponent* Camera;
+	/* End Camera Components */
+
+
+	/* Combat Components */
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	UArsenalComponent* Arsenal;
+
+	/* End Combat Components */
 	
 };
