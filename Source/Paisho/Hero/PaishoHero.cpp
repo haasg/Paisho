@@ -41,8 +41,8 @@ void APaishoHero::BeginPlay()
 {
     Super::BeginPlay();
 
-    //Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
-    //Weapon->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+    Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
+    Weapon->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 void APaishoHero::Tick(float DeltaSeconds)
@@ -55,6 +55,13 @@ void APaishoHero::Tick(float DeltaSeconds)
 		PS->SetPlayerLocation(GetActorLocation()); 
 	}
 
+	// fire the test weapon
+	if (Weapon)
+	{
+		Weapon->Fire();
+	}
+
+	
 	if(Arsenal) // probably has authority here
 	{
 		Arsenal->Poll();
