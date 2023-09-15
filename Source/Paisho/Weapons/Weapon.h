@@ -14,7 +14,7 @@ class AWeapon : public AActor
 public:
 	AWeapon();
 
-	virtual void Fire();
+	virtual void Fire(float DeltaSeconds);
 
 	UPROPERTY(EditDefaultsOnly)
 	UWeaponData* WeaponData;

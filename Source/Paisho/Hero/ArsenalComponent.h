@@ -14,7 +14,7 @@ class UArsenalComponent : public UActorComponent
 public:
 	UArsenalComponent() {}
 
-	void Poll();
+	void Poll(float DeltaSeconds);
 
 private:
 	UPROPERTY(VisibleAnywhere)

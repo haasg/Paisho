@@ -2,10 +2,10 @@
 
 #include "Paisho/Weapons/Weapon.h"
 
-void UArsenalComponent::Poll()
+void UArsenalComponent::Poll(float DeltaSeconds)
 {
 	for(auto& Weapon : Weapons)
 	{
-		Weapon->Fire();
+		Weapon->Fire(DeltaSeconds);
 	}
 }

@@ -9,10 +9,14 @@ AWeapon::AWeapon()
 	WeaponData = nullptr;
 }
 
-void AWeapon::Fire()
+void AWeapon::Fire(float DeltaSeconds)
 {
-	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
-	Projectile->SetActorLocation(GetActorLocation());
-	Projectile->SpriteComponent->SetSprite(WeaponData->ProjectileSprite);
-	
+	if(SecondsSinceLastFire > 1.f)
+	{
+		SecondsSinceLastFire = 0.f;
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
+		Projectile->SetActorLocation(GetActorLocation());
+		Projectile->SpriteComponent->SetSprite(WeaponData->ProjectileSprite);
+	}
+	SecondsSinceLastFire += DeltaSeconds;
 }

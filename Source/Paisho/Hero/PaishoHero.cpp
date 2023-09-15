@@ -58,12 +58,12 @@ void APaishoHero::Tick(float DeltaSeconds)
 	// fire the test weapon
 	if (Weapon)
 	{
-		Weapon->Fire();
+		Weapon->Fire(DeltaSeconds);
 	}
 
 	
 	if(Arsenal) // probably has authority here
 	{
-		Arsenal->Poll();
+		Arsenal->Poll(DeltaSeconds);
 	}
 }
