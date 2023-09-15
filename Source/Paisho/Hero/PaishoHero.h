@@ -9,6 +9,7 @@ class UPaperFlipbook;
 class UArsenalComponent;
 class UCameraComponent;
 class USpringArmComponent;
+class AWeapon;
 
 UCLASS()
 class PAISHO_API APaishoHero : public APaperZDCharacter
@@ -18,6 +19,7 @@ class PAISHO_API APaishoHero : public APaperZDCharacter
 	APaishoHero();
 	static APaishoHero* FromData(UHeroData* HeroData, UWorld* World);
 
+    virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
 	UPROPERTY(EditAnywhere)
@@ -33,6 +35,12 @@ class PAISHO_API APaishoHero : public APaperZDCharacter
 
 	
 	/* Combat Components */
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	AWeapon* Weapon;
+	
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<UWeapon> WeaponClass;
+	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	UArsenalComponent* Arsenal;
 

@@ -4,7 +4,9 @@
 
 #include "HeroData.generated.h"
 
+class UWeaponData;
 class UPaperFlipbook;
+class UWeaponData;
 
 UCLASS()
 class UHeroData : public UPrimaryDataAsset
@@ -25,5 +27,8 @@ class UHeroData : public UPrimaryDataAsset
 
 	UPROPERTY(EditDefaultsOnly)
 	UPaperFlipbook* WalkAnimation;
+	
+	UPROPERTY(EditDefaultsOnly)
+	UWeaponData* StartingWeapon;
 	
 };

@@ -36,6 +36,14 @@ APaishoHero* APaishoHero::FromData(UHeroData* HeroData, UWorld* World)
 	// maybe i do just end up making a dumb init function to follow the spawn actor call from elsewhere :/
 }
 
+void APaishoHero::BeginPlay()
+{
+    Super::BeginPlay();
+
+    Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
+    Weapon->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+}
+
 void APaishoHero::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
