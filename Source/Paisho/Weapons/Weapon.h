@@ -16,7 +16,7 @@ public:
 
 	virtual void Fire(float DeltaSeconds);
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UWeaponData* WeaponData;
 
 	UPROPERTY(VisibleAnywhere)

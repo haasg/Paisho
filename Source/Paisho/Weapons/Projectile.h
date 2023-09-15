@@ -5,6 +5,7 @@
 #include "Projectile.generated.h"
 
 
+class UProjectileMovementComponent;
 class UPaperSpriteComponent;
 
 UCLASS()
@@ -16,6 +17,9 @@ public:
 	AProjectile();
 
 	virtual void BeginPlay() override;
+
+	UPROPERTY()
+	UProjectileMovementComponent* MovementComponent;
 
 	UPROPERTY()
 	UPaperSpriteComponent* SpriteComponent;
