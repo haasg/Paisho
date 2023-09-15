@@ -18,10 +18,10 @@ public:
 
 	virtual void BeginPlay() override;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* MovementComponent;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperSpriteComponent* SpriteComponent;
 	
 };

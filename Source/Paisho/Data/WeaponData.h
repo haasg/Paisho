@@ -18,13 +18,13 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "FireRate")
 	EFireType FireType;
 	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float Damage = 10.0;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UPaperSprite* ProjectileSprite;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UPaperFlipbook* ProjectileAnimation;
 
 
