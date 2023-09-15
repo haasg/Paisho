@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Paisho/Framework/PaishoPlayerState.h"
+#include "Paisho/Weapons/Weapon.h"
 
 APaishoHero::APaishoHero()
 {
@@ -40,8 +41,8 @@ void APaishoHero::BeginPlay()
 {
     Super::BeginPlay();
 
-    Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
-    Weapon->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+    //Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
+    //Weapon->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 void APaishoHero::Tick(float DeltaSeconds)

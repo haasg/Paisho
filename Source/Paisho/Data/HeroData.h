@@ -4,6 +4,7 @@
 
 #include "HeroData.generated.h"
 
+class UPaperZDAnimInstance;
 class UWeaponData;
 class UPaperFlipbook;
 class UWeaponData;
@@ -12,23 +13,27 @@ UCLASS()
 class UHeroData : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
-	
-	UPROPERTY(EditDefaultsOnly)
+
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FText HeroName;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float StartingHealth = 100.0;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float MovementSpeed = 300.0;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UPaperFlipbook* IdleAnimation;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UPaperFlipbook* WalkAnimation;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UPaperZDAnimInstance> AnimInstanceBP;
 	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UWeaponData* StartingWeapon;
 	
 };

@@ -22,7 +22,8 @@ class PAISHO_API APaishoHero : public APaperZDCharacter
     virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
-	UPROPERTY(EditAnywhere)
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UHeroData* HeroData;
 
 	/* Camera Components */
@@ -39,7 +40,7 @@ class PAISHO_API APaishoHero : public APaperZDCharacter
 	AWeapon* Weapon;
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
-	TSubclassOf<UWeapon> WeaponClass;
+	TSubclassOf<AWeapon> WeaponClass;
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	UArsenalComponent* Arsenal;

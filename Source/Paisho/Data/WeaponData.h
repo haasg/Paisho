@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WeaponFireType.h"
 #include "Engine/DataAsset.h"
 #include "WeaponData.generated.h"
 
@@ -21,7 +22,6 @@ class PAISHO_API UWeaponData : public UPrimaryDataAsset
 	UPROPERTY(EditDefaultsOnly)
 	UPaperFlipbook* ProjectileAnimation;
 
-	
 
 	
 	
