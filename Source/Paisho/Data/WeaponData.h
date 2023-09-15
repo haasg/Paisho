@@ -15,19 +15,24 @@ class PAISHO_API UWeaponData : public UPrimaryDataAsset
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, Category = "FireRate")
-	EFireType FireType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FireRate")
+	FWeaponFireType FireType;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	float Damage = 10.0;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
 	UPaperSprite* ProjectileSprite;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UPaperFlipbook* ProjectileAnimation;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
+	float ProjectileSpeed = 1000.0;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
+	float ProjectileDamage = 10.0;
 
-	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
+	float ProjectileLifeTime = 5.0;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
+	float ProjectileScale = 1.0;
 	
 };

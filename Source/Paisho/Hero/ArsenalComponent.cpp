@@ -6,6 +6,6 @@ void UArsenalComponent::Poll(float DeltaSeconds)
 {
 	for(auto& Weapon : Weapons)
 	{
-		Weapon->Fire(DeltaSeconds);
+		Weapon->Poll(DeltaSeconds);
 	}
 }

@@ -58,7 +58,7 @@ void APaishoHero::Tick(float DeltaSeconds)
 	// fire the test weapon
 	if (Weapon)
 	{
-		Weapon->Fire(DeltaSeconds);
+		Weapon->Poll(DeltaSeconds);
 	}
 
 	

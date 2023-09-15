@@ -5,6 +5,8 @@
 #include "Projectile.generated.h"
 
 
+class UPaperSprite;
+class UWeaponData;
 class UProjectileMovementComponent;
 class UPaperSpriteComponent;
 
@@ -18,10 +20,19 @@ public:
 
 	virtual void BeginPlay() override;
 
+	void SetSprite(UPaperSprite* Sprite);
+	void SetVelocity(const FVector& Velocity);
+	void SetDirection(const FVector& Direction);
+	void SetSpeed(float Speed);
+
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* MovementComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperSpriteComponent* SpriteComponent;
+
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// UWeaponData* WeaponData;
 	
 };

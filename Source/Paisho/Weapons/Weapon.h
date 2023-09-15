@@ -14,7 +14,8 @@ class AWeapon : public AActor
 public:
 	AWeapon();
 
-	virtual void Fire(float DeltaSeconds);
+	void Poll(float DeltaSeconds);
+	virtual void Fire();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UWeaponData* WeaponData;

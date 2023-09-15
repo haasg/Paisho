@@ -16,15 +16,15 @@ struct FWeaponFireType
 {
     GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EFireType FireType;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float PrimaryRpm = 60.0;
 	
-	UPROPERTY(EditDefaultsOnly, meta = (EditCondition = "Type == EFireType::Burst"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (EditCondition = "FireType == EFireType::Burst"))
 	float BurstCount = 3.0;
 	
-	UPROPERTY(EditDefaultsOnly, meta = (EditCondition = "Type == EFireType::Burst"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (EditCondition = "FireType == EFireType::Burst"))
 	float BurstRpm = 60.0;
 };
