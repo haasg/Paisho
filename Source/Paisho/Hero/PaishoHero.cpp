@@ -16,8 +16,8 @@ APaishoHero::APaishoHero()
 	SpringArm->SetupAttachment(RootComponent);
 	SpringArm->bDoCollisionTest = false;
 	SpringArm->bUsePawnControlRotation = false;
-	// const FRotator SpringArmRotation = FRotator(-90.f, 0.f, 270.f);
-	// SpringArm->SetWorldRotation(SpringArmRotation);
+	const FRotator SpringArmRotation = FRotator(-90.f, 0.f, -90.f);
+	SpringArm->SetWorldRotation(SpringArmRotation);
 	SpringArm->TargetArmLength = 1920.0f;
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
