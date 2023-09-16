@@ -8,5 +8,7 @@ UCLASS()
 class PAISHO_API AFireBlast : public AWeapon
 {
 	GENERATED_BODY()
+
+	virtual void Fire() override;
 	
 };
