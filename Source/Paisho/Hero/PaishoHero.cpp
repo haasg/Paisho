@@ -2,6 +2,7 @@
 
 #include "ArsenalComponent.h"
 #include "PaperFlipbook.h"
+#include "StartingKit.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Paisho/Framework/PaishoPlayerState.h"
@@ -41,8 +42,16 @@ void APaishoHero::BeginPlay()
 {
     Super::BeginPlay();
 
-    Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
-    Weapon->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	if(StartingKit)
+	{
+		for(auto& WeaponData : StartingKit->Weapons)
+		{
+			Arsenal->AddWeapon(WeaponData);
+		}
+	}
+
+    // Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
+    // Weapon->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 void APaishoHero::Tick(float DeltaSeconds)
@@ -55,11 +64,11 @@ void APaishoHero::Tick(float DeltaSeconds)
 		PS->SetPlayerLocation(GetActorLocation()); 
 	}
 
-	// fire the test weapon
-	if (Weapon)
-	{
-		Weapon->Poll(DeltaSeconds);
-	}
+	// // fire the test weapon
+	// if (Weapon)
+	// {
+	// 	Weapon->Poll(DeltaSeconds);
+	// }
 
 	
 	if(Arsenal) // probably has authority here

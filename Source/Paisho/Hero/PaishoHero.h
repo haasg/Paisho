@@ -40,11 +40,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	UStartingKit* StartingKit;
 	
-	UPROPERTY(EditAnywhere, Category = "Combat")
-	AWeapon* Weapon;
-	
-	UPROPERTY(EditAnywhere, Category = "Combat")
-	TSubclassOf<AWeapon> WeaponClass;
+	// UPROPERTY(EditAnywhere, Category = "Combat")
+	// AWeapon* Weapon;
+	//
+	// UPROPERTY(EditAnywhere, Category = "Combat")
+	// TSubclassOf<AWeapon> WeaponClass;
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	UArsenalComponent* Arsenal;

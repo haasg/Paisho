@@ -3,6 +3,7 @@
 #include "PaperSpriteComponent.h"
 #include "Projectile.h"
 #include "Paisho/Data/WeaponData.h"
+#include "Paisho/Util/DebugUtil.h"
 
 AWeapon::AWeapon()
 {
@@ -21,11 +22,12 @@ void AWeapon::Poll(float DeltaSeconds)
 
 void AWeapon::Fire()
 {
-		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
-		//Projectile->InitFromData(WeaponData);
-		Projectile->SetActorLocation(GetActorLocation());
-		Projectile->SetSprite(WeaponData->ProjectileSprite);
-		Projectile->SetSpeed(WeaponData->ProjectileSpeed);
-		Projectile->SetDirection(FVector(1.f, 0.f, 0.f));
-		//Projectile->SpriteComponent->SetSprite(WeaponData->ProjectileSprite);
+	ERROR("PEW PEW PEW");		
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
+	//Projectile->InitFromData(WeaponData);
+	Projectile->SetActorLocation(GetActorLocation());
+	Projectile->SetSprite(WeaponData->ProjectileSprite);
+	Projectile->SetSpeed(WeaponData->ProjectileSpeed);
+	Projectile->SetDirection(FVector(1.f, 0.f, 0.f));
+	//Projectile->SpriteComponent->SetSprite(WeaponData->ProjectileSprite);
 }

@@ -17,7 +17,7 @@ struct FWeaponFireType
     GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EFireType FireType;
+	EFireType FireType = EFireType::Auto;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float PrimaryRpm = 60.0;

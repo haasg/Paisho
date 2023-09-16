@@ -13,5 +13,6 @@ class UStartingKit : public UDataAsset
 	GENERATED_BODY()
 	
 public:
+	UPROPERTY(EditDefaultsOnly)
 	TArray<UWeaponData*> Weapons;
 };
