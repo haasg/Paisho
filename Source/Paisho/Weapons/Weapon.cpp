@@ -7,7 +7,6 @@
 
 AWeapon::AWeapon()
 {
-	LOG("WEAPON CONSTRUCTOR");
 	WeaponData = nullptr;
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
