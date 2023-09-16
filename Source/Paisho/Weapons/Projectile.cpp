@@ -34,6 +34,11 @@ void AProjectile::SetSprite(UPaperSprite* Sprite)
 	SpriteComponent->SetSprite(Sprite);
 }
 
+void AProjectile::SetLocation(const FVector& Location)
+{
+	SetActorLocation(Location);
+}
+
 void AProjectile::SetVelocity(const FVector& Velocity)
 {
 	MovementComponent->Velocity = Velocity;

@@ -21,6 +21,7 @@ public:
 	virtual void BeginPlay() override;
 
 	void SetSprite(UPaperSprite* Sprite);
+	void SetLocation(const FVector& Location);
 	void SetVelocity(const FVector& Velocity);
 	void SetDirection(const FVector& Direction);
 	void SetSpeed(float Speed);

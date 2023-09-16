@@ -1,5 +1,6 @@
 ﻿#include "ArsenalComponent.h"
 
+#include "Paisho/Util/DebugUtil.h"
 #include "Paisho/Weapons/Weapon.h"
 
 void UArsenalComponent::AddWeapon(UWeaponData* WeaponData)

@@ -7,7 +7,10 @@
 
 AWeapon::AWeapon()
 {
+	LOG("WEAPON CONSTRUCTOR");
 	WeaponData = nullptr;
+
+	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 }
 
 void AWeapon::Poll(float DeltaSeconds)
@@ -22,9 +25,7 @@ void AWeapon::Poll(float DeltaSeconds)
 
 void AWeapon::Fire()
 {
-	ERROR("PEW PEW PEW");		
 	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
-	//Projectile->InitFromData(WeaponData);
 	Projectile->SetActorLocation(GetActorLocation());
 	Projectile->SetSprite(WeaponData->ProjectileSprite);
 	Projectile->SetSpeed(WeaponData->ProjectileSpeed);
