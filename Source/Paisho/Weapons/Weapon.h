@@ -15,7 +15,7 @@ public:
 	AWeapon();
 
 	void Poll(float DeltaSeconds);
-	virtual void Fire();
+	virtual void Fire() {};
 
 	void SetWeaponData(UWeaponData* NewWeaponData) {WeaponData = NewWeaponData;}
 

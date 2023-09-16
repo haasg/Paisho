@@ -1,14 +1,15 @@
 ﻿#include "Projectile.h"
 
 #include "PaperSpriteComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Paisho/Data/WeaponData.h"
 #include "Paisho/Util/DebugUtil.h"
 
 AProjectile::AProjectile()
 {
-	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));
-	RootComponent = SceneComponent;
+	CollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
+	RootComponent = CollisionCapsule;
 	
 	SpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteComponent"));
 	const FRotator Rotator = FRotator(0.f, 0.f, -90.f);
@@ -20,10 +21,7 @@ AProjectile::AProjectile()
 	MovementComponent->Velocity = FVector(500.f, 0.f, 0.f);
 	MovementComponent->MaxSpeed = 1000.f;
 	MovementComponent->ProjectileGravityScale = 0.f;
-	//MovementComponent->bRotationFollowsVelocity = true;
 	MovementComponent->bShouldBounce = false;
-	
-	
 }
 
 void AProjectile::BeginPlay()
@@ -42,8 +40,6 @@ void AProjectile::SetSprite(UPaperSprite* Sprite)
 void AProjectile::SetRotation(const FRotator& Rotation)
 {
 	SpriteComponent->AddRelativeRotation(Rotation);
-	
-	//SpriteComponent->SetWorldRotation(Rotation);
 }
 
 void AProjectile::SetLocation(const FVector& Location)

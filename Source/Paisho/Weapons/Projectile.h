@@ -5,6 +5,7 @@
 #include "Projectile.generated.h"
 
 
+class UCapsuleComponent;
 class UPaperSprite;
 class UWeaponData;
 class UProjectileMovementComponent;
@@ -30,14 +31,15 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USceneComponent* SceneComponent;
+	UCapsuleComponent* CollisionCapsule;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperSpriteComponent* SpriteComponent;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* MovementComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UPaperSpriteComponent* SpriteComponent;
+	
 
 	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	// UWeaponData* WeaponData;
