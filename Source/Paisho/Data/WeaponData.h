@@ -5,6 +5,7 @@
 #include "Engine/DataAsset.h"
 #include "WeaponData.generated.h"
 
+class AWeapon;
 class UPaperSprite;
 class UPaperFlipbook;
 
@@ -14,7 +15,20 @@ class PAISHO_API UWeaponData : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
 
+	
 public:
+	TSubclassOf<AWeapon> GetWeaponClass() const;
+	
+	float PrimaryRpm() const;
+	float PrimarySecondsPerShot() const;
+	float GetProjectileSpeed() const;
+	UPaperSprite* GetProjectileSprite() const;
+	
+
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<AWeapon> WeaponClass;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FireRate")
 	FWeaponFireType FireType;
 	

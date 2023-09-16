@@ -20,13 +20,19 @@ public:
 
 	virtual void BeginPlay() override;
 
+	/* Save yourself the headache and use this API */
 	void SetSprite(UPaperSprite* Sprite);
+	void SetRotation(const FRotator& Rotation);
 	void SetLocation(const FVector& Location);
 	void SetVelocity(const FVector& Velocity);
 	void SetDirection(const FVector& Direction);
 	void SetSpeed(float Speed);
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USceneComponent* SceneComponent;
+
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* MovementComponent;
 

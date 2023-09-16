@@ -1,12 +1,13 @@
 ﻿#include "ArsenalComponent.h"
 
+#include "Paisho/Data/WeaponData.h"
 #include "Paisho/Util/DebugUtil.h"
 #include "Paisho/Weapons/Weapon.h"
 
 void UArsenalComponent::AddWeapon(UWeaponData* WeaponData)
 {
 	AActor* Owner = GetOwner();
-	AWeapon* Weapon = GetWorld()->SpawnActor<AWeapon>(AWeapon::StaticClass());
+	AWeapon* Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponData->GetWeaponClass());
 	Weapon->AttachToActor(Owner, FAttachmentTransformRules::KeepRelativeTransform);
 	Weapon->SetWeaponData(WeaponData);
 	Weapons.Add(Weapon);

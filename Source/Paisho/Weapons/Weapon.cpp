@@ -15,7 +15,8 @@ AWeapon::AWeapon()
 
 void AWeapon::Poll(float DeltaSeconds)
 {
-	if(SecondsSinceLastFire > 1.f)
+	const float SecondsBetweenShots = WeaponData->PrimarySecondsPerShot();
+	if(SecondsSinceLastFire > SecondsBetweenShots)
 	{
 		SecondsSinceLastFire = 0.f;
 		this->Fire();
@@ -25,10 +26,9 @@ void AWeapon::Poll(float DeltaSeconds)
 
 void AWeapon::Fire()
 {
-	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
-	Projectile->SetActorLocation(GetActorLocation());
-	Projectile->SetSprite(WeaponData->ProjectileSprite);
-	Projectile->SetSpeed(WeaponData->ProjectileSpeed);
-	Projectile->SetDirection(FVector(1.f, 0.f, 0.f));
-	//Projectile->SpriteComponent->SetSprite(WeaponData->ProjectileSprite);
+	// AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
+	// Projectile->SetLocation(GetActorLocation());
+	// Projectile->SetSprite(WeaponData->GetProjectileSprite());
+	// Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
+	// Projectile->SetDirection(FVector(1.f, 0.f, 0.f));
 }
