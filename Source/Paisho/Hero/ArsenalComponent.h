@@ -5,6 +5,7 @@
 
 #include "ArsenalComponent.generated.h"
 
+class UWeaponData;
 class AWeapon;
 
 UCLASS()
@@ -14,6 +15,7 @@ class UArsenalComponent : public UActorComponent
 public:
 	UArsenalComponent() {}
 
+	void AddWeapon(UWeaponData* WeaponData);
 	void Poll(float DeltaSeconds);
 
 private:

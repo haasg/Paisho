@@ -17,6 +17,9 @@ public:
 	void Poll(float DeltaSeconds);
 	virtual void Fire();
 
+	void SetWeaponData(UWeaponData* NewWeaponData) {WeaponData = NewWeaponData;}
+
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UWeaponData* WeaponData;
 
