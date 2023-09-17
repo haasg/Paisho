@@ -7,6 +7,12 @@
 APaishoVillain::APaishoVillain()
 {
 	GetCapsuleComponent()->SetCollisionProfileName(FName("Villain"));
+
+	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
+	HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
+	HealthBar->SetupAttachment(RootComponent);
+	const FRotator HealthBarRotation = FRotator(90.f, 0.f, -90.f);
+	HealthBar->SetRelativeRotation(HealthBarRotation);
 }
 
 void APaishoVillain::BeginPlay()
