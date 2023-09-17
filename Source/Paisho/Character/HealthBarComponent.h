@@ -14,12 +14,12 @@ class PAISHO_API UHealthBarComponent : public UWidgetComponent
 	
 public:
 	UHealthBarComponent();
-	void Init(UHealthComponent* NewHealthComponent);
-	void Refresh();
+	void Init(TObjectPtr<UHealthComponent> NewHealthComponent);
 
-	float CalcHealthPercent();
+	UFUNCTION()
+	void Refresh();
 
 private:
 	UPROPERTY(VisibleAnywhere)
-	UHealthComponent* HealthComponent;
+	TWeakObjectPtr<UHealthComponent> HealthComponent;
 };

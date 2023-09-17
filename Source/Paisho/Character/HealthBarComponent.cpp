@@ -7,21 +7,25 @@ UHealthBarComponent::UHealthBarComponent(): HealthComponent(nullptr)
 {
 }
 
-void UHealthBarComponent::Init(UHealthComponent* NewHealthComponent)
+void UHealthBarComponent::Init(const TObjectPtr<UHealthComponent> NewHealthComponent)
 {
+	check(NewHealthComponent);
 	HealthComponent = NewHealthComponent;
+	NewHealthComponent->OnHealthChanged.AddDynamic(this, &ThisClass::Refresh);
+	Refresh();
 }
 
 void UHealthBarComponent::Refresh()
 {
-	UUserWidget* WidgetInside = GetWidget();
-	if(UHealthBarWidget* HealthBarWidget = Cast<UHealthBarWidget>(WidgetInside))
+	if(HealthComponent.IsValid())
 	{
-		HealthBarWidget->Refresh(); 
+		if(UHealthBarWidget* HealthBarWidget = Cast<UHealthBarWidget>(GetWidget()))
+		{
+			const float CurrentHealth = HealthComponent->GetCurrentHealth();
+			const float MaxHealth = HealthComponent->GetMaxHealth();
+			const float HealthPercent = HealthComponent->CalcHealthPercent();
+			
+			HealthBarWidget->Refresh(CurrentHealth, MaxHealth, HealthPercent); 
+		}
 	}
-}
-
-float UHealthBarComponent::CalcHealthPercent()
-{
-	return HealthComponent->CalcHealthPercent();
 }

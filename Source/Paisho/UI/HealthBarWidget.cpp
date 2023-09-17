@@ -1,18 +1,11 @@
 ﻿#include "HealthBarWidget.h"
 
-#include "Components/Image.h"
-#include "Components/PanelSlot.h"
 #include "Components/ProgressBar.h"
-#include "Paisho/Character/HealthBarComponent.h"
+#include "Components/TextBlock.h"
 
-void UHealthBarWidget::Init(UHealthBarComponent* NewHealthBarComponent)
+void UHealthBarWidget::Refresh(const float CurrentHealth, const float MaxHealth, const float HealthPercent)
 {
-	HealthBarComponent = NewHealthBarComponent;
-	Refresh();
-}
-
-void UHealthBarWidget::Refresh()
-{
-	const float HealthPercent = HealthBarComponent->CalcHealthPercent();
+	const FText Text = FText::FromString(FString::Printf(TEXT("%d/%d"), FMath::RoundToInt(CurrentHealth), FMath::RoundToInt(MaxHealth)));
+	HealthText->SetText(Text);
 	HealthBar->SetPercent(HealthPercent);
 }

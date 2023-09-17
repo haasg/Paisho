@@ -60,7 +60,7 @@ void APaishoHero::BeginPlay()
 	}
 
 	Health->Init(100, 100);
-	HealthBar->Refresh();
+	HealthBar->Init(Health);
 	//HealthBar->SetHiddenInGame(false);
 
     // Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
