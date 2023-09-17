@@ -46,7 +46,7 @@ void AProjectile::SetRotation(const FRotator& Rotation)
 
 void AProjectile::SetLocation(const FVector& Location)
 {
-	SpriteComponent->SetWorldLocation(Location);
+	CollisionCapsule->SetWorldLocation(Location);
 }
 
 void AProjectile::SetVelocity(const FVector& Velocity)
