@@ -14,6 +14,8 @@ public:
 	UHealthComponent();
 	void Init(float NewHealth, float NewMaxHealth);
 
+	float CalcHealthPercent();
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	float Health;

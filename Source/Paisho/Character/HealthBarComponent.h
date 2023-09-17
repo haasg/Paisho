@@ -16,6 +16,8 @@ public:
 	UHealthBarComponent();
 	void Init(UHealthComponent* NewHealthComponent);
 
+	float CalcHealthPercent();
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	UHealthComponent* HealthComponent;
