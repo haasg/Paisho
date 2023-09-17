@@ -4,6 +4,8 @@
 #include "PaperZDCharacter.h"
 #include "PaishoHero.generated.h"
 
+class UHealthBarComponent;
+class UHealthComponent;
 class UStartingKit;
 class UHeroData;
 class UPaperFlipbook;
@@ -37,6 +39,12 @@ public:
 
 	
 	/* Combat Components */
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	UHealthComponent* Health;
+
+	//UPROPERTY(EditAnywhere, Category = "Combat")
+	//UHealthBarComponent* HealthBar;
+	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	UStartingKit* StartingKit;
 	

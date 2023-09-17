@@ -1,6 +1,8 @@
 #include "PaishoHero.h"
 
 #include "ArsenalComponent.h"
+//#include "HealthBarComponent.h"
+#include "HealthComponent.h"
 #include "PaperFlipbook.h"
 #include "StartingKit.h"
 #include "Camera/CameraComponent.h"
@@ -25,6 +27,8 @@ APaishoHero::APaishoHero()
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	Camera->bUsePawnControlRotation = false;
 
+	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
+	//HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
 	Arsenal = CreateDefaultSubobject<UArsenalComponent>(TEXT("Arsenal"));
 
 
@@ -49,6 +53,8 @@ void APaishoHero::BeginPlay()
 			Arsenal->AddWeapon(WeaponData);
 		}
 	}
+
+	Health->Init(100, 100);
 
     // Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
     // Weapon->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
