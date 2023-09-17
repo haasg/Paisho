@@ -7,3 +7,4 @@ DECLARE_LOG_CATEGORY_EXTERN(PaishoVerbose, Log, All);
 #define LOG(f_, ...) UE_LOG(PaishoGeneral, Log, TEXT(f_), ##__VA_ARGS__)
 #define WARNING(f_, ...) UE_LOG(PaishoGeneral, Warning, TEXT(f_), ##__VA_ARGS__)
 #define ERROR(f_, ...) UE_LOG(PaishoGeneral, Error, TEXT(f_), ##__VA_ARGS__)
+#define PRINT(f_, ...) UE_LOG(PaishoGeneral, Error, TEXT(f_), ##__VA_ARGS__)
