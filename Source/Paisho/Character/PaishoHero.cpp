@@ -32,6 +32,8 @@ APaishoHero::APaishoHero()
 	HealthBar->SetupAttachment(RootComponent);
 	const FRotator HealthBarRotation = FRotator(90.f, 0.f, -90.f);
 	HealthBar->SetRelativeRotation(HealthBarRotation);
+	// const FVector HealthBarOffset = FVector(0, 200, 0);
+	// HealthBar->SetRelativeLocation(HealthBarOffset);
 	Arsenal = CreateDefaultSubobject<UArsenalComponent>(TEXT("Arsenal"));
 
 
@@ -58,6 +60,7 @@ void APaishoHero::BeginPlay()
 	}
 
 	Health->Init(100, 100);
+	HealthBar->Refresh();
 	//HealthBar->SetHiddenInGame(false);
 
     // Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);

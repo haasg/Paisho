@@ -15,6 +15,7 @@ class PAISHO_API UHealthBarComponent : public UWidgetComponent
 public:
 	UHealthBarComponent();
 	void Init(UHealthComponent* NewHealthComponent);
+	void Refresh();
 
 	float CalcHealthPercent();
 
