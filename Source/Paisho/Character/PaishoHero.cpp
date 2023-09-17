@@ -1,7 +1,7 @@
 #include "PaishoHero.h"
 
 #include "ArsenalComponent.h"
-//#include "HealthBarComponent.h"
+#include "HealthBarComponent.h"
 #include "HealthComponent.h"
 #include "PaperFlipbook.h"
 #include "StartingKit.h"
@@ -28,7 +28,10 @@ APaishoHero::APaishoHero()
 	Camera->bUsePawnControlRotation = false;
 
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
-	//HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
+	HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
+	HealthBar->SetupAttachment(RootComponent);
+	const FRotator HealthBarRotation = FRotator(90.f, 0.f, -90.f);
+	HealthBar->SetRelativeRotation(HealthBarRotation);
 	Arsenal = CreateDefaultSubobject<UArsenalComponent>(TEXT("Arsenal"));
 
 
@@ -55,6 +58,7 @@ void APaishoHero::BeginPlay()
 	}
 
 	Health->Init(100, 100);
+	//HealthBar->SetHiddenInGame(false);
 
     // Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
     // Weapon->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
