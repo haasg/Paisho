@@ -4,5 +4,5 @@
 
 APaishoVillain::APaishoVillain()
 {
-
+	GetCapsuleComponent()->SetCollisionProfileName(FName("Villain"));
 }
