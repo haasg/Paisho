@@ -45,9 +45,6 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	UHealthBarComponent* HealthBar;
-
-	UPROPERTY(EditAnywhere, Category = "Combat")
-	TSubclassOf<UUserWidget> HealthBarClass;
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	UStartingKit* StartingKit;
