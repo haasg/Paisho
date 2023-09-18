@@ -6,8 +6,11 @@
 #include "PaperFlipbook.h"
 #include "StartingKit.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Paisho/Data/HeroData.h"
 #include "Paisho/Framework/PaishoPlayerState.h"
+#include "Paisho/Util/DebugUtil.h"
 #include "Paisho/Weapons/Weapon.h"
 
 APaishoHero::APaishoHero()
@@ -51,6 +54,17 @@ void APaishoHero::BeginPlay()
 {
     Super::BeginPlay();
 
+	if(HeroData)
+	{
+		Health->Init(HeroData->StartingHealth, HeroData->StartingHealth);
+		HealthBar->Init(Health);
+		GetCharacterMovement()->MaxWalkSpeed = HeroData->MovementSpeed;
+	}
+	else
+	{
+		ERROR("Hero BeginPlay with nullptr HeroData");
+	}
+
 	if(StartingKit)
 	{
 		for(auto& WeaponData : StartingKit->Weapons)
@@ -59,8 +73,7 @@ void APaishoHero::BeginPlay()
 		}
 	}
 
-	Health->Init(100, 100);
-	HealthBar->Init(Health);
+	
 	//HealthBar->SetHiddenInGame(false);
 
     // Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass);

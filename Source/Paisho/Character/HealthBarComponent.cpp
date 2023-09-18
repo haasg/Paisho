@@ -19,8 +19,7 @@ void UHealthBarComponent::Refresh()
 {
 	if(HealthComponent.IsValid())
 	{
-		UUserWidget* THISWIDGET = GetWidget();
-		if(UHealthBarWidget* HealthBarWidget = Cast<UHealthBarWidget>(THISWIDGET))
+		if(UHealthBarWidget* HealthBarWidget = Cast<UHealthBarWidget>(GetWidget()))
 		{
 			const float CurrentHealth = HealthComponent->GetCurrentHealth();
 			const float MaxHealth = HealthComponent->GetMaxHealth();
