@@ -3,6 +3,7 @@
 #include "PaperSpriteComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Paisho/Character/HealthComponent.h"
 #include "Paisho/Util/DebugUtil.h"
 
 AProjectile::AProjectile()
@@ -69,6 +70,10 @@ void AProjectile::SetSpeed(const float Speed)
 void AProjectile::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	if(UHealthComponent* Health = OtherActor->FindComponentByClass<UHealthComponent>())
+	{
+		Health->TakeDamage(1.f);
+	}
 	PRINT("Projectile hit %s", *OtherActor->GetName());
 }
 

@@ -53,6 +53,7 @@ APaishoHero* APaishoHero::FromData(UHeroData* HeroData, UWorld* World)
 void APaishoHero::BeginPlay()
 {
     Super::BeginPlay();
+	Tags.Add(FName("Hero"));
 
 	if(HeroData)
 	{
