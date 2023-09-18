@@ -10,7 +10,8 @@ UCLASS()
 class PAISHO_API UVillainData : public UPrimaryDataAsset
 {
 	GENERATED_BODY()
-
+	
+public:
 	UPROPERTY(EditDefaultsOnly)
 	FText VillainName;
 

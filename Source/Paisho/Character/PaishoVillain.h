@@ -3,6 +3,7 @@
 #include "PaperZDCharacter.h"
 #include "PaishoVillain.generated.h"
 
+class UVillainData;
 class UHealthBarComponent;
 class UHealthComponent;
 
@@ -15,6 +16,9 @@ public:
 	APaishoVillain();
 
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UVillainData> VillainData;
 
 	/* Combat Components */
 	UPROPERTY(EditAnywhere, Category = "Combat")
