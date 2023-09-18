@@ -102,6 +102,8 @@ void APaishoHero::Tick(float DeltaSeconds)
 	// 	Weapon->Poll(DeltaSeconds);
 	// }
 
+	PRINT("LOCATION: %s", *GetActorLocation().ToString());
+
 	
 	if(Arsenal) // probably has authority here
 	{
