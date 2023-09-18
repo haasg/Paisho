@@ -95,14 +95,8 @@ void APaishoHero::Tick(float DeltaSeconds)
 	{
 		PS->SetPlayerLocation(GetActorLocation()); 
 	}
-
-	// // fire the test weapon
-	// if (Weapon)
-	// {
-	// 	Weapon->Poll(DeltaSeconds);
-	// }
-
-	PRINT("LOCATION: %s", *GetActorLocation().ToString());
+	
+	//PRINT("LOCATION: %s", *GetActorLocation().ToString());
 
 	
 	if(Arsenal) // probably has authority here

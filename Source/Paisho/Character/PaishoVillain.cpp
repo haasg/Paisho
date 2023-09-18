@@ -35,6 +35,7 @@ void APaishoVillain::BeginPlay()
 	}
 
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HandleOverlap);
+	Health->OnDeath.AddDynamic(this, &ThisClass::OnDeath);
 	
 }
 
@@ -42,4 +43,9 @@ void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	PRINT("Villain hit %s", *OtherActor->GetName());
+}
+
+void APaishoVillain::OnDeath()
+{
+	Destroy();
 }
