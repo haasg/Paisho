@@ -6,6 +6,7 @@
 #include "PaperFlipbook.h"
 #include "StartingKit.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Paisho/Data/HeroData.h"
@@ -29,6 +30,10 @@ APaishoHero::APaishoHero()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	Camera->bUsePawnControlRotation = false;
+
+	CoreCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CoreCapsule"));
+	CoreCapsule->SetCollisionProfileName(FName("HeroCoreBlock"));
+	CoreCapsule->SetupAttachment(RootComponent);
 
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 	HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));

@@ -38,6 +38,15 @@ public:
 	UCameraComponent* Camera;
 	/* End Camera Components */
 
+	/* Collision Components */
+	
+	/* This capsule sits at the center of the character and blocks movement.
+	 * This is unlike the root component capsule that detects overlap events.
+	 */
+	UPROPERTY(EditAnywhere, Category = "Collision")
+	UCapsuleComponent* CoreCapsule;
+	/* End Collision Components */
+
 	
 	/* Combat Components */
 	UPROPERTY(EditAnywhere, Category = "Combat")
