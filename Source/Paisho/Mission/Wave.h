@@ -23,7 +23,7 @@ struct FWaveData
 	int32 Size;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UVillainData* VillainData;
+	UVillainData* VillainData; 
 };
 
 UCLASS()
