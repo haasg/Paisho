@@ -11,10 +11,12 @@ class PAISHO_API APaishoGameState : public AGameStateBase
 
 public:
 
+	APaishoGameState();
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
 	UFUNCTION(BlueprintCallable)
-	float GetGameTime() { return GameTime; }
+	FText GetGameTime();
 	
 protected:
 	/* REPLICATE THIS FROM GAMEMODE EVENTUALLY */
