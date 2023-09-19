@@ -17,6 +17,7 @@ public:
 	float GetGameTime() { return GameTime; }
 	
 protected:
+	/* REPLICATE THIS FROM GAMEMODE EVENTUALLY */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float GameTime;
 };
