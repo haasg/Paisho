@@ -1,5 +1,6 @@
 #include "PaishoGameState.h"
 
+#include "GameFramework/PlayerState.h"
 #include "Paisho/Util/DebugUtil.h"
 
 APaishoGameState::APaishoGameState()
@@ -24,6 +25,11 @@ void APaishoGameState::Tick(float DeltaSeconds)
 float APaishoGameState::GetGameTime()
 {
 	return GameTime;
+}
+
+FVector APaishoGameState::GetPlayerLocation()
+{
+	return PlayerArray[0]->GetPawn()->GetActorLocation();
 }
 
 FText APaishoGameState::GetGameTimeText()

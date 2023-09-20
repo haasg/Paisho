@@ -66,7 +66,7 @@ class PAISHO_API UWave : public UObject
 public:
 	UWave();
 	void Init(const FWaveData& NewWaveData) { WaveData = NewWaveData; }
-	void Poll(float GameTime);
+	void Poll(const float GameTime, FVector PlayerLocation);
 
 	FWaveData GetWaveData() const { return WaveData; }
 	int32 GetVillainsAlive() const { return Villains.Num(); }

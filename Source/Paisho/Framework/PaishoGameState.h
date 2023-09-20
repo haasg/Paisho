@@ -19,6 +19,8 @@ public:
 	FText GetGameTimeText();
 
 	float GetGameTime();
+	// will need to account for all players eventually
+	FVector GetPlayerLocation();
 	
 protected:
 	/* REPLICATE THIS FROM GAMEMODE EVENTUALLY */
