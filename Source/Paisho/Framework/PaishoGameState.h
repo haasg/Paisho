@@ -16,7 +16,9 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	UFUNCTION(BlueprintCallable)
-	FText GetGameTime();
+	FText GetGameTimeText();
+
+	float GetGameTime();
 	
 protected:
 	/* REPLICATE THIS FROM GAMEMODE EVENTUALLY */

@@ -21,7 +21,12 @@ void APaishoGameState::Tick(float DeltaSeconds)
 	GameTime += DeltaSeconds;
 }
 
-FText APaishoGameState::GetGameTime()
+float APaishoGameState::GetGameTime()
+{
+	return GameTime;
+}
+
+FText APaishoGameState::GetGameTimeText()
 {
 	const int32 Minutes = static_cast<int32>(GameTime / 60.0f);
 	const int32 Seconds = static_cast<int32>(FMath::Fmod(GameTime, 60.0f));

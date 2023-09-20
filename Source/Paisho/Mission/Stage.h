@@ -17,12 +17,14 @@ public:
 	AStage();
 
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 
 private:
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UStageData> StageData;
 	
+	UPROPERTY(VisibleAnywhere)
 	TArray<TObjectPtr<UWave>> Waves;
 	
 };

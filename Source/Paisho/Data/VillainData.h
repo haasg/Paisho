@@ -5,6 +5,7 @@
 #include "VillainData.generated.h"
 
 class UPaperFlipbook;
+class APaishoVillain;
 
 UCLASS()
 class PAISHO_API UVillainData : public UPrimaryDataAsset
@@ -14,6 +15,9 @@ class PAISHO_API UVillainData : public UPrimaryDataAsset
 public:
 	UPROPERTY(EditDefaultsOnly)
 	FText VillainName;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<APaishoVillain> VillainClass;
 
 	UPROPERTY(EditDefaultsOnly)
 	float StartingHealth = 10.0;
