@@ -19,6 +19,17 @@ APaishoHero::APaishoHero()
 	bReplicates = true;
 	//SetReplicatedMovement(true);
 
+	GetCapsuleComponent()->SetCollisionProfileName(FName("HeroCoreBlock"));
+	SetRootComponent(GetCapsuleComponent());
+
+	HitboxCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("HitboxCapsule"));
+	HitboxCapsule->SetCollisionProfileName(FName("HeroHitbox"));
+	HitboxCapsule->SetupAttachment(RootComponent);
+
+	PickerUpperCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("PickerUpperCapsule"));
+	PickerUpperCapsule->SetCollisionProfileName(FName("HeroPickerUpper"));
+	PickerUpperCapsule->SetupAttachment(RootComponent);
+
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
 	SpringArm->bDoCollisionTest = false;
@@ -30,11 +41,7 @@ APaishoHero::APaishoHero()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	Camera->bUsePawnControlRotation = false;
-
-	HitboxCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("HitboxCapsule"));
-	HitboxCapsule->SetCollisionProfileName(FName("HeroCoreBlock"));
-	HitboxCapsule->SetupAttachment(RootComponent);
-
+	
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 	HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
 	HealthBar->SetupAttachment(RootComponent);
