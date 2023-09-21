@@ -12,8 +12,8 @@ APaishoVillain::APaishoVillain()
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
 	CapsuleComponent->SetCollisionProfileName(FName("Villain"));
 	CapsuleComponent->SetSimulatePhysics(true);
-	// CapsuleComponent->SetCapsuleHalfHeight(100);
-	// CapsuleComponent->SetCapsuleRadius(50);
+	CapsuleComponent->SetCapsuleHalfHeight(500);
+	CapsuleComponent->SetCapsuleRadius(50);
 	SetRootComponent(CapsuleComponent);
 
 	SpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteComponent"));

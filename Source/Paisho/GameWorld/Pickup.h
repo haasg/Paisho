@@ -1,0 +1,27 @@
+﻿#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+
+#include "Pickup.generated.h"
+
+class UPaperSpriteComponent;
+class UCapsuleComponent;
+
+UCLASS()
+class APickup : public AActor
+{
+	GENERATED_BODY()
+public:
+	APickup();
+
+protected:
+	void BeginPlay() override;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UCapsuleComponent> CapsuleComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UPaperSpriteComponent> SpriteComponent;
+};
