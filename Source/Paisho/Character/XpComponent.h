@@ -12,10 +12,10 @@ class UXpComponent : public UActorComponent
 public:
 	UXpComponent();
 
-	// float TotalXp() const;
-	// float XpToNextLevel() const;
-	// float XpFromPreviousLevel() const;
-	// int Level() const;
+	float CurrentXp() const;
+	float XpToNextLevel() const;
+	float XpFromPreviousLevel() const;
+	int Level() const;
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -23,8 +23,4 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UCurveTable> LevelCurveTable;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UCurveTable> LevelCurveTableClass;
-	
 };
