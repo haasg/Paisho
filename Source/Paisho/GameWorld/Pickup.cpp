@@ -6,7 +6,7 @@
 APickup::APickup()
 {
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
-	//CapsuleComponent->SetCollsionProfile TO PICKUP
+	CapsuleComponent->SetCollisionProfileName(FName("Pickup"));
 	SetRootComponent(CapsuleComponent);
 
 	SpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteComponent"));

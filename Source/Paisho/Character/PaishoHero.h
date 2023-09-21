@@ -44,7 +44,7 @@ public:
 	 * This is unlike the root component capsule that detects overlap events.
 	 */
 	UPROPERTY(EditAnywhere, Category = "Collision")
-	UCapsuleComponent* CoreCapsule;
+	UCapsuleComponent* HitboxCapsule;
 	/* End Collision Components */
 
 	

@@ -31,9 +31,9 @@ APaishoHero::APaishoHero()
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	Camera->bUsePawnControlRotation = false;
 
-	CoreCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CoreCapsule"));
-	CoreCapsule->SetCollisionProfileName(FName("HeroCoreBlock"));
-	CoreCapsule->SetupAttachment(RootComponent);
+	HitboxCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("HitboxCapsule"));
+	HitboxCapsule->SetCollisionProfileName(FName("HeroCoreBlock"));
+	HitboxCapsule->SetupAttachment(RootComponent);
 
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 	HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
