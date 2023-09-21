@@ -5,8 +5,7 @@
 
 #include "PickupData.generated.h"
 
-
-class UPaperSprite;
+class APickup;
 
 UCLASS()
 class UPickupData : public UPrimaryDataAsset
@@ -15,8 +14,11 @@ class UPickupData : public UPrimaryDataAsset
 public:
 	UPickupData();
 
+	TSubclassOf<APickup> GetPickupClass() const;
+
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UPaperSprite> Sprite;
+	TSubclassOf<APickup> PickupClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Xp = 0;

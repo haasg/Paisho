@@ -5,6 +5,7 @@
 
 #include "Pickup.generated.h"
 
+class UPickupData;
 class UPaperSpriteComponent;
 class UCapsuleComponent;
 
@@ -18,10 +19,12 @@ public:
 protected:
 	void BeginPlay() override;
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UCapsuleComponent> CapsuleComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UPaperSpriteComponent> SpriteComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UPickupData> PickupData;
 };

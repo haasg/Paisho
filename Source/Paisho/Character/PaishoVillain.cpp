@@ -4,6 +4,7 @@
 #include "HealthComponent.h"
 #include "PaperSpriteComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Paisho/Data/PickupData.h"
 #include "Paisho/Data/VillainData.h"
 #include "Paisho/GameWorld/Pickup.h"
 #include "Paisho/Util/DebugUtil.h"
@@ -57,10 +58,13 @@ void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 void APaishoVillain::OnDeath()
 {
 	PRINT("VILLAIN ON DEATH SPAWNING A PICKUP");
-	if(TObjectPtr<UWorld> World = GetWorld())
+	if(PickupData)
 	{
-		const FTransform VillainLocation = this->GetActorTransform();
-		World->SpawnActor<APickup>(APickup::StaticClass(), VillainLocation);
+		if(const TObjectPtr<UWorld> World = GetWorld())
+		{
+			const FTransform VillainTransform = this->GetActorTransform();
+			World->SpawnActor<APickup>(PickupData->GetPickupClass(), VillainTransform);
+		}
 	}
 	Destroy();
 }
