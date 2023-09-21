@@ -21,5 +21,5 @@ protected:
 	TSubclassOf<APickup> PickupClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Xp = 0;
+	int32 Xp = 0;
 };

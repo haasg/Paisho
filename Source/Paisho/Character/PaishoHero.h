@@ -4,6 +4,7 @@
 #include "PaperZDCharacter.h"
 #include "PaishoHero.generated.h"
 
+class UXpComponent;
 class UHealthBarWidget;
 class UHealthBarComponent;
 class UHealthComponent;
@@ -46,8 +47,11 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Collision")
 	TObjectPtr<UCapsuleComponent> HitboxCapsule;
 
-	UPROPERTY(EditAnywhere, Category = "Collision")
+	UPROPERTY(EditAnywhere, Category = "Pickup")
 	TObjectPtr<UCapsuleComponent> PickerUpperCapsule;
+
+	UPROPERTY(EditAnywhere, Category = "Pickup")
+	TObjectPtr<UXpComponent> XpComponent;
 	/* End Collision Components */
 
 	

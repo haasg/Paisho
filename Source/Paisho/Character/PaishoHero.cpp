@@ -5,6 +5,7 @@
 #include "HealthComponent.h"
 #include "PaperFlipbook.h"
 #include "StartingKit.h"
+#include "XpComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -47,7 +48,8 @@ APaishoHero::APaishoHero()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	Camera->bUsePawnControlRotation = false;
-	
+
+	XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 	HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
 	HealthBar->SetupAttachment(RootComponent);
