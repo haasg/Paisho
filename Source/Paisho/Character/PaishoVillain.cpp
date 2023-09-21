@@ -2,14 +2,22 @@
 
 #include "HealthBarComponent.h"
 #include "HealthComponent.h"
+#include "PaperSpriteComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 #include "Paisho/Data/VillainData.h"
 #include "Paisho/Util/DebugUtil.h"
 
 APaishoVillain::APaishoVillain()
 {
-	GetCapsuleComponent()->SetCollisionProfileName(FName("Villain"));
+	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
+	CapsuleComponent->SetCollisionProfileName(FName("Villain"));
+	CapsuleComponent->SetSimulatePhysics(true);
+	// CapsuleComponent->SetCapsuleHalfHeight(100);
+	// CapsuleComponent->SetCapsuleRadius(50);
+	SetRootComponent(CapsuleComponent);
+
+	SpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteComponent"));
+	SpriteComponent->SetupAttachment(RootComponent);
 
 	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 	HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
@@ -27,14 +35,14 @@ void APaishoVillain::BeginPlay()
 	{
 		Health->Init(VillainData->StartingHealth, VillainData->StartingHealth);
 		HealthBar->Init(Health);
-		GetCharacterMovement()->MaxWalkSpeed = VillainData->MovementSpeed;
+		//GetCharacterMovement()->MaxWalkSpeed = VillainData->MovementSpeed;
 	}
 	else
 	{
 		ERROR("Villain BeginPlay with nullptr VillainData");
 	}
 
-	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HandleOverlap);
+	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HandleOverlap);
 	Health->OnDeath.AddDynamic(this, &ThisClass::OnDeath);
 	
 }

@@ -3,12 +3,13 @@
 #include "PaperZDCharacter.h"
 #include "PaishoVillain.generated.h"
 
+class UPaperSpriteComponent;
 class UVillainData;
 class UHealthBarComponent;
 class UHealthComponent;
 
 UCLASS()
-class PAISHO_API APaishoVillain : public APaperZDCharacter
+class PAISHO_API APaishoVillain : public AActor
 {
 	GENERATED_BODY()
 	
@@ -21,12 +22,21 @@ public:
 	TObjectPtr<UVillainData> VillainData;
 
 	/* Combat Components */
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	UHealthComponent* Health;
 
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	UHealthBarComponent* HealthBar;
 	/* End Combat Components */
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visual")
+	TObjectPtr<UPaperSpriteComponent> SpriteComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UCapsuleComponent> CapsuleComponent;
+
+	
 	
 private:
 	UFUNCTION()
