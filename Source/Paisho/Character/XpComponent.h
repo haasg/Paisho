@@ -5,6 +5,20 @@
 
 #include "XpComponent.generated.h"
 
+/* Probably some premature optimization here, but seems pretty encapsulated */
+USTRUCT()
+struct FXpInfoCache
+{
+	GENERATED_BODY()
+
+	int CurrentLevel;
+	float XpToLevelUp;
+	float XpSinceLevelUp;
+	float XpRequiredForNextLevel;
+	float XpRequiredToBeCurrentLevel;
+	float PercentThroughLevel;
+};
+
 UCLASS()
 class UXpComponent : public UActorComponent
 {
@@ -12,15 +26,26 @@ class UXpComponent : public UActorComponent
 public:
 	UXpComponent();
 
+	void AddXp(int32 Amount);
+
 	float CurrentXp() const;
-	float XpToNextLevel() const;
-	float XpFromPreviousLevel() const;
-	int Level() const;
+	int CurrentLevel();
+	int NextLevel();
+	float XpSinceLevelUp();
+	float XpRequiredForNextLevel();
+	float XpRequiredToBeCurrentLevel();
+	float PercentThroughLevel();
 
 protected:
+	void CleanCacheIfDirty();
+	bool bIsDirty = true;
+	FXpInfoCache XpInfoCache;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Xp = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UCurveTable> LevelCurveTable;
 };
+
+
