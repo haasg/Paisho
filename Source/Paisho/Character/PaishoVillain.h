@@ -3,6 +3,7 @@
 #include "PaperZDCharacter.h"
 #include "PaishoVillain.generated.h"
 
+class UPickupData;
 class UPaperSpriteComponent;
 class UVillainData;
 class UHealthBarComponent;
@@ -35,6 +36,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UCapsuleComponent> CapsuleComponent;
+
+
+	// Eventually this should be replaced with some sort of "Loot Table Component"
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UPickupData> PickupData;
 
 	
 	
