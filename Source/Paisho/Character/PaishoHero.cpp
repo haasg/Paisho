@@ -20,14 +20,20 @@ APaishoHero::APaishoHero()
 	//SetReplicatedMovement(true);
 
 	GetCapsuleComponent()->SetCollisionProfileName(FName("HeroCoreBlock"));
+	GetCapsuleComponent()->SetCapsuleHalfHeight(1000.0);
+	GetCapsuleComponent()->SetCapsuleRadius(40.0);
 	SetRootComponent(GetCapsuleComponent());
 
 	HitboxCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("HitboxCapsule"));
 	HitboxCapsule->SetCollisionProfileName(FName("HeroHitbox"));
+	HitboxCapsule->SetCapsuleHalfHeight(1000.0);
+	HitboxCapsule->SetCapsuleRadius(50.0);
 	HitboxCapsule->SetupAttachment(RootComponent);
 
 	PickerUpperCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("PickerUpperCapsule"));
 	PickerUpperCapsule->SetCollisionProfileName(FName("HeroPickerUpper"));
+	PickerUpperCapsule->SetCapsuleHalfHeight(1000.0);
+	PickerUpperCapsule->SetCapsuleRadius(200.0);
 	PickerUpperCapsule->SetupAttachment(RootComponent);
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
