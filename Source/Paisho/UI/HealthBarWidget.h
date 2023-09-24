@@ -6,8 +6,6 @@
 
 class UTextBlock;
 class UProgressBar;
-class UHealthBarComponent;
-class UImage;
 
 UCLASS()
 class UHealthBarWidget : public UUserWidget
