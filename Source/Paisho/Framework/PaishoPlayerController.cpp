@@ -11,8 +11,12 @@ void APaishoPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerHud = CreateWidget<UUserWidget>(this, PlayerHudClass);
-	PlayerHud->AddToViewport();
+	if(IsLocalPlayerController())
+	{
+		PlayerHud = CreateWidget<UUserWidget>(this, PlayerHudClass);
+		PlayerHud->AddToViewport();	
+	}
+	
 }
 
 void APaishoPlayerController::Tick(float DeltaSeconds)
