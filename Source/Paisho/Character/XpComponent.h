@@ -5,6 +5,8 @@
 
 #include "XpComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnXpChangedEvent);
+
 /* Probably some premature optimization here, but seems pretty encapsulated */
 USTRUCT()
 struct FXpInfoCache
@@ -23,6 +25,7 @@ UCLASS()
 class UXpComponent : public UActorComponent
 {
 	GENERATED_BODY()
+	
 public:
 	UXpComponent();
 
@@ -35,6 +38,9 @@ public:
 	float XpRequiredForNextLevel();
 	float XpRequiredToBeCurrentLevel();
 	float PercentThroughLevel();
+	
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnXpChangedEvent OnXpChanged;
 
 protected:
 	void CleanCacheIfDirty();

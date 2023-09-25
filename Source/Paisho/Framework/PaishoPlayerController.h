@@ -12,6 +12,7 @@ class PAISHO_API APaishoPlayerController : public APlayerController
 	APaishoPlayerController();
 
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 
 
 	/* Player HUD */

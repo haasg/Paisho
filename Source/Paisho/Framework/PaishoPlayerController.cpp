@@ -14,3 +14,10 @@ void APaishoPlayerController::BeginPlay()
 	PlayerHud = CreateWidget<UUserWidget>(this, PlayerHudClass);
 	PlayerHud->AddToViewport();
 }
+
+void APaishoPlayerController::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	
+}
