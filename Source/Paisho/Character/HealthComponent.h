@@ -19,8 +19,13 @@ public:
 
 	void TakeDamage(float DamageAmount);
 
+	UFUNCTION(BlueprintCallable)
 	float CalcHealthPercent();
+
+	UFUNCTION(BlueprintCallable) 
 	float GetCurrentHealth();
+	
+	UFUNCTION(BlueprintCallable)
 	float GetMaxHealth();
 
 	UPROPERTY(BlueprintAssignable, Category = "Events")
@@ -30,7 +35,11 @@ public:
 	FOnDeathEvent OnDeath;
 
 	
-	
+	UFUNCTION(BlueprintCallable)
+	void DebugMenuSetHealth(float NewHealth);
+
+
+
 
 private:
 	void UpdateHealth(float HealthDelta);

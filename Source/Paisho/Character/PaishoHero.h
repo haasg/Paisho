@@ -50,22 +50,22 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Pickup")
 	TObjectPtr<UCapsuleComponent> PickerUpperCapsule;
 
-	UPROPERTY(EditAnywhere, Category = "Pickup")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
 	TObjectPtr<UXpComponent> XpComponent;
 	/* End Collision Components */
 
 	
 	/* Combat Components */
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	UHealthComponent* Health;
 
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	UHealthBarComponent* HealthBar;
 	
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	UStartingKit* StartingKit;
 	
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	UArsenalComponent* Arsenal;
 
 	/* End Combat Components */

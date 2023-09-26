@@ -29,13 +29,17 @@ class UXpComponent : public UActorComponent
 public:
 	UXpComponent();
 
+	UFUNCTION(BlueprintCallable)
 	void AddXp(int32 Amount);
 
 	float CurrentXp() const;
 	int CurrentLevel();
 	int NextLevel();
 	float XpSinceLevelUp();
+	
+	UFUNCTION(BlueprintCallable)
 	float XpRequiredForNextLevel();
+	
 	float XpRequiredToBeCurrentLevel();
 	float PercentThroughLevel();
 	

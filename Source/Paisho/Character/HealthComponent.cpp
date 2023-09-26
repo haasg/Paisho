@@ -8,11 +8,18 @@ void UHealthComponent::Init(const float NewHealth, const float NewMaxHealth)
 {
 	CurrentHealth = NewHealth;
 	MaxHealth = NewMaxHealth;
+	OnHealthChanged.Broadcast();
 }
 
 void UHealthComponent::TakeDamage(const float DamageAmount)
 {
 	UpdateHealth(-DamageAmount);
+}
+
+void UHealthComponent::DebugMenuSetHealth(const float NewHealth)
+{
+	CurrentHealth = NewHealth;
+	OnHealthChanged.Broadcast();
 }
 
 void UHealthComponent::UpdateHealth(const float HealthDelta)
