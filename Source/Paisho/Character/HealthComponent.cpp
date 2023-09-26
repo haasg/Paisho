@@ -2,7 +2,9 @@
 
 #include "Net/UnrealNetwork.h"
 
-UHealthComponent::UHealthComponent(): CurrentHealth(0), MaxHealth(0)
+UHealthComponent::UHealthComponent()
+: MaxHealth(99)
+, CurrentHealth(99)
 {
 }
 

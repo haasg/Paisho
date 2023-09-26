@@ -16,8 +16,8 @@ struct FXpInfoCache
 	int CurrentLevel;
 	float XpToLevelUp;
 	float XpSinceLevelUp;
-	float XpRequiredForNextLevel;
-	float XpRequiredToBeCurrentLevel;
+	float TotalXpRequiredForNextLevel;
+	float TotalXpRequiredToBeCurrentLevel;
 	float PercentThroughLevel;
 };
 
@@ -36,11 +36,9 @@ public:
 	int CurrentLevel();
 	int NextLevel();
 	float XpSinceLevelUp();
-	
 	UFUNCTION(BlueprintCallable)
-	float XpRequiredForNextLevel();
-	
-	float XpRequiredToBeCurrentLevel();
+	float TotalXpRequiredForNextLevel();
+	float TotalXpRequiredToBeCurrentLevel();
 	float PercentThroughLevel();
 	
 	UPROPERTY(BlueprintAssignable, Category = "Events")

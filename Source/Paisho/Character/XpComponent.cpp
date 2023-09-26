@@ -1,6 +1,7 @@
 ﻿#include "XpComponent.h"
 
 #include "Engine/CurveTable.h"
+#include "Paisho/Util/DebugUtil.h"
 
 UXpComponent::UXpComponent(): XpInfoCache()
 {
@@ -18,16 +19,16 @@ float UXpComponent::CurrentXp() const
 	return Xp;
 }
 
-float UXpComponent::XpRequiredForNextLevel()
+float UXpComponent::TotalXpRequiredForNextLevel()
 {
 	CleanCacheIfDirty();
-	return XpInfoCache.XpRequiredForNextLevel;
+	return XpInfoCache.TotalXpRequiredForNextLevel;
 }
 
-float UXpComponent::XpRequiredToBeCurrentLevel()
+float UXpComponent::TotalXpRequiredToBeCurrentLevel()
 {
 	CleanCacheIfDirty();
-	return XpInfoCache.XpRequiredToBeCurrentLevel;
+	return XpInfoCache.TotalXpRequiredToBeCurrentLevel;
 }
 
 float UXpComponent::PercentThroughLevel()
@@ -64,9 +65,9 @@ void UXpComponent::CleanCacheIfDirty()
 	const FName RowName = "XpCurve";
 	if(LevelCurveTable)
 	{
-		if(const FRichCurve* Curve = LevelCurveTable->FindRichCurve(RowName, FString("Getting Xp Level"), true))
+		if(const FSimpleCurve* Curve = LevelCurveTable->FindSimpleCurve(RowName, FString("Getting Xp Level"), true))
 		{
-			const TArray<FRichCurveKey>& Keys = Curve->GetConstRefOfKeys();
+			const TArray<FSimpleCurveKey>& Keys = Curve->GetConstRefOfKeys();
 			for(int32 i = 0; i < Keys.Num(); ++i)
 			{
 				// Check if the XP value is less than the value of this key
@@ -75,14 +76,14 @@ void UXpComponent::CleanCacheIfDirty()
 					XpInfoCache.CurrentLevel = i + 1;
 					XpInfoCache.XpSinceLevelUp = i == 0 ? 0 : Xp - Keys[i - 1].Value;
 					XpInfoCache.XpToLevelUp = Keys[i].Value - Xp;
-					XpInfoCache.XpRequiredToBeCurrentLevel = i == 0 ? 0 : Keys[i - 1].Value;
-					XpInfoCache.XpRequiredForNextLevel = Keys[i].Value;
+					XpInfoCache.TotalXpRequiredToBeCurrentLevel = i == 0 ? 0 : Keys[i - 1].Value;
+					XpInfoCache.TotalXpRequiredForNextLevel = Keys[i].Value;
 					XpInfoCache.PercentThroughLevel = i == 0 ? XpInfoCache.XpSinceLevelUp : XpInfoCache.XpSinceLevelUp / (Keys[i].Value - Keys[i-1].Value);
 					/* can remove these checks eventually */
-					check(XpInfoCache.XpRequiredToBeCurrentLevel < XpInfoCache.XpRequiredForNextLevel);
+					check(XpInfoCache.TotalXpRequiredToBeCurrentLevel < XpInfoCache.TotalXpRequiredForNextLevel);
 					check(XpInfoCache.PercentThroughLevel >= 0.f && XpInfoCache.PercentThroughLevel <= 1.f);
-					check(XpInfoCache.XpRequiredToBeCurrentLevel >= 0.f);
-					check(XpInfoCache.XpRequiredForNextLevel >= 0.f);
+					check(XpInfoCache.TotalXpRequiredToBeCurrentLevel >= 0.f);
+					check(XpInfoCache.TotalXpRequiredForNextLevel >= 0.f);
 					
 					break;
 				}

@@ -9,6 +9,7 @@ void UHealthBarWidget::BindToHealthComponent(const TObjectPtr<UHealthComponent> 
 {
 	HealthComponent = NewHealthComponent;
 	NewHealthComponent->OnHealthChanged.AddDynamic(this, &ThisClass::Refresh);
+	Refresh();
 }
 
 void UHealthBarWidget::Refresh()

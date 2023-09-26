@@ -74,7 +74,7 @@ void AProjectile::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 	{
 		Health->TakeDamage(1.f);
 	}
-	PRINT("Projectile hit %s", *OtherActor->GetName());
+	//PRINT("Projectile hit %s", *OtherActor->GetName());
 }
 
 
