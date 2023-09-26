@@ -29,14 +29,14 @@ class PAISHO_API APaishoHero : public APaperZDCharacter
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UHeroData* HeroData;
+	TObjectPtr<UHeroData> HeroData;
 
 	/* Camera Components */
 	UPROPERTY(EditAnywhere, Category = "Camera")
-	USpringArmComponent* SpringArm;
+	TObjectPtr<USpringArmComponent> SpringArm;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
-	UCameraComponent* Camera;
+	TObjectPtr<UCameraComponent> Camera;
 	/* End Camera Components */
 
 	/* Collision Components */
@@ -57,25 +57,25 @@ public:
 	
 	/* Combat Components */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-	UHealthComponent* Health;
+	TObjectPtr<UHealthComponent> Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-	UHealthBarComponent* HealthBar;
+	TObjectPtr<UHealthBarComponent> HealthBar;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-	UStartingKit* StartingKit;
+	TObjectPtr<UStartingKit> StartingKit;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-	UArsenalComponent* Arsenal;
+	TObjectPtr<UArsenalComponent> Arsenal;
 
 	/* End Combat Components */
 
 	/* Visual Components */
 	UPROPERTY(EditAnywhere, Category = "Visual")
-	UPaperFlipbook* IdleAnimation;
+	TObjectPtr<UPaperFlipbook> IdleAnimation;
 
 	UPROPERTY(EditAnywhere, Category = "Visual")
-	UPaperFlipbook* WalkAnimation;
+	TObjectPtr<UPaperFlipbook> WalkAnimation;
 	/* End Visual Components */
 	
 };
