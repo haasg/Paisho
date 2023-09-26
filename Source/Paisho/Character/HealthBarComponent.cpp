@@ -2,6 +2,7 @@
 
 #include "HealthComponent.h"
 #include "Paisho/UI/HealthBarWidget.h"
+#include "Paisho/Util/DebugUtil.h"
 
 UHealthBarComponent::UHealthBarComponent() : HealthComponent(nullptr)
 {
@@ -25,7 +26,11 @@ void UHealthBarComponent::Refresh()
 			const float MaxHealth = HealthComponent->GetMaxHealth();
 			const float HealthPercent = HealthComponent->CalcHealthPercent();
 			
-			HealthBarWidget->Refresh(CurrentHealth, MaxHealth, HealthPercent); 
+			HealthBarWidget->Update(CurrentHealth, MaxHealth, HealthPercent); 
 		}
+	}
+	else
+	{
+		ERROR("HealthBarComponent refreshed without a valid HealthComponent!");
 	}
 }

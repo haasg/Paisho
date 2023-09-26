@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "XpBarWidget.generated.h"
 
+class UXpComponent;
 class UTextBlock;
 class UProgressBar;
 
@@ -13,9 +14,15 @@ class UXpBarWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	void Refresh(const float CurrentXp, const float MaxXp, const float XpPercent);
+	void BindToXpComponent(TObjectPtr<UXpComponent> NewXpComponent);
 	
 protected:
+	UFUNCTION()
+	void Refresh();
+
+	UPROPERTY(VisibleAnywhere)
+	TWeakObjectPtr<UXpComponent> XpComponent;
+	
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<UProgressBar> XpBar;
 

@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "HealthBarWidget.generated.h"
 
+class UHealthComponent;
 class UTextBlock;
 class UProgressBar;
 
@@ -13,9 +14,16 @@ class UHealthBarWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	void Refresh(const float CurrentHealth, const float MaxHealth, const float HealthPercent);
+	void BindToHealthComponent(TObjectPtr<UHealthComponent> NewHealthComponent);
+	void Update(float CurrentHealth, float MaxHealth, float HealthPercent);
 
 protected:
+	UFUNCTION()
+	void Refresh();
+
+	UPROPERTY(VisibleAnywhere)
+	TWeakObjectPtr<UHealthComponent> HealthComponent;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UProgressBar* HealthBar;
 

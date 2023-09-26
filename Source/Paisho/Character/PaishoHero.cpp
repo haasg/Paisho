@@ -11,6 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Paisho/Data/HeroData.h"
+#include "Paisho/Framework/PaishoPlayerController.h"
 #include "Paisho/Framework/PaishoPlayerState.h"
 #include "Paisho/Util/DebugUtil.h"
 #include "Paisho/Weapons/Weapon.h"
@@ -50,11 +51,11 @@ APaishoHero::APaishoHero()
 	Camera->bUsePawnControlRotation = false;
 
 	XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
-	Health = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
-	HealthBar = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
-	HealthBar->SetupAttachment(RootComponent);
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
+	HealthBarComponent = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
+	HealthBarComponent->SetupAttachment(RootComponent);
 	const FRotator HealthBarRotation = FRotator(90.f, 0.f, -90.f);
-	HealthBar->SetRelativeRotation(HealthBarRotation);
+	HealthBarComponent->SetRelativeRotation(HealthBarRotation);
 	// const FVector HealthBarOffset = FVector(0, 200, 0);
 	// HealthBar->SetRelativeLocation(HealthBarOffset);
 	Arsenal = CreateDefaultSubobject<UArsenalComponent>(TEXT("Arsenal"));
@@ -75,10 +76,21 @@ void APaishoHero::BeginPlay()
     Super::BeginPlay();
 	Tags.Add(FName("Hero"));
 
+	if(const TObjectPtr<APaishoPlayerController> PC = Cast<APaishoPlayerController>(Controller))
+	{
+		PaishoController = PC;
+		PaishoController->BindHealthComponentToHud(HealthComponent);
+		PaishoController->BindXpComponentToHud(XpComponent);
+	}
+	else
+	{
+		ERROR("Hero BeginPlay with invalid controller");
+	}
+
 	if(HeroData)
 	{
-		Health->Init(HeroData->StartingHealth, HeroData->StartingHealth);
-		HealthBar->Init(Health);
+		HealthComponent->Init(HeroData->StartingHealth, HeroData->StartingHealth);
+		HealthBarComponent->Init(HealthComponent);
 		GetCharacterMovement()->MaxWalkSpeed = HeroData->MovementSpeed;
 	}
 	else

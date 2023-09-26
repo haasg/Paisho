@@ -50,9 +50,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	float MaxHealth;
 
-	UPROPERTY(ReplicatedUsing = OnRep_CurrentHealth, VisibleAnywhere)
+	UPROPERTY(/*ReplicatedUsing = OnRep_CurrentHealth,*/ VisibleAnywhere)
 	float CurrentHealth;
 
-	void OnRep_CurrentHealth();
+	//void OnRep_CurrentHealth();
 	
 };

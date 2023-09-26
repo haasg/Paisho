@@ -15,11 +15,13 @@ class UPlayerHudWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	void RefreshGameTime(const int32 GameTime);
-	void RefreshHealth(const float CurrentHealth, const float MaxHealth, const float HealthPercent);
-	void RefreshXp(const float CurrentXp, const float MaxXp, const float XpPercent);
+	void BindToHealthComponent(TObjectPtr<class UHealthComponent> HealthComponent);
+	void BindToXpComponent(TObjectPtr<class UXpComponent> XpComponent);
 
 protected:
+	UFUNCTION()
+	void RefreshGameTime(const int32 GameTime);
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UGameTimeWidget> GameTimeWidget;
 	

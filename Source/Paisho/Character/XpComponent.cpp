@@ -6,10 +6,11 @@ UXpComponent::UXpComponent(): XpInfoCache()
 {
 }
 
-void UXpComponent::AddXp(int32 Amount)
+void UXpComponent::AddXp(const int32 Amount)
 {
 	bIsDirty = true;
 	Xp += Amount;
+	OnXpChanged.Broadcast();
 }
 
 float UXpComponent::CurrentXp() const

@@ -42,10 +42,10 @@ void UHealthComponent::UpdateHealth(const float HealthDelta)
 	}
 }
 
-void UHealthComponent::OnRep_CurrentHealth()
-{
-	
-}
+// void UHealthComponent::OnRep_CurrentHealth()
+// {
+// 	
+// }
 
 float UHealthComponent::CalcHealthPercent()
 {

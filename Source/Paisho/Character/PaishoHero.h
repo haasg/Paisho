@@ -4,6 +4,7 @@
 #include "PaperZDCharacter.h"
 #include "PaishoHero.generated.h"
 
+class APaishoPlayerController;
 class UXpComponent;
 class UHealthBarWidget;
 class UHealthBarComponent;
@@ -28,6 +29,9 @@ class PAISHO_API APaishoHero : public APaperZDCharacter
 	virtual void Tick(float DeltaSeconds) override;
 
 public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<APaishoPlayerController> PaishoController;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UHeroData> HeroData;
 
@@ -57,10 +61,10 @@ public:
 	
 	/* Combat Components */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-	TObjectPtr<UHealthComponent> Health;
+	TObjectPtr<UHealthComponent> HealthComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-	TObjectPtr<UHealthBarComponent> HealthBar;
+	TObjectPtr<UHealthBarComponent> HealthBarComponent;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<UStartingKit> StartingKit;
