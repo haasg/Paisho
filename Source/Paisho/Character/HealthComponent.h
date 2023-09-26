@@ -15,6 +15,7 @@ class UHealthComponent : public UActorComponent
 	
 public:
 	UHealthComponent();
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void Init(float NewHealth, float NewMaxHealth);
 
 	void TakeDamage(float DamageAmount);
@@ -44,11 +45,14 @@ public:
 private:
 	void UpdateHealth(float HealthDelta);
 	
-	UPROPERTY(VisibleAnywhere)
-	float CurrentHealth;
+	
 
 	UPROPERTY(VisibleAnywhere)
 	float MaxHealth;
-	
+
+	UPROPERTY(ReplicatedUsing = OnRep_CurrentHealth, VisibleAnywhere)
+	float CurrentHealth;
+
+	void OnRep_CurrentHealth();
 	
 };

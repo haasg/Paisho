@@ -1,7 +1,16 @@
 ﻿#include "HealthComponent.h"
 
+#include "Net/UnrealNetwork.h"
+
 UHealthComponent::UHealthComponent(): CurrentHealth(0), MaxHealth(0)
 {
+}
+
+void UHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UHealthComponent, CurrentHealth);
 }
 
 void UHealthComponent::Init(const float NewHealth, const float NewMaxHealth)
@@ -31,6 +40,11 @@ void UHealthComponent::UpdateHealth(const float HealthDelta)
 	{
 		OnDeath.Broadcast();
 	}
+}
+
+void UHealthComponent::OnRep_CurrentHealth()
+{
+	
 }
 
 float UHealthComponent::CalcHealthPercent()

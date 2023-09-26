@@ -3,7 +3,7 @@
 #include "HealthComponent.h"
 #include "Paisho/UI/HealthBarWidget.h"
 
-UHealthBarComponent::UHealthBarComponent(): HealthComponent(nullptr)
+UHealthBarComponent::UHealthBarComponent() : HealthComponent(nullptr)
 {
 }
 
