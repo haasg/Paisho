@@ -37,6 +37,8 @@ public:
 	int NextLevel();
 	float XpSinceLevelUp();
 	UFUNCTION(BlueprintCallable)
+	float XpToLevelUp();
+	float TotalXpRequiredToCompleteCurrentLevel();
 	float TotalXpRequiredForNextLevel();
 	float TotalXpRequiredToBeCurrentLevel();
 	float PercentThroughLevel();

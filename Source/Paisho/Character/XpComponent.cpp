@@ -43,6 +43,18 @@ float UXpComponent::XpSinceLevelUp()
 	return XpInfoCache.XpSinceLevelUp;
 }
 
+float UXpComponent::XpToLevelUp()
+{
+	CleanCacheIfDirty();
+	return XpInfoCache.XpToLevelUp;
+}
+
+float UXpComponent::TotalXpRequiredToCompleteCurrentLevel()
+{
+	CleanCacheIfDirty();
+	return XpInfoCache.TotalXpRequiredForNextLevel - XpInfoCache.TotalXpRequiredToBeCurrentLevel; 
+}
+
 int UXpComponent::CurrentLevel()
 {
 	CleanCacheIfDirty();
@@ -73,7 +85,7 @@ void UXpComponent::CleanCacheIfDirty()
 				// Check if the XP value is less than the value of this key
 				if(Xp < Keys[i].Value)
 				{
-					XpInfoCache.CurrentLevel = i + 1;
+					XpInfoCache.CurrentLevel = i;
 					XpInfoCache.XpSinceLevelUp = i == 0 ? 0 : Xp - Keys[i - 1].Value;
 					XpInfoCache.XpToLevelUp = Keys[i].Value - Xp;
 					XpInfoCache.TotalXpRequiredToBeCurrentLevel = i == 0 ? 0 : Keys[i - 1].Value;

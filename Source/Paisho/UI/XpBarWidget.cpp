@@ -16,26 +16,12 @@ void UXpBarWidget::Refresh()
 {
 	if(XpComponent.IsValid())
 	{
-		const float CurrentXp = XpComponent->CurrentXp();
 		const int CurrentLevel = XpComponent->CurrentLevel();
-		const int NextLevel = XpComponent->NextLevel();
 		const float XpSinceLevelUp = XpComponent->XpSinceLevelUp();
-		const float XpRequiredToBeCurrentLevel = XpComponent->TotalXpRequiredToBeCurrentLevel();
-		const float XpRequiredForNextLevel = XpComponent->TotalXpRequiredForNextLevel();
+		const float XpToCompleteCurrentLevel = XpComponent->TotalXpRequiredToCompleteCurrentLevel();
 		const float XpPercent = XpComponent->PercentThroughLevel();
 
-		PRINT("CURRENT XP: %f", CurrentXp);
-		PRINT("CURRENT LEVEL: %d", CurrentLevel);
-		PRINT("NEXT LEVEL: %d", NextLevel);
-		PRINT("XP SINCE LEVEL UP: %f", XpSinceLevelUp);
-		PRINT("XP REQUIRED TO BE CURRENT LEVEL: %f", XpRequiredToBeCurrentLevel);
-		PRINT("XP REQUIRED FOR NEXT LEVEL: %f", XpRequiredForNextLevel);
-		PRINT("XP PERCENT: %f", XpPercent);
-
-		
-		//const float CurrentXp = XpComponent->CurrentXp();
-		//const float XpPercent = XpComponent->PercentThroughLevel();
-		const FText Text = FText::FromString(FString::Printf(TEXT("LEVEL: %d --- %d/%d"), CurrentLevel, FMath::RoundToInt(CurrentXp), FMath::RoundToInt(XpRequiredForNextLevel)));
+		const FText Text = FText::FromString(FString::Printf(TEXT("LEVEL: %d --- %d/%d"), CurrentLevel, FMath::RoundToInt(XpSinceLevelUp), FMath::RoundToInt(XpToCompleteCurrentLevel)));
 		XpText->SetText(Text);
 		XpBar->SetPercent(XpPercent);
 	}
