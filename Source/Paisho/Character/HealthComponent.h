@@ -18,6 +18,7 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void Init(float NewHealth, float NewMaxHealth);
 
+	
 	void TakeDamage(float DamageAmount);
 
 	UFUNCTION(BlueprintCallable)
@@ -50,9 +51,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	float MaxHealth;
 
-	UPROPERTY(/*ReplicatedUsing = OnRep_CurrentHealth,*/ VisibleAnywhere)
+	UPROPERTY(ReplicatedUsing = OnRep_CurrentHealth, VisibleAnywhere)
 	float CurrentHealth;
 
-	//void OnRep_CurrentHealth();
+	void OnRep_CurrentHealth();
 	
 };

@@ -24,7 +24,10 @@ void UHealthComponent::Init(const float NewHealth, const float NewMaxHealth)
 
 void UHealthComponent::TakeDamage(const float DamageAmount)
 {
-	UpdateHealth(-DamageAmount);
+	if(GetOwner() && GetOwner()->HasAuthority())
+	{
+		UpdateHealth(-DamageAmount);
+	}
 }
 
 void UHealthComponent::DebugMenuSetHealth(const float NewHealth)
@@ -44,10 +47,10 @@ void UHealthComponent::UpdateHealth(const float HealthDelta)
 	}
 }
 
-// void UHealthComponent::OnRep_CurrentHealth()
-// {
-// 	
-// }
+void UHealthComponent::OnRep_CurrentHealth()
+{
+	OnHealthChanged.Broadcast();
+}
 
 float UHealthComponent::CalcHealthPercent()
 {
