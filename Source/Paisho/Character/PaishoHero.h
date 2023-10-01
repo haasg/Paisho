@@ -2,8 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "PaperZDCharacter.h"
+#include "PickupInterface.h"
 #include "PaishoHero.generated.h"
 
+class UPickerUpperComponent;
 class APaishoPlayerController;
 class UXpComponent;
 class UHealthBarWidget;
@@ -18,7 +20,7 @@ class USpringArmComponent;
 class AWeapon;
 
 UCLASS()
-class PAISHO_API APaishoHero : public APaperZDCharacter
+class PAISHO_API APaishoHero : public APaperZDCharacter /*, public IPickupInterface*/
 {
 	GENERATED_BODY()
 
@@ -51,13 +53,16 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Collision")
 	TObjectPtr<UCapsuleComponent> HitboxCapsule;
 
-	UPROPERTY(EditAnywhere, Category = "Pickup")
-	TObjectPtr<UCapsuleComponent> PickerUpperCapsule;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
 	TObjectPtr<UXpComponent> XpComponent;
 	/* End Collision Components */
 
+	/* Pickup Components */
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//TObjectPtr<UPickerUpperComponent> PickerUpperComponent;
+
+	//virtual void OnPickup() override;
+	/* End Pickup Components */
 	
 	/* Combat Components */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")

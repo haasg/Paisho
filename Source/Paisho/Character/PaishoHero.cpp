@@ -4,6 +4,7 @@
 #include "HealthBarComponent.h"
 #include "HealthComponent.h"
 #include "PaperFlipbook.h"
+#include "PickerUpperComponent.h"
 #include "StartingKit.h"
 #include "XpComponent.h"
 #include "Camera/CameraComponent.h"
@@ -32,11 +33,8 @@ APaishoHero::APaishoHero()
 	HitboxCapsule->SetCapsuleRadius(50.0);
 	HitboxCapsule->SetupAttachment(RootComponent);
 
-	PickerUpperCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("PickerUpperCapsule"));
-	PickerUpperCapsule->SetCollisionProfileName(FName("HeroPickerUpper"));
-	PickerUpperCapsule->SetCapsuleHalfHeight(1000.0);
-	PickerUpperCapsule->SetCapsuleRadius(200.0);
-	PickerUpperCapsule->SetupAttachment(RootComponent);
+	// PickerUpperComponent = CreateDefaultSubobject<UPickerUpperComponent>(TEXT("PickerUpperComponent"));
+	// PickerUpperComponent->SetupAttachment(RootComponent);
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
@@ -131,3 +129,8 @@ void APaishoHero::Tick(float DeltaSeconds)
 		Arsenal->Poll(DeltaSeconds);
 	}
 }
+
+// void APaishoHero::OnPickup()
+// {
+// 	
+// }

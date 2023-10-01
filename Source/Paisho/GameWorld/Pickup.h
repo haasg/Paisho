@@ -17,7 +17,7 @@ public:
 	APickup();
 
 protected:
-	void BeginPlay() override;
+	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UCapsuleComponent> CapsuleComponent;
