@@ -22,7 +22,7 @@ public:
 	float PrimaryRpm() const;
 	float PrimarySecondsPerShot() const;
 	float GetProjectileSpeed() const;
-	UPaperSprite* GetProjectileSprite() const;
+	TObjectPtr<UPaperSprite> GetProjectileSprite() const;
 	
 
 protected:
@@ -35,7 +35,7 @@ protected:
 
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
-	UPaperSprite* ProjectileSprite;
+	TObjectPtr<UPaperSprite> ProjectileSprite;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
 	float ProjectileSpeed = 1000.0;

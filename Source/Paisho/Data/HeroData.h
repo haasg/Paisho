@@ -25,15 +25,15 @@ public:
 	float MovementSpeed = 300.0;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UPaperFlipbook* IdleAnimation;
+	TObjectPtr<UPaperFlipbook> IdleAnimation;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UPaperFlipbook* WalkAnimation;
+	TObjectPtr<UPaperFlipbook> WalkAnimation;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<UPaperZDAnimInstance> AnimInstanceBP;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UWeaponData* StartingWeapon;
+	TObjectPtr<UWeaponData> StartingWeapon;
 	
 };

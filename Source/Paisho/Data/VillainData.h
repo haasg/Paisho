@@ -26,6 +26,6 @@ public:
 	float MovementSpeed = 100.0;
 
 	UPROPERTY(EditDefaultsOnly)
-	UPaperFlipbook* WalkAnimation;
+	TObjectPtr<UPaperFlipbook> WalkAnimation;
 	
 };
