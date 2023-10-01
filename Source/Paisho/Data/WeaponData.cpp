@@ -22,7 +22,7 @@ float UWeaponData::GetProjectileSpeed() const
 	return ProjectileSpeed;
 }
 
-UPaperSprite* UWeaponData::GetProjectileSprite() const
+TObjectPtr<UPaperSprite> UWeaponData::GetProjectileSprite() const
 {
 	return ProjectileSprite;
 }

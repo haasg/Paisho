@@ -40,7 +40,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DebugMenuSetHealth(float NewHealth);
 
-
+	UFUNCTION()
+	void OnRep_CurrentHealth();
 
 
 private:
@@ -54,6 +55,6 @@ private:
 	UPROPERTY(ReplicatedUsing = OnRep_CurrentHealth, VisibleAnywhere)
 	float CurrentHealth;
 
-	void OnRep_CurrentHealth();
+	
 	
 };
