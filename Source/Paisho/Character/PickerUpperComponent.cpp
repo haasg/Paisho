@@ -6,7 +6,6 @@
 UPickerUpperComponent::UPickerUpperComponent()
 {
 	PickerUpperCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("PickerUpperCapsule"));
-	PickerUpperCapsule->AttachToComponent(this, FAttachmentTransformRules::KeepRelativeTransform);
 	PickerUpperCapsule->SetCollisionProfileName(FName("HeroPickerUpper"));
 	PickerUpperCapsule->SetCapsuleHalfHeight(1000.0);
 	PickerUpperCapsule->SetCapsuleRadius(200.0);
@@ -15,6 +14,8 @@ UPickerUpperComponent::UPickerUpperComponent()
 void UPickerUpperComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	PickerUpperCapsule->AttachToComponent(this, FAttachmentTransformRules::KeepRelativeTransform);
 
 	//PickerUpperCapsule->OnComponentBeginOverlap.AddDynamic(this, &UPickerUpperComponent::HandleOverlap);
 }

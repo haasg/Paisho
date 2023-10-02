@@ -20,7 +20,7 @@ class USpringArmComponent;
 class AWeapon;
 
 UCLASS()
-class PAISHO_API APaishoHero : public APaperZDCharacter /*, public IPickupInterface*/
+class PAISHO_API APaishoHero : public APaperZDCharacter , public IPickupInterface
 {
 	GENERATED_BODY()
 
@@ -58,10 +58,10 @@ public:
 	/* End Collision Components */
 
 	/* Pickup Components */
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//TObjectPtr<UPickerUpperComponent> PickerUpperComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UPickerUpperComponent> PickerUpperComponent;
 
-	//virtual void OnPickup() override;
+	virtual void OnPickup() override;
 	/* End Pickup Components */
 	
 	/* Combat Components */

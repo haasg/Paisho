@@ -33,8 +33,8 @@ APaishoHero::APaishoHero()
 	HitboxCapsule->SetCapsuleRadius(50.0);
 	HitboxCapsule->SetupAttachment(RootComponent);
 
-	// PickerUpperComponent = CreateDefaultSubobject<UPickerUpperComponent>(TEXT("PickerUpperComponent"));
-	// PickerUpperComponent->SetupAttachment(RootComponent);
+	PickerUpperComponent = CreateDefaultSubobject<UPickerUpperComponent>(TEXT("PickerUpperComponent"));
+	PickerUpperComponent->SetupAttachment(RootComponent);
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(RootComponent);
@@ -130,7 +130,7 @@ void APaishoHero::Tick(float DeltaSeconds)
 	}
 }
 
-// void APaishoHero::OnPickup()
-// {
-// 	
-// }
+void APaishoHero::OnPickup()
+{
+	
+}

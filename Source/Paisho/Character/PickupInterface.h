@@ -5,8 +5,6 @@
 
 #include "PickupInterface.generated.h"
 
-class APaishoHero;
-
 UINTERFACE()
 class UPickupInterface : public UInterface
 {
