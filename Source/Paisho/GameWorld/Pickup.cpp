@@ -19,3 +19,10 @@ void APickup::BeginPlay()
 {
 	Super::BeginPlay();
 }
+
+void APickup::PickedUpBy(const TObjectPtr<AActor> PickedUpBy)
+{
+	CapsuleComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	PickedUpByActor = PickedUpBy;
+	ActivateTimeline();
+}

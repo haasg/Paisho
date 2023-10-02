@@ -16,8 +16,15 @@ class APickup : public AActor
 public:
 	APickup();
 
+	void PickedUpBy(TObjectPtr<AActor> PickedUpBy);
+
+
+
 protected:
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ActivateTimeline();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UCapsuleComponent> CapsuleComponent;
@@ -27,4 +34,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UPickupData> PickupData;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<AActor> PickedUpByActor;
 };

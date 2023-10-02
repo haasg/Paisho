@@ -5,6 +5,8 @@
 
 #include "PickupInterface.generated.h"
 
+class APickup;
+
 UINTERFACE()
 class UPickupInterface : public UInterface
 {
@@ -16,7 +18,7 @@ class IPickupInterface
 	GENERATED_BODY()
 
 public:
-	virtual void OnPickup() = 0;
+	virtual void OnPickup(TObjectPtr<APickup> Pickup) = 0;
 	
 };
 

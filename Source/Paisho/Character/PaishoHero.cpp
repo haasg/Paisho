@@ -130,7 +130,7 @@ void APaishoHero::Tick(float DeltaSeconds)
 	}
 }
 
-void APaishoHero::OnPickup()
+void APaishoHero::OnPickup(TObjectPtr<APickup> Pickup)
 {
 	XpComponent->AddXp(1);
 }

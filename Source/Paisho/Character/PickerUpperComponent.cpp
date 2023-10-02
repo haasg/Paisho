@@ -2,6 +2,7 @@
 
 #include "PickupInterface.h"
 #include "Components/CapsuleComponent.h"
+#include "Paisho/GameWorld/Pickup.h"
 #include "Paisho/Util/DebugUtil.h"
 
 UPickerUpperComponent::UPickerUpperComponent()
@@ -40,8 +41,13 @@ void UPickerUpperComponent::HandleOverlap(UPrimitiveComponent* OverlappedCompone
 	{
 		if (IPickupInterface* PickupInterface = Cast<IPickupInterface>(Owner))
 		{
-			PickupInterface->OnPickup();
-			OtherActor->Destroy();
+			if(TObjectPtr<APickup> Pickup = Cast<APickup>(OtherActor))
+			{
+				Pickup->PickedUpBy(Owner);
+			}
+
+			// PickupInterface->OnPickup(Cast<APickup>(OtherActor));
+			// OtherActor->Destroy();
 		}
 	}
 }
