@@ -132,5 +132,5 @@ void APaishoHero::Tick(float DeltaSeconds)
 
 void APaishoHero::OnPickup()
 {
-	
+	XpComponent->AddXp(1);
 }
