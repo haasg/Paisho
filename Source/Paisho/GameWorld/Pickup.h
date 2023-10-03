@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Paisho/Character/PickupInterface.h"
 
 #include "Pickup.generated.h"
 
@@ -22,6 +23,9 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	UPROPERTY()
+	FPickupAction OnPickupAction;
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void ActivateTimeline();

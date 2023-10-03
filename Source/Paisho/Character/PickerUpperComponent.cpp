@@ -19,16 +19,10 @@ void UPickerUpperComponent::BeginPlay()
 
 	PickerUpperCapsule->AttachToComponent(this, FAttachmentTransformRules::KeepRelativeTransform);
 
-	if(GetOwner())
+	check(GetOwner());
+	if(GetOwner() && GetOwner()->HasAuthority())
 	{
-		if(GetOwner()->HasAuthority())
-		{
-			PickerUpperCapsule->OnComponentBeginOverlap.AddDynamic(this, &UPickerUpperComponent::HandleOverlap);
-		}
-	}
-	else
-	{
-		ERROR("PickerUpperComponent has no owner!");
+		PickerUpperCapsule->OnComponentBeginOverlap.AddDynamic(this, &UPickerUpperComponent::HandleOverlap);
 	}
 }
 
@@ -39,15 +33,9 @@ void UPickerUpperComponent::HandleOverlap(UPrimitiveComponent* OverlappedCompone
 	const TObjectPtr<AActor> Owner = GetOwner();
 	if (Owner && Owner->GetClass()->ImplementsInterface(UPickupInterface::StaticClass()))
 	{
-		if (IPickupInterface* PickupInterface = Cast<IPickupInterface>(Owner))
+		if(const TObjectPtr<APickup> Pickup = Cast<APickup>(OtherActor))
 		{
-			if(TObjectPtr<APickup> Pickup = Cast<APickup>(OtherActor))
-			{
-				Pickup->PickedUpBy(Owner);
-			}
-
-			// PickupInterface->OnPickup(Cast<APickup>(OtherActor));
-			// OtherActor->Destroy();
+			Pickup->PickedUpBy(Owner);
 		}
 	}
 }

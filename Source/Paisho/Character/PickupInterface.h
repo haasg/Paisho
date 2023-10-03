@@ -7,7 +7,27 @@
 
 class APickup;
 
-UINTERFACE()
+UENUM(BlueprintType)
+enum class EPickupType : uint8
+{
+	Health,
+	Xp,
+	Max
+};
+
+USTRUCT(BlueprintType)
+struct FPickupAction
+{
+	GENERATED_BODY()
+	
+	UPROPERTY()
+	EPickupType Type;
+
+	UPROPERTY()
+	float Value;
+};
+
+UINTERFACE(BlueprintType, NotBlueprintable)
 class UPickupInterface : public UInterface
 {
 	GENERATED_BODY()
@@ -18,7 +38,8 @@ class IPickupInterface
 	GENERATED_BODY()
 
 public:
-	virtual void OnPickup(TObjectPtr<APickup> Pickup) = 0;
+	UFUNCTION(BlueprintCallable)
+	virtual void OnPickup(FPickupAction Action) = 0;
 	
 };
 

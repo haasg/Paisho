@@ -61,7 +61,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UPickerUpperComponent> PickerUpperComponent;
 
-	virtual void OnPickup(TObjectPtr<APickup> Pickup) override;
+	UFUNCTION(BlueprintCallable)
+	virtual void OnPickup(FPickupAction Action) override;
 	/* End Pickup Components */
 	
 	/* Combat Components */
