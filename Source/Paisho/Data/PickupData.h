@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Paisho/Character/PickupInterface.h"
 
 #include "PickupData.generated.h"
 
@@ -15,11 +16,16 @@ public:
 	UPickupData();
 
 	TSubclassOf<APickup> GetPickupClass() const;
+	EPickupType GetType() const;
+	float GetValue() const;
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<APickup> PickupClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Xp = 0;
+	EPickupType Type;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Value;
 };

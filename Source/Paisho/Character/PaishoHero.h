@@ -62,7 +62,7 @@ public:
 	TObjectPtr<UPickerUpperComponent> PickerUpperComponent;
 
 	UFUNCTION(BlueprintCallable)
-	virtual void OnPickup(FPickupAction Action) override;
+	virtual void OnPickup(UPickupData* PickupData) override;
 	/* End Pickup Components */
 	
 	/* Combat Components */

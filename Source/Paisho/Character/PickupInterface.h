@@ -5,26 +5,16 @@
 
 #include "PickupInterface.generated.h"
 
+class UPickupData;
 class APickup;
 
 UENUM(BlueprintType)
 enum class EPickupType : uint8
 {
+	None,
 	Health,
 	Xp,
 	Max
-};
-
-USTRUCT(BlueprintType)
-struct FPickupAction
-{
-	GENERATED_BODY()
-	
-	UPROPERTY()
-	EPickupType Type;
-
-	UPROPERTY()
-	float Value;
 };
 
 UINTERFACE(BlueprintType, NotBlueprintable)
@@ -39,7 +29,7 @@ class IPickupInterface
 
 public:
 	UFUNCTION(BlueprintCallable)
-	virtual void OnPickup(FPickupAction Action) = 0;
+	virtual void OnPickup(UPickupData* PickupData) = 0;
 	
 };
 

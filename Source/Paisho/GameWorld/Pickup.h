@@ -24,9 +24,6 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY()
-	FPickupAction OnPickupAction;
-
 	UFUNCTION(BlueprintImplementableEvent)
 	void ActivateTimeline();
 

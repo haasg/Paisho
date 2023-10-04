@@ -30,6 +30,14 @@ void UHealthComponent::TakeDamage(const float DamageAmount)
 	}
 }
 
+void UHealthComponent::Heal(const float HealAmount)
+{
+	if(GetOwner() && GetOwner()->HasAuthority())
+	{
+		UpdateHealth(HealAmount);
+	}
+}
+
 void UHealthComponent::DebugMenuSetHealth(const float NewHealth)
 {
 	CurrentHealth = NewHealth;
@@ -39,9 +47,12 @@ void UHealthComponent::DebugMenuSetHealth(const float NewHealth)
 void UHealthComponent::UpdateHealth(const float HealthDelta)
 {
 	CurrentHealth += HealthDelta;
+	if(CurrentHealth > MaxHealth)
+	{
+		CurrentHealth = MaxHealth;
+	}
 	OnHealthChanged.Broadcast();
-
-	if (CurrentHealth <= 0)
+	if(CurrentHealth <= 0)
 	{
 		OnDeath.Broadcast();
 	}

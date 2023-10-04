@@ -20,6 +20,7 @@ public:
 
 	
 	void TakeDamage(float DamageAmount);
+	void Heal(float HealAmount);
 
 	UFUNCTION(BlueprintCallable)
 	float CalcHealthPercent();

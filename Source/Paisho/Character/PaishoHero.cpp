@@ -12,6 +12,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Paisho/Data/HeroData.h"
+#include "Paisho/Data/PickupData.h"
 #include "Paisho/Framework/PaishoPlayerController.h"
 #include "Paisho/Framework/PaishoPlayerState.h"
 #include "Paisho/Util/DebugUtil.h"
@@ -130,7 +131,35 @@ void APaishoHero::Tick(float DeltaSeconds)
 	}
 }
 
-void APaishoHero::OnPickup(FPickupAction Action)
+void APaishoHero::OnPickup(UPickupData* PickupData)
 {
-	XpComponent->AddXp(1);
+	switch(PickupData->GetType())
+	{
+		// case EPickupType::Weapon:
+		// {
+		// 	if(const TObjectPtr<UWorld> World = GetWorld())
+		// 	{
+		// 		if(const TObjectPtr<AWeapon> Weapon = World->SpawnActor<AWeapon>(PickupData->GetWeaponClass()))
+		// 		{
+		// 			Arsenal->AddWeapon(Weapon);
+		// 		}
+		// 	}
+		// 	break;
+		// }
+		case EPickupType::Health:
+		{
+			HealthComponent->Heal(1);
+			break;
+		}
+		case EPickupType::Xp:
+		{
+			XpComponent->AddXp(1);
+			break;
+		}
+		default:
+		{
+			ERROR("Unhandled PickupType");
+			break;
+		}
+	}
 }
