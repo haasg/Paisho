@@ -4,8 +4,10 @@
 #include "HealthComponent.h"
 #include "PaperSpriteComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/GameStateBase.h"
 #include "Paisho/Data/PickupData.h"
 #include "Paisho/Data/VillainData.h"
+#include "Paisho/Framework/PaishoGameState.h"
 #include "Paisho/GameWorld/Pickup.h"
 #include "Paisho/Util/DebugUtil.h"
 
@@ -16,6 +18,8 @@ APaishoVillain::APaishoVillain()
 	CapsuleComponent->SetSimulatePhysics(true);
 	CapsuleComponent->SetCapsuleHalfHeight(500);
 	CapsuleComponent->SetCapsuleRadius(50);
+	CapsuleComponent->BodyInstance.LinearDamping = 1.0;
+	CapsuleComponent->BodyInstance.AngularDamping = 1.0f;
 	SetRootComponent(CapsuleComponent);
 
 	SpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteComponent"));
@@ -49,8 +53,25 @@ void APaishoVillain::BeginPlay()
 	
 }
 
+void APaishoVillain::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	AGameStateBase* GameState = GetWorld()->GetGameState();
+	if(APaishoGameState* PaishoGameState = Cast<APaishoGameState>(GameState))
+	{
+		FVector PlayerLocation = PaishoGameState->GetPlayerLocation();
+		FVector TargetDirection = (PlayerLocation - GetActorLocation()).GetSafeNormal2D();
+		FVector DesiredVelocity = TargetDirection * 100.f;
+
+		FVector CurrentVelocity = CapsuleComponent->GetPhysicsLinearVelocity();
+		FVector ForceToAdd = (DesiredVelocity - CurrentVelocity) * 100.f;  // assuming Force = mass * acceleration
+		CapsuleComponent->AddForce(ForceToAdd, NAME_None, true);
+	}
+}
+
 void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	//PRINT("Villain hit %s", *OtherActor->GetName());
 }

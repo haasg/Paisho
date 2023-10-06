@@ -17,7 +17,11 @@ class PAISHO_API APaishoVillain : public AActor
 public:
 	APaishoVillain();
 
+protected:
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
+
+public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UVillainData> VillainData;
