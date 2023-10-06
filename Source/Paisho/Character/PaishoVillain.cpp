@@ -57,6 +57,9 @@ void APaishoVillain::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
+	// TODO: Cache the gamestate as paishogamestate
+	// TODO: Only run on the server
+	// TODO: Make sure villain location is replicated
 	AGameStateBase* GameState = GetWorld()->GetGameState();
 	if(APaishoGameState* PaishoGameState = Cast<APaishoGameState>(GameState))
 	{
