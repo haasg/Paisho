@@ -10,23 +10,23 @@ void UMultiplayerMenu::MenuSetup(int32 NumberOfPublicConnections, FString TypeOf
 	PathToLobby = FString::Printf(TEXT("%s?listen"), *LobbyPath);
 	NumPublicConnections = NumberOfPublicConnections;
 	MatchType = TypeOfMatch;
-	AddToViewport();
+	//AddToViewport();
 	SetVisibility(ESlateVisibility::Visible);
-	bIsFocusable = true;
+	SetIsFocusable(true);
 
-	UWorld* World = GetWorld();
-	if (World)
-	{
-		APlayerController* PlayerController = World->GetFirstPlayerController();
-		if (PlayerController)
-		{
-			FInputModeUIOnly InputModeData;
-			InputModeData.SetWidgetToFocus(TakeWidget());
-			InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-			PlayerController->SetInputMode(InputModeData);
-			PlayerController->SetShowMouseCursor(true);
-		}
-	}
+	// UWorld* World = GetWorld();
+	// if (World)
+	// {
+	// 	APlayerController* PlayerController = World->GetFirstPlayerController();
+	// 	if (PlayerController)
+	// 	{
+	// 		FInputModeUIOnly InputModeData;
+	// 		InputModeData.SetWidgetToFocus(TakeWidget());
+	// 		InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	// 		PlayerController->SetInputMode(InputModeData);
+	// 		PlayerController->SetShowMouseCursor(true);
+	// 	}
+	// }
 
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
