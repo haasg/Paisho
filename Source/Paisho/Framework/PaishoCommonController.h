@@ -41,7 +41,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UBaseWidget> BaseWidget;
 
 	UPROPERTY(EditDefaultsOnly)
