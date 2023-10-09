@@ -7,7 +7,10 @@ UCommonActivatableWidget* UPaishoUIExtensions::PushContentToLayer_ForPlayer(APla
 {
 	if(APaishoCommonController* CommonController = Cast<APaishoCommonController>(PlayerController))
 	{
-		return CommonController->PushWidgetToLayerStack(LayerName, WidgetClass);
+		if(CommonController->IsLocalPlayerController())
+		{
+			return CommonController->PushWidgetToLayerStack(LayerName, WidgetClass);
+		}
 	}
 
 	return nullptr;

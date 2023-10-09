@@ -29,7 +29,12 @@ float APaishoGameState::GetGameTime()
 
 FVector APaishoGameState::GetPlayerLocation()
 {
-	return PlayerArray[0]->GetPawn()->GetActorLocation();
+	// TODO: FIGURE THIS OUT
+	if(HasAuthority())
+	{
+		return PlayerArray[0]->GetPawn()->GetActorLocation();
+	}
+	return FVector::ZeroVector;
 }
 
 FText APaishoGameState::GetGameTimeText()

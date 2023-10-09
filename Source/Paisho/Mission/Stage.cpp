@@ -48,9 +48,13 @@ void AStage::Tick(float DeltaSeconds)
 	{
 		ERROR("GameState is not of type APaishoGameState");
 	}
-	for(const auto& Wave : Waves)
+
+	if(HasAuthority())
 	{
-		Wave->Poll(GameTime, PlayerLocation);
+		for(const auto& Wave : Waves)
+		{
+			Wave->Poll(GameTime, PlayerLocation);
+		}
 	}
 	
 }

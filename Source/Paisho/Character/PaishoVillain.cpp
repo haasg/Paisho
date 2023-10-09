@@ -60,16 +60,19 @@ void APaishoVillain::Tick(float DeltaSeconds)
 	// TODO: Cache the gamestate as paishogamestate
 	// TODO: Only run on the server
 	// TODO: Make sure villain location is replicated
-	AGameStateBase* GameState = GetWorld()->GetGameState();
-	if(APaishoGameState* PaishoGameState = Cast<APaishoGameState>(GameState))
+	if(HasAuthority())
 	{
-		FVector PlayerLocation = PaishoGameState->GetPlayerLocation();
-		FVector TargetDirection = (PlayerLocation - GetActorLocation()).GetSafeNormal2D();
-		FVector DesiredVelocity = TargetDirection * 100.f;
+		AGameStateBase* GameState = GetWorld()->GetGameState();
+		if(APaishoGameState* PaishoGameState = Cast<APaishoGameState>(GameState))
+		{
+			FVector PlayerLocation = PaishoGameState->GetPlayerLocation();
+			FVector TargetDirection = (PlayerLocation - GetActorLocation()).GetSafeNormal2D();
+			FVector DesiredVelocity = TargetDirection * 100.f;
 
-		FVector CurrentVelocity = CapsuleComponent->GetPhysicsLinearVelocity();
-		FVector ForceToAdd = (DesiredVelocity - CurrentVelocity) * 100.f;  // assuming Force = mass * acceleration
-		CapsuleComponent->AddForce(ForceToAdd, NAME_None, true);
+			FVector CurrentVelocity = CapsuleComponent->GetPhysicsLinearVelocity();
+			FVector ForceToAdd = (DesiredVelocity - CurrentVelocity) * 100.f;  // assuming Force = mass * acceleration
+			CapsuleComponent->AddForce(ForceToAdd, NAME_None, true);
+		}
 	}
 }
 
