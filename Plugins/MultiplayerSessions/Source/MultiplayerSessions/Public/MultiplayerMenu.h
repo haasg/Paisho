@@ -3,15 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonActivatableWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Interfaces/OnlineSessionInterface.h"
-#include "Menu.generated.h"
+#include "MultiplayerMenu.generated.h"
 
-/**
- * 
- */
+class UButton;
+
 UCLASS()
-class MULTIPLAYERSESSIONS_API UMenu : public UUserWidget
+class MULTIPLAYERSESSIONS_API UMultiplayerMenu : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 public:
@@ -38,7 +38,7 @@ protected:
 private:
 
 	UPROPERTY(meta = (BindWidget))
-	class UButton* HostButton;
+	UButton* HostButton;
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* JoinButton;

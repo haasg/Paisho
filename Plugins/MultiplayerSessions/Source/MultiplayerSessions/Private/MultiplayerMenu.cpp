@@ -1,13 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+#include "MultiplayerMenu.h"
 
-
-#include "Menu.h"
 #include "Components/Button.h"
 #include "MultiplayerSessionsSubsystem.h"
 #include "OnlineSessionSettings.h"
 #include "OnlineSubsystem.h"
 
-void UMenu::MenuSetup(int32 NumberOfPublicConnections, FString TypeOfMatch, FString LobbyPath)
+void UMultiplayerMenu::MenuSetup(int32 NumberOfPublicConnections, FString TypeOfMatch, FString LobbyPath)
 {
 	PathToLobby = FString::Printf(TEXT("%s?listen"), *LobbyPath);
 	NumPublicConnections = NumberOfPublicConnections;
@@ -46,7 +44,7 @@ void UMenu::MenuSetup(int32 NumberOfPublicConnections, FString TypeOfMatch, FStr
 	}
 }
 
-bool UMenu::Initialize()
+bool UMultiplayerMenu::Initialize()
 {
 	if (!Super::Initialize())
 	{
@@ -65,13 +63,13 @@ bool UMenu::Initialize()
 	return true;
 }
 
-void UMenu::NativeDestruct()
+void UMultiplayerMenu::NativeDestruct()
 {
 	MenuTearDown();
 	Super::NativeDestruct();
 }
 
-void UMenu::OnCreateSession(bool bWasSuccessful)
+void UMultiplayerMenu::OnCreateSession(bool bWasSuccessful)
 {
 	if (bWasSuccessful)
 	{
@@ -96,7 +94,7 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
 	}
 }
 
-void UMenu::OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResults, bool bWasSuccessful)
+void UMultiplayerMenu::OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResults, bool bWasSuccessful)
 {
 	if (MultiplayerSessionsSubsystem == nullptr)
 	{
@@ -119,7 +117,7 @@ void UMenu::OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResu
 	}
 }
 
-void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
+void UMultiplayerMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
 {
 	IOnlineSubsystem* Subsystem = IOnlineSubsystem::Get();
 	if (Subsystem)
@@ -139,15 +137,15 @@ void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
 	}
 }
 
-void UMenu::OnDestroySession(bool bWasSuccessful)
+void UMultiplayerMenu::OnDestroySession(bool bWasSuccessful)
 {
 }
 
-void UMenu::OnStartSession(bool bWasSuccessful)
+void UMultiplayerMenu::OnStartSession(bool bWasSuccessful)
 {
 }
 
-void UMenu::HostButtonClicked()
+void UMultiplayerMenu::HostButtonClicked()
 {
 	HostButton->SetIsEnabled(false);
 	if (MultiplayerSessionsSubsystem)
@@ -156,7 +154,7 @@ void UMenu::HostButtonClicked()
 	}
 }
 
-void UMenu::JoinButtonClicked()
+void UMultiplayerMenu::JoinButtonClicked()
 {
 	JoinButton->SetIsEnabled(false);
 	if (MultiplayerSessionsSubsystem)
@@ -165,7 +163,7 @@ void UMenu::JoinButtonClicked()
 	}
 }
 
-void UMenu::MenuTearDown()
+void UMultiplayerMenu::MenuTearDown()
 {
 	RemoveFromParent();
 	UWorld* World = GetWorld();
