@@ -7,6 +7,15 @@
 
 class UCommonActivatableWidgetStack;
 
+UENUM(BlueprintType)
+enum class EWidgetLayer : uint8
+{
+	Game,
+	GameMenu,
+	Menu,
+	Prompt
+};
+
 UCLASS()
 class UBaseWidget : public UCommonUserWidget	
 {
@@ -14,6 +23,8 @@ class UBaseWidget : public UCommonUserWidget
 	
 public:
 	UBaseWidget();
+
+	TObjectPtr<UCommonActivatableWidgetStack> GetLayerWidget(EWidgetLayer LayerName);
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
