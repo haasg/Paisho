@@ -33,12 +33,12 @@ protected:
 
 
 public:
-	void RegisterVillain(TObjectPtr<APaishoVillain> Villain);
-	void UnregisterVillain(TObjectPtr<APaishoVillain> Villain);
-	TObjectPtr<APaishoVillain> GetRandomVillain();
-	TObjectPtr<APaishoVillain> GetClosestVillainTo(const FVector& ToLocation);
+	void RegisterVillain(TWeakObjectPtr<APaishoVillain> Villain);
+	void UnregisterVillain(TWeakObjectPtr<APaishoVillain> Villain);
+	TWeakObjectPtr<APaishoVillain> GetRandomVillain();
+	TWeakObjectPtr<APaishoVillain> GetClosestVillainTo(const FVector& ToLocation);
 
 protected:
 	UPROPERTY(VisibleAnywhere)
-	TArray<TObjectPtr<APaishoVillain>> AliveVillains;
+	TArray<TWeakObjectPtr<APaishoVillain>> AliveVillains;
 };

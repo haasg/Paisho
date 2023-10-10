@@ -10,6 +10,7 @@ void UArsenalComponent::AddWeapon(UWeaponData* WeaponData)
 	AWeapon* Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponData->GetWeaponClass());
 	Weapon->AttachToActor(Owner, FAttachmentTransformRules::KeepRelativeTransform);
 	Weapon->SetWeaponData(WeaponData);
+	Weapon->SetOwner(Owner);
 	Weapons.Add(Weapon);
 }
 

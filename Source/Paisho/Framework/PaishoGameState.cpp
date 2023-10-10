@@ -49,17 +49,17 @@ FText APaishoGameState::GetGameTimeText()
 }
 
 
-void APaishoGameState::RegisterVillain(const TObjectPtr<APaishoVillain> Villain)
+void APaishoGameState::RegisterVillain(const TWeakObjectPtr<APaishoVillain> Villain)
 {
 	AliveVillains.Add(Villain);
 }
 
-void APaishoGameState::UnregisterVillain(const TObjectPtr<APaishoVillain> Villain)
+void APaishoGameState::UnregisterVillain(const TWeakObjectPtr<APaishoVillain> Villain)
 {
 	AliveVillains.Remove(Villain);
 }
 
-TObjectPtr<APaishoVillain> APaishoGameState::GetRandomVillain()
+TWeakObjectPtr<APaishoVillain> APaishoGameState::GetRandomVillain()
 {
 	if (AliveVillains.Num() > 0)
 	{
@@ -69,18 +69,21 @@ TObjectPtr<APaishoVillain> APaishoGameState::GetRandomVillain()
 	return nullptr;
 }
 
-TObjectPtr<APaishoVillain> APaishoGameState::GetClosestVillainTo(const FVector& ToLocation)
+TWeakObjectPtr<APaishoVillain> APaishoGameState::GetClosestVillainTo(const FVector& ToLocation)
 {
-	TObjectPtr<APaishoVillain> ClosestVillain = nullptr;
+	TWeakObjectPtr<APaishoVillain> ClosestVillain = nullptr;
 	float ClosestDistanceSquared = FLT_MAX;
 	for(const auto& Villain : AliveVillains)
 	{
-		const FVector VillainLocation = Villain->GetActorLocation();
-		const float DistanceSquared = FVector::DistSquared(ToLocation, VillainLocation);
-		if(DistanceSquared < ClosestDistanceSquared)
+		if(Villain.IsValid())
 		{
-			ClosestVillain = Villain;
-			ClosestDistanceSquared = DistanceSquared;
+			const FVector VillainLocation = Villain->GetActorLocation();
+			const float DistanceSquared = FVector::DistSquared(ToLocation, VillainLocation);
+			if(DistanceSquared < ClosestDistanceSquared)
+			{
+				ClosestVillain = Villain;
+				ClosestDistanceSquared = DistanceSquared;
+			}
 		}
 	}
 	return ClosestVillain;

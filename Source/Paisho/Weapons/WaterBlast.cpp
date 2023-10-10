@@ -11,7 +11,8 @@ void AWaterBlast::Fire()
 	if(const TObjectPtr<APaishoGameState> GameState = GetWorld()->GetGameState<APaishoGameState>())
 	{
 		const FVector MyLocation = GetActorLocation();
-		if(const TObjectPtr<APaishoVillain> ClosestVillain = GameState->GetClosestVillainTo(MyLocation))
+		const TWeakObjectPtr<APaishoVillain> ClosestVillain = GameState->GetClosestVillainTo(MyLocation);
+		if(ClosestVillain.IsValid())
 		{
 			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
 			Projectile->SetLocation(MyLocation);

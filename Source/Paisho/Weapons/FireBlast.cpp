@@ -11,7 +11,8 @@ void AFireBlast::Fire()
 	if(const TObjectPtr<APaishoGameState> GameState = GetWorld()->GetGameState<APaishoGameState>())
 	{
 		const FVector MyLocation = GetActorLocation();
-		if(const TObjectPtr<APaishoVillain> RandomVillain = GameState->GetRandomVillain())
+		const TWeakObjectPtr<APaishoVillain> RandomVillain = GameState->GetRandomVillain();
+		if(RandomVillain.IsValid())
 		{
 			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
 			Projectile->SetLocation(MyLocation);
