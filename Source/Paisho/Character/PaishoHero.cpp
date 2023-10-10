@@ -4,6 +4,7 @@
 #include "HealthBarComponent.h"
 #include "HealthComponent.h"
 #include "PaperFlipbook.h"
+#include "PaperFlipbookComponent.h"
 #include "PickerUpperComponent.h"
 #include "StartingKit.h"
 #include "XpComponent.h"
@@ -130,6 +131,12 @@ void APaishoHero::Tick(float DeltaSeconds)
 		Arsenal->Poll(DeltaSeconds);
 	}
 }
+
+// FVector APaishoHero::GetSpriteDirection() const
+// {
+// 	const FRotator SpriteRotation = GetSprite()->GetRelativeRotation();
+// 	return SpriteRotation.Vector();
+// }
 
 void APaishoHero::OnPickup(UPickupData* PickupData)
 {

@@ -37,13 +37,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UHeroData> HeroData;
 
-	/* Camera Components */
+	/* Visual Components */
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<USpringArmComponent> SpringArm;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<UCameraComponent> Camera;
-	/* End Camera Components */
+
+	// FVector GetSpriteDirection() const;
+	/* End Visual Components */
 
 	/* Collision Components */
 	
