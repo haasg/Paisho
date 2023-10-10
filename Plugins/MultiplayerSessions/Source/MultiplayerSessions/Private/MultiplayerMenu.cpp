@@ -165,16 +165,16 @@ void UMultiplayerMenu::JoinButtonClicked()
 
 void UMultiplayerMenu::MenuTearDown()
 {
-	RemoveFromParent();
-	UWorld* World = GetWorld();
-	if (World)
-	{
-		APlayerController* PlayerController = World->GetFirstPlayerController();
-		if (PlayerController)
-		{
-			FInputModeGameOnly InputModeData;
-			PlayerController->SetInputMode(InputModeData);
-			PlayerController->SetShowMouseCursor(false);
-		}
-	}
+	// RemoveFromParent();
+	// UWorld* World = GetWorld();
+	// if (World)
+	// {
+	// 	APlayerController* PlayerController = World->GetFirstPlayerController();
+	// 	if (PlayerController)
+	// 	{
+	// 		FInputModeGameOnly InputModeData;
+	// 		PlayerController->SetInputMode(InputModeData);
+	// 		PlayerController->SetShowMouseCursor(false);
+	// 	}
+	// }
 }
