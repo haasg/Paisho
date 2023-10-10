@@ -43,8 +43,6 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<UCameraComponent> Camera;
-
-	// FVector GetSpriteDirection() const;
 	/* End Visual Components */
 
 	/* Collision Components */
@@ -88,6 +86,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Visual")
 	TObjectPtr<UPaperFlipbook> WalkAnimation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UArrowComponent> MovementDirection2d;
 	/* End Visual Components */
 	
 };

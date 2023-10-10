@@ -9,6 +9,7 @@
 #include "StartingKit.h"
 #include "XpComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Components/ArrowComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -63,6 +64,8 @@ APaishoHero::APaishoHero()
 
 	IdleAnimation = CreateDefaultSubobject<UPaperFlipbook>(TEXT("IdleAnimation"));
 	WalkAnimation = CreateDefaultSubobject<UPaperFlipbook>(TEXT("WalkAnimation"));
+	MovementDirection2d = CreateDefaultSubobject<UArrowComponent>(TEXT("MovementDirection2d"));
+	MovementDirection2d->SetupAttachment(RootComponent);
 }
 
 APaishoHero* APaishoHero::FromData(UHeroData* HeroData, UWorld* World)
