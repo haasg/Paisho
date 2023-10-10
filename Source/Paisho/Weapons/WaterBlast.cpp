@@ -16,11 +16,14 @@ void AWaterBlast::Fire()
 			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
 			Projectile->SetLocation(MyLocation);
 			Projectile->SetSprite(WeaponData->GetProjectileSprite());
-			Projectile->SetRotation(FRotator(0, 180, 0));
+			
 			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
 			const FVector ClosestVillainLocation = ClosestVillain->GetActorLocation();
 			const FVector UnitVectorToClosestVillain = (ClosestVillainLocation - MyLocation).GetSafeNormal();
 			Projectile->SetDirection(UnitVectorToClosestVillain);
+			const FRotator AngleToClosestVillain = UnitVectorToClosestVillain.Rotation();
+			const FRotator SpriteRotation = FRotator(0, 180, 0);
+			Projectile->SetRotation(AngleToClosestVillain + SpriteRotation);
 		}
 	} ELSE_ERROR("WaterBlast::Fire with nullptr GameState")
 	
