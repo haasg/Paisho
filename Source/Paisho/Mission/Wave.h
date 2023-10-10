@@ -59,12 +59,12 @@ private:
 };
 
 UCLASS()
-class PAISHO_API UWave : public UObject
+class PAISHO_API AWave : public AInfo
 {
 	GENERATED_BODY()
 	
 public:
-	UWave();
+	AWave();
 	void Init(const FWaveData& NewWaveData) { WaveData = NewWaveData; }
 	void Poll(const float GameTime, FVector PlayerLocation);
 

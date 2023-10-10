@@ -6,7 +6,7 @@
 #include "Stage.generated.h"
 
 class UStageData;
-class UWave;
+class AWave;
 
 UCLASS()
 class PAISHO_API AStage : public AInfo
@@ -27,6 +27,6 @@ private:
 	TObjectPtr<UStageData> StageData;
 	
 	UPROPERTY(VisibleAnywhere)
-	TArray<TObjectPtr<UWave>> Waves;
+	TArray<TObjectPtr<AWave>> Waves;
 	
 };

@@ -56,7 +56,7 @@ void AStage::Init(UStageData* NewStageData)
 	StageData = NewStageData;
 	for(auto& WaveData : StageData->Waves)
 	{
-		const TObjectPtr<UWave> Wave = NewObject<UWave>(this, UWave::StaticClass());
+		TObjectPtr<AWave> Wave = GetWorld()->SpawnActor<AWave>(AWave::StaticClass());
 		Wave->Init(WaveData);
 		Waves.Add(Wave);
 	}

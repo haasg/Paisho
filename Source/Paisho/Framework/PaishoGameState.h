@@ -5,6 +5,7 @@
 #include "PaishoGameState.generated.h"
 
 
+class APaishoVillain;
 
 UCLASS()
 class PAISHO_API APaishoGameState : public AGameStateBase
@@ -28,4 +29,14 @@ protected:
 	/* REPLICATE THIS FROM GAMEMODE EVENTUALLY */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float GameTime;
+
+
+
+public:
+	void RegisterVillain(APaishoVillain* Villain);
+	void UnregisterVillain(APaishoVillain* Villain);
+
+protected:
+	UPROPERTY(VisibleAnywhere)
+	TArray<TObjectPtr<APaishoVillain>> AliveVillains;
 };

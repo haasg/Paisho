@@ -1,8 +1,6 @@
 #include "PaishoGameState.h"
 
 #include "GameFramework/PlayerState.h"
-#include "Paisho/Mission/Stage.h"
-#include "Paisho/Util/DebugUtil.h"
 
 APaishoGameState::APaishoGameState()
 {
@@ -39,6 +37,7 @@ FVector APaishoGameState::GetPlayerLocation()
 	return FVector::ZeroVector;
 }
 
+
 FText APaishoGameState::GetGameTimeText()
 {
 	const int32 Minutes = static_cast<int32>(GameTime / 60.0f);
@@ -46,4 +45,15 @@ FText APaishoGameState::GetGameTimeText()
 	
 	const FString TimeString = FString::Printf(TEXT("%02d:%02d"), Minutes, Seconds);
 	return FText::FromString(TimeString);
+}
+
+
+void APaishoGameState::RegisterVillain(APaishoVillain* Villain)
+{
+	AliveVillains.Add(Villain);
+}
+
+void APaishoGameState::UnregisterVillain(APaishoVillain* Villain)
+{
+	AliveVillains.Remove(Villain);
 }

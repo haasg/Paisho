@@ -3,13 +3,14 @@
 #include "Paisho/Character/PaishoVillain.h"
 #include "Paisho/Util/DebugUtil.h"
 
-UWave::UWave()
+AWave::AWave()
 {
 	
 }
 
-void UWave::Poll(const float GameTime, FVector PlayerLocation)
+void AWave::Poll(const float GameTime, FVector PlayerLocation)
 {
+	
 	if(WaveData.IsActivelySpawning(GameTime))
 	{
 		switch(WaveData.GetSpawnType())
