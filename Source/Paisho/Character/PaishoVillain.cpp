@@ -4,7 +4,7 @@
 #include "HealthComponent.h"
 #include "PaperSpriteComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "GameFramework/GameStateBase.h"
+#include "Paisho/Framework/PaishoGameState.h"
 #include "Paisho/Data/PickupData.h"
 #include "Paisho/Data/VillainData.h"
 #include "Paisho/Framework/PaishoGameState.h"
@@ -46,14 +46,15 @@ void APaishoVillain::BeginPlay()
 		Health->Init(VillainData->StartingHealth, VillainData->StartingHealth);
 		HealthBar->Init(Health);
 		//GetCharacterMovement()->MaxWalkSpeed = VillainData->MovementSpeed;
-	}
-	else
-	{
-		ERROR("Villain BeginPlay with nullptr VillainData");
-	}
+	} ELSE_ERROR("Villain BeginPlay with nullptr VillainData");
 
 	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HandleOverlap);
 	Health->OnDeath.AddDynamic(this, &ThisClass::OnDeath);
+
+	if(const TObjectPtr<APaishoGameState> GameState = GetWorld()->GetGameState<APaishoGameState>())
+	{
+		GameState->RegisterVillain(this);
+	} ELSE_ERROR("Villain BeginPlay with nullptr GameState")
 	
 }
 
@@ -88,7 +89,6 @@ void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 
 void APaishoVillain::OnDeath()
 {
-	//PRINT("VILLAIN ON DEATH SPAWNING A PICKUP");
 	if(PickupData)
 	{
 		if(const TObjectPtr<UWorld> World = GetWorld())
@@ -97,5 +97,9 @@ void APaishoVillain::OnDeath()
 			World->SpawnActor<APickup>(PickupData->GetPickupClass(), VillainTransform);
 		}
 	}
+	if(const TObjectPtr<APaishoGameState> GameState = GetWorld()->GetGameState<APaishoGameState>())
+	{
+		GameState->UnregisterVillain(this);
+	} ELSE_ERROR("Villain death with nullptr GameState")
 	Destroy();
 }
