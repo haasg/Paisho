@@ -11,8 +11,8 @@ void UMultiplayerMenu::MenuSetup(int32 NumberOfPublicConnections, FString TypeOf
 	NumPublicConnections = NumberOfPublicConnections;
 	MatchType = TypeOfMatch;
 	//AddToViewport();
-	SetVisibility(ESlateVisibility::Visible);
-	SetIsFocusable(true);
+	// SetVisibility(ESlateVisibility::Visible);
+	// SetIsFocusable(true);
 
 	// UWorld* World = GetWorld();
 	// if (World)
