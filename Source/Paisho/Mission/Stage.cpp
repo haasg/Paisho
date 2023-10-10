@@ -23,18 +23,13 @@ void AStage::BeginPlay()
 			
 		}
 	}
-	
-
-	for(auto& WaveData : StageData->Waves)
-	{
-		const TObjectPtr<UWave> Wave = NewObject<UWave>(this, UWave::StaticClass());
-		Wave->Init(WaveData);
-		Waves.Add(Wave);
-	}
 }
+
 
 void AStage::Tick(float DeltaSeconds)
 {
+	check(HasAuthority()); // should only exist on the server
+	
 	Super::Tick(DeltaSeconds);
 
 	float GameTime = 0;
@@ -48,13 +43,21 @@ void AStage::Tick(float DeltaSeconds)
 	{
 		ERROR("GameState is not of type APaishoGameState");
 	}
-
-	if(HasAuthority())
+	
+	for(const auto& Wave : Waves)
 	{
-		for(const auto& Wave : Waves)
-		{
-			Wave->Poll(GameTime, PlayerLocation);
-		}
+		Wave->Poll(GameTime, PlayerLocation);
 	}
 	
+}
+
+void AStage::Init(UStageData* NewStageData)
+{
+	StageData = NewStageData;
+	for(auto& WaveData : StageData->Waves)
+	{
+		const TObjectPtr<UWave> Wave = NewObject<UWave>(this, UWave::StaticClass());
+		Wave->Init(WaveData);
+		Waves.Add(Wave);
+	}
 }

@@ -15,15 +15,16 @@ APaishoVillain::APaishoVillain()
 {
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
 	CapsuleComponent->SetCollisionProfileName(FName("Villain"));
-	if(HasAuthority())
-	{
-		CapsuleComponent->SetSimulatePhysics(true);
-	}
 	CapsuleComponent->SetCapsuleHalfHeight(500);
 	CapsuleComponent->SetCapsuleRadius(50);
 	CapsuleComponent->BodyInstance.LinearDamping = 1.0;
 	CapsuleComponent->BodyInstance.AngularDamping = 1.0f;
 	SetRootComponent(CapsuleComponent);
+
+	if(HasAuthority())
+	{ 
+		CapsuleComponent->SetSimulatePhysics(true);
+	}
 
 	SpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("SpriteComponent"));
 	SpriteComponent->SetupAttachment(RootComponent);

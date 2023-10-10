@@ -1,6 +1,7 @@
 #include "PaishoGameState.h"
 
 #include "GameFramework/PlayerState.h"
+#include "Paisho/Mission/Stage.h"
 #include "Paisho/Util/DebugUtil.h"
 
 APaishoGameState::APaishoGameState()
@@ -12,6 +13,7 @@ APaishoGameState::APaishoGameState()
 void APaishoGameState::BeginPlay()
 {
 	Super::BeginPlay();
+
 }
 
 void APaishoGameState::Tick(float DeltaSeconds)

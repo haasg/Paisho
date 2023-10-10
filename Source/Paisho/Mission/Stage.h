@@ -9,7 +9,7 @@ class UStageData;
 class UWave;
 
 UCLASS()
-class PAISHO_API AStage : public AActor
+class PAISHO_API AStage : public AInfo
 {
 	GENERATED_BODY()
 	
@@ -19,9 +19,11 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
+	void Init(UStageData* NewStageData);
+
 private:
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UStageData> StageData;
 	
 	UPROPERTY(VisibleAnywhere)
