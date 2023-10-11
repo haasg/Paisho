@@ -14,26 +14,17 @@ void AFireBlast::Fire()
 		const TObjectPtr<APaishoVillain> RandomVillain = GameState->GetRandomVillain();
 		if(IsValid(RandomVillain))
 		{
+			const FVector RandomVillainLocation = RandomVillain->GetActorLocation();
+			const FVector UnitVectorToRandomVillain = (RandomVillainLocation - MyLocation).GetSafeNormal();
 			
 			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
-			AProjectile* Projectile1 = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
-			AProjectile* Projectile2 = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
-			AProjectile* Projectile3 = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
-			AProjectile* Projectile4 = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
 			Projectile->SetLocation(MyLocation);
 			Projectile->SetSprite(WeaponData->GetProjectileSprite());
-			
 			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
-			// if(RandomVillain.IsValid())
-			// {
-				const FVector RandomVillainLocation = RandomVillain->GetActorLocation();
-				const FVector UnitVectorToRandomVillain = (RandomVillainLocation - MyLocation).GetSafeNormal();
-				Projectile->SetDirection(UnitVectorToRandomVillain);
-				const FRotator AngleToRandomVillain = UnitVectorToRandomVillain.Rotation();
-				const FRotator SpriteRotation = FRotator(180, 180, 0);
-				Projectile->SetRotation(AngleToRandomVillain + SpriteRotation);
-			//} ELSE_ERROR("WAS VALID BUT NOT NOW")
-
+			Projectile->SetDirection(UnitVectorToRandomVillain);
+			const FRotator AngleToRandomVillain = UnitVectorToRandomVillain.Rotation();
+			const FRotator SpriteRotation = FRotator(180, 180, 0);
+			Projectile->SetRotation(AngleToRandomVillain + SpriteRotation);
 		}
 	} ELSE_ERROR("FireBlast::Fire with nullptr GameState")
 }

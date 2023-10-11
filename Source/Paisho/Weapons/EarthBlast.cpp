@@ -12,15 +12,19 @@ void AEarthBlast::Fire()
 	//this could be interface someday if we want to support other actors
 	if(const TObjectPtr<APaishoHero> PaishoHero = Cast<APaishoHero>(WeaponHolder))
 	{
-		const FVector2d FacingDirection = PaishoHero->GetFacingDirection2d();
-		const FVector ShootingDirection = FVector(FacingDirection.X, 0, 0);
+		const float FacingDirection = PaishoHero->GetSpriteLeftRightDirection();
+		const FVector ShootingDirection = FVector(FacingDirection, 0, 0);
 		
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
 		Projectile->SetLocation(GetActorLocation());
 		Projectile->SetSprite(WeaponData->GetProjectileSprite());
 		Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
 		Projectile->SetDirection(ShootingDirection);
-		Projectile->SetRotation(ShootingDirection.Rotation());
+		if(FacingDirection < 0)
+		{
+			Projectile->SetRotation(FRotator(180, 0, 0));	
+		}
+		
 	}
 }
 

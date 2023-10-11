@@ -88,10 +88,14 @@ public:
 	TObjectPtr<UPaperFlipbook> WalkAnimation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UArrowComponent> MovementDirection2d; // where the character is "looking"
+	TObjectPtr<UArrowComponent> FacingDirection2d; // where the character is "looking"
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UArrowComponent> SpriteDirectionLeftRight; // keeps a record of the last left-right direction the character moved in, useful for knowing things like if the player sprite is facing right or left even if they're just moving up
 
 	FVector GetFacingDirection();
 	FVector2d GetFacingDirection2d();
+	float GetSpriteLeftRightDirection();
 	/* End Visual+Movement Components */
 	
 };

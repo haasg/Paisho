@@ -64,8 +64,10 @@ APaishoHero::APaishoHero()
 
 	IdleAnimation = CreateDefaultSubobject<UPaperFlipbook>(TEXT("IdleAnimation"));
 	WalkAnimation = CreateDefaultSubobject<UPaperFlipbook>(TEXT("WalkAnimation"));
-	MovementDirection2d = CreateDefaultSubobject<UArrowComponent>(TEXT("MovementDirection2d"));
-	MovementDirection2d->SetupAttachment(RootComponent);
+	FacingDirection2d = CreateDefaultSubobject<UArrowComponent>(TEXT("FacingDirection2d"));
+	FacingDirection2d->SetupAttachment(RootComponent);
+	SpriteDirectionLeftRight = CreateDefaultSubobject<UArrowComponent>(TEXT("SpriteDirectionLeftRight"));
+	SpriteDirectionLeftRight->SetupAttachment(RootComponent);
 }
 
 APaishoHero* APaishoHero::FromData(UHeroData* HeroData, UWorld* World)
@@ -170,11 +172,16 @@ void APaishoHero::OnPickup(UPickupData* PickupData)
 
 FVector APaishoHero::GetFacingDirection()
 {
-	return MovementDirection2d->GetForwardVector();
+	return FacingDirection2d->GetForwardVector();
 }
 
 FVector2d APaishoHero::GetFacingDirection2d()
 {
 	const FVector MovementDirection = GetFacingDirection();
 	return FVector2d(MovementDirection.X, MovementDirection.Y);
+}
+
+float APaishoHero::GetSpriteLeftRightDirection()
+{
+	return SpriteDirectionLeftRight->GetForwardVector().X;
 }
