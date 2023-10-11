@@ -81,14 +81,15 @@ void APaishoVillain::Tick(float DeltaSeconds)
 	}
 }
 
-void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                                   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	//PRINT("Villain hit %s", *OtherActor->GetName());
-}
-
 void APaishoVillain::OnDeath()
 {
+	Destroy(); // Will call APaishoVillain::EndPlay
+}
+
+void APaishoVillain::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+
 	if(PickupData)
 	{
 		if(const TObjectPtr<UWorld> World = GetWorld())
@@ -101,5 +102,11 @@ void APaishoVillain::OnDeath()
 	{
 		GameState->UnregisterVillain(this);
 	} ELSE_ERROR("Villain death with nullptr GameState")
-	Destroy();
 }
+
+void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+                                   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	//PRINT("Villain hit %s", *OtherActor->GetName());
+}
+
