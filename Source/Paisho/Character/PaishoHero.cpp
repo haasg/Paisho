@@ -135,12 +135,6 @@ void APaishoHero::Tick(float DeltaSeconds)
 	}
 }
 
-// FVector APaishoHero::GetSpriteDirection() const
-// {
-// 	const FRotator SpriteRotation = GetSprite()->GetRelativeRotation();
-// 	return SpriteRotation.Vector();
-// }
-
 void APaishoHero::OnPickup(UPickupData* PickupData)
 {
 	switch(PickupData->GetType())
@@ -172,4 +166,15 @@ void APaishoHero::OnPickup(UPickupData* PickupData)
 			break;
 		}
 	}
+}
+
+FVector APaishoHero::GetFacingDirection()
+{
+	return MovementDirection2d->GetForwardVector();
+}
+
+FVector2d APaishoHero::GetFacingDirection2d()
+{
+	const FVector MovementDirection = GetFacingDirection();
+	return FVector2d(MovementDirection.X, MovementDirection.Y);
 }

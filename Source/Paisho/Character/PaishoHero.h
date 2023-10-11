@@ -80,7 +80,7 @@ public:
 
 	/* End Combat Components */
 
-	/* Visual Components */
+	/* Visual+Movement Components */
 	UPROPERTY(EditAnywhere, Category = "Visual")
 	TObjectPtr<UPaperFlipbook> IdleAnimation;
 
@@ -88,7 +88,10 @@ public:
 	TObjectPtr<UPaperFlipbook> WalkAnimation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UArrowComponent> MovementDirection2d;
-	/* End Visual Components */
+	TObjectPtr<UArrowComponent> MovementDirection2d; // where the character is "looking"
+
+	FVector GetFacingDirection();
+	FVector2d GetFacingDirection2d();
+	/* End Visual+Movement Components */
 	
 };

@@ -81,6 +81,8 @@ void APaishoVillain::Tick(float DeltaSeconds)
 	}
 }
 
+/* It's possible the server will fully destroy the actor before a client is able to run this OnDeath() function */
+/* Put any logic that needs to run on all clients in EndPlay() */
 void APaishoVillain::OnDeath()
 {
 	Destroy(); // Will call APaishoVillain::EndPlay
