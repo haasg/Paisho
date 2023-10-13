@@ -70,13 +70,11 @@ void APaishoVillain::Tick(float DeltaSeconds)
 		AGameStateBase* GameState = GetWorld()->GetGameState();
 		if(APaishoGameState* PaishoGameState = Cast<APaishoGameState>(GameState))
 		{
-			FVector PlayerLocation = PaishoGameState->GetPlayerLocation();
-			FVector TargetDirection = (PlayerLocation - GetActorLocation()).GetSafeNormal2D();
-			FVector DesiredVelocity = TargetDirection * 100.f;
-
-			FVector CurrentVelocity = CapsuleComponent->GetPhysicsLinearVelocity();
-			FVector ForceToAdd = (DesiredVelocity - CurrentVelocity) * 100.f;  // assuming Force = mass * acceleration
-			CapsuleComponent->AddForce(ForceToAdd, NAME_None, true);
+			const FVector PlayerLocation = PaishoGameState->GetPlayerLocation();
+			const FVector TargetDirection = (PlayerLocation - GetActorLocation()).GetSafeNormal2D();
+			const FVector DesiredVelocity = TargetDirection * 100.f;
+			
+			CapsuleComponent->AddForce(DesiredVelocity, NAME_None, true);
 		}
 	}
 }
