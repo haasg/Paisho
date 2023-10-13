@@ -17,6 +17,7 @@ class UPlayerHudWidget : public UUserWidget
 public:
 	void BindToHealthComponent(TObjectPtr<class UHealthComponent> HealthComponent);
 	void BindToXpComponent(TObjectPtr<class UXpComponent> XpComponent);
+	void SetMatchGameTime(const int32 GameTime);
 
 protected:
 	UFUNCTION()

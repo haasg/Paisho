@@ -3,6 +3,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Paisho/Character/HealthComponent.h"
 #include "Paisho/UI/PlayerHudWidget.h"
+#include "Paisho/Util/DebugUtil.h"
 
 APaishoPlayerController::APaishoPlayerController()
 {
@@ -24,9 +25,49 @@ void APaishoPlayerController::BeginPlay()
 void APaishoPlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
-	
+	PollClientServerTimeSync(DeltaSeconds);
+	SetMatchGameTime(GetServerTime());
 }
+
+void APaishoPlayerController::PollClientServerTimeSync(const float DeltaSeconds)
+{
+	TimeSinceLastSync += DeltaSeconds;
+	if(IsLocalController() && TimeSinceLastSync > TimeSyncFrequency)
+	{
+		ServerRequestServerTime(GetWorld()->GetTimeSeconds());
+		TimeSinceLastSync = 0.0;
+	}
+}
+
+float APaishoPlayerController::GetServerTime()
+{
+	if(HasAuthority()) { return GetWorld()->GetTimeSeconds(); }
+	return GetWorld()->GetTimeSeconds() + ClientServerDelta;
+}
+
+void APaishoPlayerController::ReceivedPlayer()
+{
+	Super::ReceivedPlayer();
+	if(IsLocalController())
+	{
+		ServerRequestServerTime(GetWorld()->GetTimeSeconds());
+	}
+}
+
+void APaishoPlayerController::ServerRequestServerTime_Implementation(const float TimeOfClientRequest)
+{
+	const float ServerTimeOfReceipt = GetWorld()->GetTimeSeconds();
+	ClientReportServerTime(TimeOfClientRequest, ServerTimeOfReceipt);
+}
+
+void APaishoPlayerController::ClientReportServerTime_Implementation(const float TimeOfClientRequest, const float TimeServerReceivedClientRequest)
+{
+	const float RoundTripTime = GetWorld()->GetTimeSeconds() - TimeOfClientRequest;
+	const float CurrentServerTime = TimeServerReceivedClientRequest + (RoundTripTime * 0.5);
+	ClientServerDelta = CurrentServerTime - GetWorld()->GetTimeSeconds();
+}
+
+
 
 void APaishoPlayerController::BindHealthComponentToHud(const TObjectPtr<UHealthComponent> HealthComponent)
 {
@@ -36,4 +77,12 @@ void APaishoPlayerController::BindHealthComponentToHud(const TObjectPtr<UHealthC
 void APaishoPlayerController::BindXpComponentToHud(const TObjectPtr<UXpComponent> XpComponent)
 {
 	PlayerHud->BindToXpComponent(XpComponent);
+}
+
+void APaishoPlayerController::SetMatchGameTime(const float GameTime)
+{
+	if(PlayerHud)
+	{
+		PlayerHud->SetMatchGameTime(GameTime);
+	}
 }

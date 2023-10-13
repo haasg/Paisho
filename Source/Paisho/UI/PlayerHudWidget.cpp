@@ -15,6 +15,11 @@ void UPlayerHudWidget::BindToXpComponent(const TObjectPtr<UXpComponent> XpCompon
 	XpBarWidget->BindToXpComponent(XpComponent);
 }
 
+void UPlayerHudWidget::SetMatchGameTime(const int32 GameTime)
+{
+	GameTimeWidget->Refresh(GameTime);
+}
+
 void UPlayerHudWidget::RefreshGameTime(const int32 GameTime)
 {
 	GameTimeWidget->Refresh(GameTime);

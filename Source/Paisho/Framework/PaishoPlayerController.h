@@ -15,22 +15,41 @@ class PAISHO_API APaishoPlayerController : public APlayerController
 	
 public:
 	APaishoPlayerController();
+	
+	
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
-	
+	/* Sync Time Between Server and Client */
 public:
+	float GetServerTime();
+	virtual void ReceivedPlayer() override; // Sync with server clock as soon as possible
+protected:
+	UFUNCTION(Server, Reliable)
+	void ServerRequestServerTime(float TimeOfClientRequest); // Client -> Server
+
+	UFUNCTION(Client, Reliable)
+	void ClientReportServerTime(float TimeOfClientRequest, float TimeServerReceivedClientRequest); // Server -> Client
+
+	UPROPERTY(EditAnywhere, Category = "Time Sync")
+	float TimeSyncFrequency = 5.0; // How often to recalibrate client server delta
+
+	void PollClientServerTimeSync(float DeltaSeconds);
+	float ClientServerDelta = 0.0; // Current approx time delta between client and server
+	float TimeSinceLastSync = 0.0; // How long since last time sync
+
 	/* Player HUD */
+public:
 	void BindHealthComponentToHud(TObjectPtr<UHealthComponent> HealthComponent);
 	void BindXpComponentToHud(TObjectPtr<UXpComponent> XpComponent);
+	void SetMatchGameTime(const float GameTime);
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UPlayerHudWidget> PlayerHud;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UPlayerHudWidget> PlayerHudClass;
-	/* Player HUD */
 	
 };
