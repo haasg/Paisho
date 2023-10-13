@@ -28,27 +28,24 @@ void AStage::BeginPlay()
 
 void AStage::Tick(float DeltaSeconds)
 {
-	check(HasAuthority()); // should only exist on the server
+	check(HasAuthority()); // this actor should only exist on the server
 	
 	Super::Tick(DeltaSeconds);
 
 	float GameTime = 0;
-	FVector PlayerLocation = FVector::ZeroVector;
-	// cache this
+
 	if(APaishoGameState* GS = Cast<APaishoGameState>(GetWorld()->GetGameState()))
 	{
 		GameTime = GS->GetGameTime();
-		PlayerLocation = GS->GetPlayerLocation();
-	} else
-	{
-		ERROR("GameState is not of type APaishoGameState");
-	}
-	
-	for(const auto& Wave : Waves)
-	{
-		Wave->Poll(GameTime, PlayerLocation);
-	}
-	
+		if(TOptional<FVector> MaybePlayerLocation = GS->ServerGetRandomPlayerLocation())
+		{
+			const FVector PlayerLocation = MaybePlayerLocation.GetValue();
+			for(const auto& Wave : Waves)
+            {
+            	Wave->Poll(GameTime, PlayerLocation);
+            }
+		}
+	} ELSE_ERROR("GameState is not of type APaishoGameState")
 }
 
 void AStage::Init(UStageData* NewStageData)

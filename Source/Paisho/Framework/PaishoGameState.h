@@ -16,22 +16,25 @@ public:
 
 	APaishoGameState();
 	virtual void BeginPlay() override;
+
 	virtual void Tick(float DeltaSeconds) override;
 
 	UFUNCTION(BlueprintCallable)
 	FText GetGameTimeText();
 
 	float GetGameTime();
-	// will need to account for all players eventually
-	FVector GetPlayerLocation();
-	
+
+	/* Player Locations */
+	TOptional<FVector> ServerGetClosestPlayerTo(const FVector& Location);
+	TOptional<FVector> ServerGetRandomPlayerLocation();
 protected:
-	/* REPLICATE THIS FROM GAMEMODE EVENTUALLY */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float GameTime;
+	void ServerCachePlayerLocations();
 
+	UPROPERTY(VisibleAnywhere)
+	TArray<FVector> PlayerLocations;
 
-
+	
+	/* Villains */
 public:
 	void RegisterVillain(TObjectPtr<APaishoVillain> Villain);
 	void UnregisterVillain(TObjectPtr<APaishoVillain> Villain);
@@ -41,4 +44,9 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere)
 	TArray<TObjectPtr<APaishoVillain>> AliveVillains;
+
+	/* REPLICATE THIS FROM GAMEMODE EVENTUALLY */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float GameTime;
+
 };

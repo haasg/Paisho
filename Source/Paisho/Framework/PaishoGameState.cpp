@@ -2,6 +2,7 @@
 
 #include "GameFramework/PlayerState.h"
 #include "Paisho/Character/PaishoVillain.h"
+#include "Paisho/Util/DebugUtil.h"
 
 APaishoGameState::APaishoGameState()
 {
@@ -21,21 +22,66 @@ void APaishoGameState::Tick(float DeltaSeconds)
 
 	/* REPLICATE THIS FROM GAMEMODE EVENTUALLY */
 	GameTime += DeltaSeconds;
+
+	if(HasAuthority()) { ServerCachePlayerLocations(); }
 }
+
+void APaishoGameState::ServerCachePlayerLocations()
+{
+	PlayerLocations.Empty();
+	for(const auto& PlayerState : PlayerArray)
+	{
+		if(IsValid(PlayerState))
+		{
+			PlayerLocations.Add(PlayerState->GetPawn()->GetActorLocation());
+		}
+	}
+}
+
+
 
 float APaishoGameState::GetGameTime()
 {
 	return GameTime;
 }
 
-FVector APaishoGameState::GetPlayerLocation()
+TOptional<FVector> APaishoGameState::ServerGetClosestPlayerTo(const FVector& Location)
 {
-	// TODO: FIGURE THIS OUT
 	if(HasAuthority())
 	{
-		return PlayerArray[0]->GetPawn()->GetActorLocation();
+		TOptional<FVector> ClosestPlayerLocation = TOptional<FVector>();
+		float ClosestDistanceSquared = FLT_MAX;
+		for(const auto& PlayerLocation : PlayerLocations)
+		{
+			const float DistanceSquared = FVector::DistSquared(Location, PlayerLocation);
+			if(DistanceSquared < ClosestDistanceSquared)
+			{
+				ClosestPlayerLocation = TOptional(PlayerLocation);
+				ClosestDistanceSquared = DistanceSquared;
+			}
+		}
+		return ClosestPlayerLocation;
+	} 
+
+
+    checkf(false, TEXT("ServerGetClosestPlayerTo called on client"));
+	return TOptional<FVector>();
+}
+
+TOptional<FVector> APaishoGameState::ServerGetRandomPlayerLocation()
+{
+	if(HasAuthority())
+	{
+		if (PlayerLocations.Num() > 0)
+		{
+			const int32 RandomIndex = FMath::RandRange(0, PlayerLocations.Num() - 1);
+			return TOptional(PlayerLocations[RandomIndex]);
+		}
+		return TOptional<FVector>();
 	}
-	return FVector::ZeroVector;
+	
+	checkf(false, TEXT("ServerGetRandomPlayerLocation called on client"));
+	return TOptional<FVector>();
 }
 
 
