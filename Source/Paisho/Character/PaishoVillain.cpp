@@ -49,7 +49,9 @@ void APaishoVillain::BeginPlay()
 	} ELSE_ERROR("Villain BeginPlay with nullptr VillainData");
 
 	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HandleOverlap);
+	
 	Health->OnDeath.AddDynamic(this, &ThisClass::OnDeath);
+
 
 	if(const TObjectPtr<APaishoGameState> GameState = GetWorld()->GetGameState<APaishoGameState>())
 	{
@@ -94,7 +96,8 @@ void APaishoVillain::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
 
-	if(PickupData)
+	
+	if(HasAuthority() && PickupData)
 	{
 		if(const TObjectPtr<UWorld> World = GetWorld())
 		{
@@ -102,6 +105,7 @@ void APaishoVillain::EndPlay(const EEndPlayReason::Type EndPlayReason)
 			World->SpawnActor<APickup>(PickupData->GetPickupClass(), VillainTransform);
 		}
 	}
+	
 	if(const TObjectPtr<APaishoGameState> GameState = GetWorld()->GetGameState<APaishoGameState>())
 	{
 		GameState->UnregisterVillain(this);

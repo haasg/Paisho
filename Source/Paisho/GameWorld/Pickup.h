@@ -17,9 +17,10 @@ class APickup : public AActor
 public:
 	APickup();
 
-	void PickedUpBy(TObjectPtr<AActor> PickedUpBy);
+	void ServerOnlyPickedUpBy(TObjectPtr<AActor> PickedUpBy);
 
-
+	UFUNCTION(NetMulticast, Reliable)
+	void MultiCastPickUpBy(AActor* PickedUpBy);
 
 protected:
 	virtual void BeginPlay() override;

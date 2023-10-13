@@ -20,7 +20,19 @@ void APickup::BeginPlay()
 	Super::BeginPlay();
 }
 
-void APickup::PickedUpBy(const TObjectPtr<AActor> PickedUpBy)
+void APickup::ServerOnlyPickedUpBy(const TObjectPtr<AActor> PickedUpBy)
+{
+	if(HasAuthority())
+	{
+		CapsuleComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		PickedUpByActor = PickedUpBy;
+		ActivateTimeline();
+		MultiCastPickUpBy(PickedUpBy);
+	}
+
+}
+
+void APickup::MultiCastPickUpBy_Implementation(AActor* PickedUpBy)
 {
 	CapsuleComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	PickedUpByActor = PickedUpBy;

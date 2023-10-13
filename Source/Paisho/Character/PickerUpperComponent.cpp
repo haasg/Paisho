@@ -35,7 +35,7 @@ void UPickerUpperComponent::HandleOverlap(UPrimitiveComponent* OverlappedCompone
 	{
 		if(const TObjectPtr<APickup> Pickup = Cast<APickup>(OtherActor))
 		{
-			Pickup->PickedUpBy(Owner);
+			Pickup->ServerOnlyPickedUpBy(Owner);
 		}
 	}
 }
