@@ -6,6 +6,7 @@
 #include "XpComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnXpChangedEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLevelUpEvent, int, NewLevel);
 
 /* Probably some premature optimization here, but seems pretty encapsulated */
 USTRUCT()
@@ -45,6 +46,9 @@ public:
 	
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnXpChangedEvent OnXpChanged;
+
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnLevelUpEvent OnLevelUp;
 
 protected:
 	void CleanCacheIfDirty();

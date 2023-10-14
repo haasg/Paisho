@@ -9,9 +9,17 @@ UXpComponent::UXpComponent(): XpInfoCache()
 
 void UXpComponent::AddXp(const int32 Amount)
 {
+	const int PreAddXpLevel = CurrentLevel();
 	bIsDirty = true;
 	Xp += Amount;
 	OnXpChanged.Broadcast();
+	const int PostAddXpLevel = CurrentLevel();
+	
+	check(PostAddXpLevel >= PreAddXpLevel);
+	if(PreAddXpLevel != PostAddXpLevel)
+	{
+		OnLevelUp.Broadcast(PostAddXpLevel);
+	}
 }
 
 float UXpComponent::CurrentXp() const

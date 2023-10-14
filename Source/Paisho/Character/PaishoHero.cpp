@@ -86,23 +86,16 @@ void APaishoHero::BeginPlay()
 		PaishoController = PC;
 		PaishoController->BindHealthComponentToHud(HealthComponent);
 		PaishoController->BindXpComponentToHud(XpComponent);
-	}
-	else
-	{
-		ERROR("Hero BeginPlay with invalid controller");
-	}
+	} ELSE_ERROR("Hero BeginPlay with invalid controller")
 
 	if(HeroData)
 	{
 		HealthComponent->Init(HeroData->StartingHealth, HeroData->StartingHealth);
 		HealthBarComponent->Init(HealthComponent);
 		GetCharacterMovement()->MaxWalkSpeed = HeroData->MovementSpeed;
-	}
-	else
-	{
-		ERROR("Hero BeginPlay with nullptr HeroData");
-	}
+	} ELSE_ERROR("Hero BeginPlay with nullptr HeroData")
 
+	XpComponent->OnLevelUp.AddDynamic(this, &APaishoHero::HandleLevelUp);
 	if(StartingKit)
 	{
 		for(auto& WeaponData : StartingKit->Weapons)
@@ -168,6 +161,11 @@ void APaishoHero::OnPickup(UPickupData* PickupData)
 			break;
 		}
 	}
+}
+
+void APaishoHero::HandleLevelUp(int NewLevel)
+{
+	PRINT("WE LEVELED UP!");
 }
 
 FVector APaishoHero::GetFacingDirection()

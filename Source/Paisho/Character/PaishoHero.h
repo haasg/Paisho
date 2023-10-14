@@ -78,6 +78,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<UArsenalComponent> Arsenal;
 
+	UFUNCTION()
+	void HandleLevelUp(int NewLevel);
 	/* End Combat Components */
 
 	/* Visual+Movement Components */
