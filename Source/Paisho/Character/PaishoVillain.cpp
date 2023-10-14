@@ -95,7 +95,6 @@ void APaishoVillain::OnDeath()
 void APaishoVillain::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-
 	
 	if(HasAuthority() && PickupData)
 	{
