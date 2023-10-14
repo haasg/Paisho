@@ -8,6 +8,10 @@
 
 AProjectile::AProjectile()
 {
+	bReplicates = true;
+	AActor::SetReplicateMovement(true);
+	bAlwaysRelevant = true;
+	
 	CollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
 	CollisionCapsule->SetCollisionProfileName(FName("Projectile"));
 	RootComponent = CollisionCapsule;
@@ -24,6 +28,7 @@ AProjectile::AProjectile()
 	MovementComponent->MaxSpeed = 1000.f;
 	MovementComponent->ProjectileGravityScale = 0.f;
 	MovementComponent->bShouldBounce = false;
+	MovementComponent->SetIsReplicated(true);
 }
 
 void AProjectile::BeginPlay()

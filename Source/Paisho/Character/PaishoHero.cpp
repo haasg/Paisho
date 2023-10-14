@@ -86,7 +86,7 @@ void APaishoHero::BeginPlay()
 		PaishoController = PC;
 		PaishoController->BindHealthComponentToHud(HealthComponent);
 		PaishoController->BindXpComponentToHud(XpComponent);
-	} ELSE_ERROR("Hero BeginPlay with invalid controller")
+	}
 
 	if(HeroData)
 	{
@@ -122,9 +122,8 @@ void APaishoHero::Tick(float DeltaSeconds)
 	}
 	
 	//PRINT("LOCATION: %s", *GetActorLocation().ToString());
-
 	
-	if(Arsenal) // probably has authority here
+	if(Arsenal && HasAuthority()) 
 	{
 		Arsenal->Poll(DeltaSeconds);
 	}
