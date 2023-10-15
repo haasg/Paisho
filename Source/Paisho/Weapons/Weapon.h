@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
 
+class AProjectile;
 class UWeaponData;
 
 UCLASS()
@@ -22,6 +23,9 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UWeaponData* WeaponData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AProjectile> ProjectileClass;
 
 	UPROPERTY(VisibleAnywhere)
 	float SecondsSinceLastFire = FLT_MAX;

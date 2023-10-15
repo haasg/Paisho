@@ -20,8 +20,10 @@ public:
 	AProjectile();
 
 	virtual void BeginPlay() override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	/* Save yourself the headache and use this API */
+	void SetWeaponData(UWeaponData* NewWeaponData) { WeaponData = NewWeaponData; }
 	void SetSprite(UPaperSprite* Sprite);
 	void SetRotation(const FRotator& Rotation);
 	void SetLocation(const FVector& Location);
@@ -38,18 +40,21 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* MovementComponent;
-
+	
 	UPROPERTY(VisibleAnywhere)
 	float DamagePerHit;
 
 	UPROPERTY(VisibleAnywhere)
 	float CurrentPenetration;
 
-private:
+protected:
 	UFUNCTION()
 	void HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	// UWeaponData* WeaponData;
+	UFUNCTION()
+	void OnRep_WeaponData();
+
+	UPROPERTY(ReplicatedUsing = OnRep_WeaponData, VisibleAnywhere)
+	UWeaponData* WeaponData;
 	
 };

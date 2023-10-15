@@ -3,7 +3,9 @@
 #include "PaperSpriteComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Net/UnrealNetwork.h"
 #include "Paisho/Character/HealthComponent.h"
+#include "Paisho/Data/WeaponData.h"
 #include "Paisho/Util/DebugUtil.h"
 
 AProjectile::AProjectile()
@@ -35,9 +37,17 @@ void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 
+	
+
 	CollisionCapsule->OnComponentBeginOverlap.AddDynamic(this, &AProjectile::HandleOverlap);
 }
 
+void AProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AProjectile, WeaponData);
+}
 
 
 void AProjectile::SetSprite(UPaperSprite* Sprite)
@@ -80,6 +90,16 @@ void AProjectile::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 		Health->TakeDamage(1.f);
 	}
 	//PRINT("Projectile hit %s", *OtherActor->GetName());
+}
+
+void AProjectile::OnRep_WeaponData()
+{
+	PRINT("ON REP WEAPON DATA");
+	if(WeaponData)
+	{
+		SetSprite(WeaponData->GetProjectileSprite());
+	}
+	
 }
 
 
