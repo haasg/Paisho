@@ -14,18 +14,25 @@ void AFireBlast::Fire()
 		const TObjectPtr<APaishoVillain> RandomVillain = GameState->GetRandomVillain();
 		if(IsValid(RandomVillain))
 		{
+			
+			
+
+			
+			
+			
+			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
+			Projectile->SetLocation(MyLocation);
+			Projectile->SetWeaponData(WeaponData);
+			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
+			
 			const FVector RandomVillainLocation = RandomVillain->GetActorLocation();
 			const FVector UnitVectorToRandomVillain = (RandomVillainLocation - MyLocation).GetSafeNormal();
+			Projectile->SetDirection(UnitVectorToRandomVillain);
+
+			
 			const FRotator AngleToRandomVillain = UnitVectorToRandomVillain.Rotation();
 			const FRotator SpriteRotation = FRotator(180, 180, 0);
 			const FRotator ProjectileRotation = AngleToRandomVillain + SpriteRotation;
-			
-			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass(), MyLocation, ProjectileRotation);
-			Projectile->SetLocation(MyLocation);
-			Projectile->SetWeaponData(WeaponData);
-			//Projectile->SetSprite(WeaponData->GetProjectileSprite());
-			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
-			Projectile->SetDirection(UnitVectorToRandomVillain);
 			Projectile->SetRotation(ProjectileRotation);
 		}
 	} ELSE_ERROR("FireBlast::Fire with nullptr GameState")

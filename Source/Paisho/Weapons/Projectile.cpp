@@ -57,7 +57,7 @@ void AProjectile::SetSprite(UPaperSprite* Sprite)
 
 void AProjectile::SetRotation(const FRotator& Rotation)
 {
-	SpriteComponent->AddRelativeRotation(Rotation);
+	CollisionCapsule->AddRelativeRotation(Rotation);
 }
 
 void AProjectile::SetLocation(const FVector& Location)
@@ -89,17 +89,19 @@ void AProjectile::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 	{
 		Health->TakeDamage(1.f);
 	}
-	//PRINT("Projectile hit %s", *OtherActor->GetName());
 }
 
-void AProjectile::OnRep_WeaponData()
+void AProjectile::UpdateProjectileFromData()
 {
-	PRINT("ON REP WEAPON DATA");
 	if(WeaponData)
 	{
 		SetSprite(WeaponData->GetProjectileSprite());
 	}
-	
+}
+
+void AProjectile::OnRep_WeaponData()
+{
+	UpdateProjectileFromData();
 }
 
 
