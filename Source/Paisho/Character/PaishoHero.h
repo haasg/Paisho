@@ -29,6 +29,7 @@ class PAISHO_API APaishoHero : public APaperZDCharacter , public IPickupInterfac
 
     virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -95,6 +96,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UArrowComponent> SpriteDirectionLeftRight; // keeps a record of the last left-right direction the character moved in, useful for knowing things like if the player sprite is facing right or left even if they're just moving up
 
+	/* Called locally to propagate the movement intent to the server */
+	UFUNCTION(BlueprintCallable)
+	void LocalSetMovementIntent(const FVector& NewMovementIntent);
+
+	UFUNCTION(Server, Reliable)
+	void ServerSetMovementIntent(const FVector& NewMovementIntent);
+
+	void UpdateMovementIntent(const FVector& NewMovementIntent);
+
+	UFUNCTION()
+	void OnRep_MovementIntent();
+	
+	UPROPERTY(ReplicatedUsing = OnRep_MovementIntent)
+	FVector MovementIntent;
+	
 	FVector GetFacingDirection();
 	FVector2d GetFacingDirection2d();
 	float GetSpriteLeftRightDirection();

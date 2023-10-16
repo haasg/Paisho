@@ -13,6 +13,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Net/UnrealNetwork.h"
 #include "Paisho/Data/HeroData.h"
 #include "Paisho/Data/PickupData.h"
 #include "Paisho/Framework/PaishoPlayerController.h"
@@ -129,6 +130,13 @@ void APaishoHero::Tick(float DeltaSeconds)
 	}
 }
 
+void APaishoHero::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(APaishoHero, MovementIntent);
+}
+
 void APaishoHero::OnPickup(UPickupData* PickupData)
 {
 	switch(PickupData->GetType())
@@ -165,6 +173,38 @@ void APaishoHero::OnPickup(UPickupData* PickupData)
 void APaishoHero::HandleLevelUp(int NewLevel)
 {
 	PRINT("WE LEVELED UP!");
+}
+
+
+void APaishoHero::LocalSetMovementIntent(const FVector& NewMovementIntent)
+{
+	/* Tell server we want to move in a new direction */
+	ServerSetMovementIntent(NewMovementIntent);
+	/* Immediately update visual elements locally for responsiveness */ 
+	UpdateMovementIntent(NewMovementIntent);
+}
+
+void APaishoHero::ServerSetMovementIntent_Implementation(const FVector& NewMovementIntent)
+{
+	/* MovementIntent will be replicated to simulated proxies */
+	UpdateMovementIntent(NewMovementIntent);
+}
+
+void APaishoHero::OnRep_MovementIntent()
+{
+	UpdateMovementIntent(this->MovementIntent);
+}
+
+void APaishoHero::UpdateMovementIntent(const FVector& NewMovementIntent)
+{
+	MovementIntent = NewMovementIntent;
+	
+	FacingDirection2d->SetWorldRotation(MovementIntent.Rotation());
+	
+	const FVector Direction = FVector(MovementIntent.X, 0, 0);
+	SpriteDirectionLeftRight->SetWorldRotation(Direction.Rotation());
+
+	
 }
 
 FVector APaishoHero::GetFacingDirection()
