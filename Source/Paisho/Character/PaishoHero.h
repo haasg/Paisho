@@ -103,6 +103,7 @@ public:
 	UFUNCTION(Server, Reliable)
 	void ServerSetMovementIntent(const FVector& NewMovementIntent);
 
+	/* Updates the visual+arrow components to reflect the new movement intent */
 	void UpdateMovementIntent(const FVector& NewMovementIntent);
 
 	UFUNCTION()

@@ -198,13 +198,19 @@ void APaishoHero::OnRep_MovementIntent()
 void APaishoHero::UpdateMovementIntent(const FVector& NewMovementIntent)
 {
 	MovementIntent = NewMovementIntent;
-	
-	FacingDirection2d->SetWorldRotation(MovementIntent.Rotation());
-	
-	const FVector Direction = FVector(MovementIntent.X, 0, 0);
-	SpriteDirectionLeftRight->SetWorldRotation(Direction.Rotation());
 
-	
+	const FVector CurrentFacingDirection = GetFacingDirection();
+	if(NewMovementIntent != CurrentFacingDirection)
+	{
+		FacingDirection2d->SetWorldRotation(MovementIntent.Rotation());	
+	}
+
+	const float CurrentLeftRight = GetSpriteLeftRightDirection();
+	if(NewMovementIntent.X != CurrentLeftRight && NewMovementIntent.X != 0)
+	{
+		const FVector Direction = FVector(MovementIntent.X, 0, 0);
+		SpriteDirectionLeftRight->SetWorldRotation(Direction.Rotation());
+	}
 }
 
 FVector APaishoHero::GetFacingDirection()
