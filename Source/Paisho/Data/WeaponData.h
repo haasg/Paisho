@@ -5,6 +5,7 @@
 #include "Engine/DataAsset.h"
 #include "WeaponData.generated.h"
 
+class AProjectile;
 class AWeapon;
 class UPaperSprite;
 class UPaperFlipbook;
@@ -23,7 +24,8 @@ public:
 	float PrimarySecondsPerShot() const;
 	float GetProjectileSpeed() const;
 	TObjectPtr<UPaperSprite> GetProjectileSprite() const;
-	
+
+	TSubclassOf<AProjectile> GetProjectileClass() { return ProjectileClass; }
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -32,7 +34,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FireRate")
 	FWeaponFireType FireType;
 	
-
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AProjectile> ProjectileClass;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
 	TObjectPtr<UPaperSprite> ProjectileSprite;

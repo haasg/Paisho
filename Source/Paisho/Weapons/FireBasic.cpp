@@ -14,7 +14,7 @@ void AFireBasic::Fire()
 		const TObjectPtr<APaishoVillain> ClosestVillain = GameState->GetClosestVillainTo(MyLocation);
 		if(IsValid(ClosestVillain))
 		{
-			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
+			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(WeaponData->GetProjectileClass());
 			Projectile->SetLocation(MyLocation);
 			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
 			
