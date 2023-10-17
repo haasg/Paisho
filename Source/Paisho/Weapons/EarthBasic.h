@@ -9,12 +9,5 @@ class PAISHO_API AEarthBasic : public AWeapon
 {
 	GENERATED_BODY()
 
-public:
-	AEarthBasic();
-
-protected:
-	virtual void BeginPlay() override;
-
-public:
-	virtual void Tick(float DeltaTime) override;
+	virtual void Fire() override;
 };

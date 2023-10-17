@@ -14,12 +14,6 @@ void AFireBlast::Fire()
 		const TObjectPtr<APaishoVillain> RandomVillain = GameState->GetRandomVillain();
 		if(IsValid(RandomVillain))
 		{
-			
-			
-
-			
-			
-			
 			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
 			Projectile->SetLocation(MyLocation);
 			Projectile->SetWeaponData(WeaponData);

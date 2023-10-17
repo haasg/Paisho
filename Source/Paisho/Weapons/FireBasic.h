@@ -9,12 +9,6 @@ class PAISHO_API AFireBasic : public AWeapon
 {
 	GENERATED_BODY()
 
-public:
-	AFireBasic();
+	virtual void Fire() override;
 
-protected:
-	virtual void BeginPlay() override;
-
-public:
-	virtual void Tick(float DeltaTime) override;
 };
