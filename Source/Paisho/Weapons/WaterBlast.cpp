@@ -17,7 +17,7 @@ void AWaterBlast::Fire()
 			const FVector ClosestVillainLocation = ClosestVillain->GetActorLocation();
 			const FVector UnitVectorToClosestVillain = (ClosestVillainLocation - MyLocation).GetSafeNormal();
 			
-			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass);
+			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
 			Projectile->SetLocation(MyLocation);
 			Projectile->SetSprite(WeaponData->GetProjectileSprite());
 			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());

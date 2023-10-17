@@ -10,5 +10,4 @@ class PAISHO_API AFireBasic : public AWeapon
 	GENERATED_BODY()
 
 	virtual void Fire() override;
-
 };

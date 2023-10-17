@@ -24,8 +24,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UWeaponData* WeaponData;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AProjectile> ProjectileClass;
+	UPROPERTY(VisibleAnywhere)
+	int Level = 1;
 
 	UPROPERTY(VisibleAnywhere)
 	float SecondsSinceLastFire = FLT_MAX;
