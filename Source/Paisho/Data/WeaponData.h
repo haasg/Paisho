@@ -23,6 +23,7 @@ public:
 	float PrimaryRpm() const;
 	float PrimarySecondsPerShot() const;
 	float GetProjectileSpeed() const;
+	float GetDamage() const;
 	TObjectPtr<UPaperSprite> GetProjectileSprite() const;
 
 	TSubclassOf<AProjectile> GetProjectileClass() { return ProjectileClass; }
@@ -40,11 +41,17 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
 	TObjectPtr<UPaperSprite> ProjectileSprite;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UCurveTable> ProjectileCurveTable;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UDataTable> ProjectileDataTable;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
 	float ProjectileSpeed = 1000.0;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
-	float ProjectileDamage = 10.0;
+	float ProjectileDamage = 1.0;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
 	float ProjectileLifeTime = 5.0;

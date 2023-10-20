@@ -15,6 +15,7 @@ void AFireBasic::Fire()
 		if(IsValid(ClosestVillain))
 		{
 			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(WeaponData->GetProjectileClass());
+			Projectile->SetWeaponData(WeaponData);
 			Projectile->SetLocation(MyLocation);
 			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
 			
@@ -27,7 +28,7 @@ void AFireBasic::Fire()
 			const FRotator ProjectileRotation = AngleToVillain + SpriteRotation;
 			Projectile->SetRotation(ProjectileRotation);
 			
-			Projectile->SetWeaponData(WeaponData);
+			
 		}
 	} ELSE_ERROR("FireBlast::Fire with nullptr GameState")
 }
