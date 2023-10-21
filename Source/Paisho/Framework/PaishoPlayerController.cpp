@@ -3,7 +3,8 @@
 #include "Blueprint/UserWidget.h"
 #include "Paisho/Character/HealthComponent.h"
 #include "Paisho/UI/PlayerHudWidget.h"
-#include "Paisho/Util/DebugUtil.h"
+#include "PaishoCommonController.h"
+#include "Paisho/Character/XpComponent.h"
 
 APaishoPlayerController::APaishoPlayerController()
 {
@@ -89,9 +90,10 @@ void APaishoPlayerController::SetMatchGameTime(const float GameTime)
 
 void APaishoPlayerController::BindToLevelUp(TObjectPtr<UXpComponent> XpComponent)
 {
-	
+	XpComponent->OnLevelUp.AddDynamic(this, &ThisClass::ShowLevelUpMenu);
 }
 
-void APaishoPlayerController::ShowLevelUpMenu()
+void APaishoPlayerController::ShowLevelUpMenu(int NewLevel)
 {
+	PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
 }

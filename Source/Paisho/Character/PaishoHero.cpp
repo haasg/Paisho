@@ -85,8 +85,12 @@ void APaishoHero::BeginPlay()
 	if(const TObjectPtr<APaishoPlayerController> PC = Cast<APaishoPlayerController>(Controller))
 	{
 		PaishoController = PC;
-		PaishoController->BindHealthComponentToHud(HealthComponent);
-		PaishoController->BindXpComponentToHud(XpComponent);
+		if(IsLocallyControlled())
+		{
+			PaishoController->BindHealthComponentToHud(HealthComponent);
+			PaishoController->BindXpComponentToHud(XpComponent);
+			PaishoController->BindToLevelUp(XpComponent);
+		}
 	}
 
 	if(HeroData)
@@ -95,8 +99,7 @@ void APaishoHero::BeginPlay()
 		HealthBarComponent->Init(HealthComponent);
 		GetCharacterMovement()->MaxWalkSpeed = HeroData->MovementSpeed;
 	} ELSE_ERROR("Hero BeginPlay with nullptr HeroData")
-
-	XpComponent->OnLevelUp.AddDynamic(this, &APaishoHero::HandleLevelUp);
+	
 	if(StartingKit)
 	{
 		for(auto& WeaponData : StartingKit->Weapons)
@@ -169,12 +172,6 @@ void APaishoHero::OnPickup(UPickupData* PickupData)
 		}
 	}
 }
-
-void APaishoHero::HandleLevelUp(int NewLevel)
-{
-	PRINT("WE LEVELED UP!");
-}
-
 
 void APaishoHero::LocalSetMovementIntent(const FVector& NewMovementIntent)
 {

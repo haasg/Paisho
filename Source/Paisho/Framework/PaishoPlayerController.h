@@ -56,7 +56,7 @@ public:
 
 
 	UFUNCTION()
-	void ShowLevelUpMenu();
+	void ShowLevelUpMenu(int NewLevel);
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UCommonActivatableWidget> LevelUpMenu;
