@@ -19,9 +19,10 @@ void AWaterBlast::Fire()
 			
 			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
 			Projectile->SetWeaponData(WeaponData);
+			Projectile->SetLevel(Level);
 			Projectile->SetLocation(MyLocation);
 			Projectile->SetSprite(WeaponData->GetProjectileSprite());
-			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
+			Projectile->SetSpeed(WeaponData->GetSpeed(Level));
 			Projectile->SetDirection(UnitVectorToClosestVillain);
 			const FRotator AngleToClosestVillain = UnitVectorToClosestVillain.Rotation();
 			const FRotator SpriteRotation = FRotator(0, 180, 0);

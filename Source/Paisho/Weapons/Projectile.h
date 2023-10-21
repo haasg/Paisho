@@ -24,6 +24,7 @@ public:
 
 	/* Save yourself the headache and use this API */
 	void SetWeaponData(UWeaponData* NewWeaponData) { WeaponData = NewWeaponData; UpdateProjectileFromData(); }
+	void SetLevel(int NewLevel) { this->Level = NewLevel; };
 	void SetSprite(UPaperSprite* Sprite);
 	void SetRotation(const FRotator& Rotation);
 	void SetLocation(const FVector& Location);
@@ -40,9 +41,10 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* MovementComponent;
-	
+
+	// TODO: probably need to replicate this
 	UPROPERTY(VisibleAnywhere)
-	float DamagePerHit;
+	int Level = -1;
 
 	UPROPERTY(VisibleAnywhere)
 	float CurrentPenetration;

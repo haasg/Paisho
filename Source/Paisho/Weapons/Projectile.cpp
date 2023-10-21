@@ -87,8 +87,8 @@ void AProjectile::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 {
 	if(UHealthComponent* Health = OtherActor->FindComponentByClass<UHealthComponent>())
 	{
-		Health->TakeDamage(WeaponData->GetDamage());
-		HitParticleFxEvent(WeaponData->GetDamage());
+		Health->TakeDamage(WeaponData->GetDamage(Level));
+		HitParticleFxEvent(WeaponData->GetDamage(Level));
 	}
 }
 

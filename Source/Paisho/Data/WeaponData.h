@@ -23,10 +23,14 @@ public:
 	
 	float PrimaryRpm() const;
 	float PrimarySecondsPerShot() const;
-	float GetProjectileSpeed() const;
-	float GetDamage() const;
+	
+	float GetDamage(const int Level) const;
+	float GetSpeed(const int Level) const;
+	float GetLifetime(const int Level) const;
+	float GetScale(const int Level) const;
+	float GetMaxHits(const int Level) const;
+	
 	TObjectPtr<UPaperSprite> GetProjectileSprite() const;
-
 	TSubclassOf<AProjectile> GetProjectileClass() { return ProjectileClass; }
 
 protected:
@@ -42,22 +46,22 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
 	TObjectPtr<UPaperSprite> ProjectileSprite;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 	TObjectPtr<UCurveTable> ProjectileCurveTable;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FScalableFloat ProjectileDamage2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
+	FScalableFloat ProjectileDamage;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
-	float ProjectileSpeed = 1000.0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
+	FScalableFloat ProjectileSpeed;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
-	float ProjectileDamage = 1.0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
+	FScalableFloat ProjectileLifetime;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
-	float ProjectileLifeTime = 5.0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
+	FScalableFloat ProjectileScale;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
-	float ProjectileScale = 1.0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
+	FScalableFloat ProjectileMaxHits;
 	
 };

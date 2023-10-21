@@ -17,23 +17,32 @@ float UWeaponData::PrimarySecondsPerShot() const
 	return 60.f / FireType.PrimaryRpm;
 }
 
-float UWeaponData::GetProjectileSpeed() const
+float UWeaponData::GetSpeed(const int Level) const
 {
-	return ProjectileSpeed;
+	return ProjectileSpeed.GetValueAtLevel(Level);
 }
 
-float UWeaponData::GetDamage() const
+float UWeaponData::GetLifetime(const int Level) const
 {
-	if(ProjectileCurveTable)
-	{
-		// if(FSimpleCurve* DamageCurve = ProjectileCurveTable->FindSimpleCurve("Projectile.Damage", "Getting Damage", true)
-		// {
-		// 	
-		// }
-			
-	}
-	return ProjectileDamage;
+	return ProjectileLifetime.GetValueAtLevel(Level);
 }
+
+float UWeaponData::GetScale(const int Level) const
+{
+	return ProjectileScale.GetValueAtLevel(Level);
+}
+
+float UWeaponData::GetMaxHits(const int Level) const
+{
+	return ProjectileMaxHits.GetValueAtLevel(Level);
+}
+
+float UWeaponData::GetDamage(const int Level) const
+{
+	return ProjectileDamage.GetValueAtLevel(Level);
+}
+
+
 
 TObjectPtr<UPaperSprite> UWeaponData::GetProjectileSprite() const
 {

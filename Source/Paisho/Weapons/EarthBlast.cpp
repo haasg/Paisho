@@ -17,9 +17,10 @@ void AEarthBlast::Fire()
 		
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
 		Projectile->SetWeaponData(WeaponData);
+		Projectile->SetLevel(Level);
 		Projectile->SetLocation(GetActorLocation());
 		
-		Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
+		Projectile->SetSpeed(WeaponData->GetSpeed(Level));
 		Projectile->SetDirection(ShootingDirection);
 		if(FacingDirection < 0)
 		{

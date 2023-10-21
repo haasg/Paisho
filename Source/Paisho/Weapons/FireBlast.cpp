@@ -15,9 +15,10 @@ void AFireBlast::Fire()
 		if(IsValid(RandomVillain))
 		{
 			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(AProjectile::StaticClass());
-			Projectile->SetLocation(MyLocation);
 			Projectile->SetWeaponData(WeaponData);
-			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
+			Projectile->SetLevel(Level);
+			Projectile->SetLocation(MyLocation);
+			Projectile->SetSpeed(WeaponData->GetSpeed(Level));
 			
 			const FVector RandomVillainLocation = RandomVillain->GetActorLocation();
 			const FVector UnitVectorToRandomVillain = (RandomVillainLocation - MyLocation).GetSafeNormal();

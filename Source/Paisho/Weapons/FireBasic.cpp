@@ -16,8 +16,9 @@ void AFireBasic::Fire()
 		{
 			AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(WeaponData->GetProjectileClass());
 			Projectile->SetWeaponData(WeaponData);
+			Projectile->SetLevel(Level);
 			Projectile->SetLocation(MyLocation);
-			Projectile->SetSpeed(WeaponData->GetProjectileSpeed());
+			Projectile->SetSpeed(WeaponData->GetSpeed(Level));
 			
 			const FVector VillainLocation = ClosestVillain->GetActorLocation();
 			const FVector UnitVectorToVillain = (VillainLocation - MyLocation).GetSafeNormal();
