@@ -16,7 +16,7 @@ enum class EWidgetLayer : uint8
 	Prompt
 };
 
-UCLASS()
+UCLASS(Abstract)
 class UBaseWidget : public UCommonUserWidget	
 {
 	GENERATED_BODY()

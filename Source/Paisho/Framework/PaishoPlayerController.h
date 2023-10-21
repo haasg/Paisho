@@ -1,15 +1,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+#include "PaishoCommonController.h"
 #include "PaishoPlayerController.generated.h"
 
+class UCommonActivatableWidget;
 class UPlayerHudWidget;
 class UHealthComponent;
 class UXpComponent;
 
 UCLASS()
-class PAISHO_API APaishoPlayerController : public APlayerController
+class PAISHO_API APaishoPlayerController : public APaishoCommonController
 {
 	GENERATED_BODY()
 	
@@ -45,11 +46,22 @@ public:
 	void BindHealthComponentToHud(TObjectPtr<UHealthComponent> HealthComponent);
 	void BindXpComponentToHud(TObjectPtr<UXpComponent> XpComponent);
 	void SetMatchGameTime(const float GameTime);
+	void BindToLevelUp(TObjectPtr<UXpComponent> XpComponent);
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UPlayerHudWidget> PlayerHud;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UPlayerHudWidget> PlayerHudClass;
+
+
+	UFUNCTION()
+	void ShowLevelUpMenu();
+	
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UCommonActivatableWidget> LevelUpMenu;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UCommonActivatableWidget> LevelUpMenuClass;
 	
 };

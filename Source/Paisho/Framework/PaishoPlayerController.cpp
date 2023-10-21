@@ -86,3 +86,12 @@ void APaishoPlayerController::SetMatchGameTime(const float GameTime)
 		PlayerHud->SetMatchGameTime(GameTime);
 	}
 }
+
+void APaishoPlayerController::BindToLevelUp(TObjectPtr<UXpComponent> XpComponent)
+{
+	
+}
+
+void APaishoPlayerController::ShowLevelUpMenu()
+{
+}
