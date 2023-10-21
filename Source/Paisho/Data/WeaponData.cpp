@@ -24,6 +24,14 @@ float UWeaponData::GetProjectileSpeed() const
 
 float UWeaponData::GetDamage() const
 {
+	if(ProjectileCurveTable)
+	{
+		// if(FSimpleCurve* DamageCurve = ProjectileCurveTable->FindSimpleCurve("Projectile.Damage", "Getting Damage", true)
+		// {
+		// 	
+		// }
+			
+	}
 	return ProjectileDamage;
 }
 

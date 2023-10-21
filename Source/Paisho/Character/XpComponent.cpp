@@ -74,6 +74,7 @@ int UXpComponent::NextLevel()
 	return CurrentLevel() + 1;
 }
 
+/* this whole thing is nonsense, use FScalableFloat instead */
 void UXpComponent::CleanCacheIfDirty()
 {
 	if(bIsDirty == false)

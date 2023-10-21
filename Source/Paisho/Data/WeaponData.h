@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "WeaponFireType.h"
+#include "ScalableFloat.h"
 #include "Engine/DataAsset.h"
 #include "WeaponData.generated.h"
 
@@ -45,7 +46,7 @@ protected:
 	TObjectPtr<UCurveTable> ProjectileCurveTable;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UDataTable> ProjectileDataTable;
+	FScalableFloat ProjectileDamage2;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Projectile")
 	float ProjectileSpeed = 1000.0;
