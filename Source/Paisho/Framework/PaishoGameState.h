@@ -18,13 +18,14 @@ class PAISHO_API APaishoGameState : public AGameStateBase
 public:
 	APaishoGameState();
 	virtual void Tick(float DeltaSeconds) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	TObjectPtr<APaishoTeam> JoinTeam(TObjectPtr<APaishoPlayerController> Controller);
 	
 protected:
 	virtual void BeginPlay() override;
 
 	/* could support multiple teams in the future */
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(Replicated, VisibleAnywhere)
 	TObjectPtr<APaishoTeam> Team;
 
 	UPROPERTY(EditDefaultsOnly)
@@ -61,4 +62,5 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float GameTime;
 
+	int thing = 0;
 };

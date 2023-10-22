@@ -2,6 +2,7 @@
 
 #include "PaishoTeam.h"
 #include "GameFramework/PlayerState.h"
+#include "Net/UnrealNetwork.h"
 #include "Paisho/Character/PaishoVillain.h"
 #include "Paisho/Character/XpComponent.h"
 #include "Paisho/Util/DebugUtil.h"
@@ -10,14 +11,17 @@ APaishoGameState::APaishoGameState()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	GameTime = 0;
-
 	
 }
 
 void APaishoGameState::BeginPlay()
 {
 	Super::BeginPlay();
-	Team = GetWorld()->SpawnActor<APaishoTeam>(TeamStateClass);
+	if(HasAuthority())
+	{
+		Team = GetWorld()->SpawnActor<APaishoTeam>(TeamStateClass);	
+	}
+	
 }
 
 void APaishoGameState::Tick(float DeltaSeconds)
@@ -26,12 +30,22 @@ void APaishoGameState::Tick(float DeltaSeconds)
 
 	/* REPLICATE THIS FROM GAMEMODE EVENTUALLY */
 	GameTime += DeltaSeconds;
+	//PRINT("THING: %d", thing);
+	thing++;
 
 	if(HasAuthority()) { ServerCachePlayerLocations(); }
 }
 
+void APaishoGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(APaishoGameState, Team);
+}
+
 TObjectPtr<APaishoTeam> APaishoGameState::JoinTeam(TObjectPtr<APaishoPlayerController> Controller)
 {
+	if(Team == nullptr) { PRINT("THIS CLIENT HAS A NULL TEAM IN THE GAME STATE"); }
 	if(Controller == nullptr || Team == nullptr) { return nullptr; }
 	
 	Team->Join(Controller);

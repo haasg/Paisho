@@ -28,5 +28,7 @@ private:
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UXpComponent> XpComponent;
+
+	int thing = 0;
 	
 };

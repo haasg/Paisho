@@ -78,19 +78,16 @@ void APaishoHero::BeginPlay()
     Super::BeginPlay();
 	Tags.Add(FName("Hero"));
 
-	GetPaishoController();
-	GetPaishoTeam();
-
-	if(const TObjectPtr<APaishoPlayerController> PC = Cast<APaishoPlayerController>(Controller))
-	{
-		PaishoController = PC;
-		if(IsLocallyControlled())
-		{
-			PaishoController->BindHealthComponentToHud(HealthComponent);
-			//PaishoController->BindXpComponentToHud(XpComponent);
-			//PaishoController->BindToLevelUp(XpComponent);
-		}
-	}
+	// if(const TObjectPtr<APaishoPlayerController> PC = Cast<APaishoPlayerController>(Controller))
+	// {
+	// 	PaishoController = PC;
+	// 	if(IsLocallyControlled())
+	// 	{
+	// 		PaishoController->BindHealthComponentToHud(HealthComponent);
+	// 		//PaishoController->BindXpComponentToHud(XpComponent);
+	// 		//PaishoController->BindToLevelUp(XpComponent);
+	// 	}
+	// }
 
 	if(HeroData)
 	{
@@ -118,8 +115,10 @@ void APaishoHero::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	GetPaishoController();
-	GetPaishoTeam();
+	PollInit();
+
+	// GetPaishoController();
+	// GetPaishoTeam();
 
 	APaishoPlayerState* PS = Cast<APaishoPlayerState>(GetPlayerState());
 	if (PS && HasAuthority())
@@ -142,21 +141,37 @@ void APaishoHero::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
 	DOREPLIFETIME(APaishoHero, MovementIntent);
 }
 
-TObjectPtr<APaishoPlayerController> APaishoHero::GetPaishoController()
-{
-	PaishoController = PaishoController == nullptr ? Cast<APaishoPlayerController>(Controller) : PaishoController;
-	return PaishoController;
-}
+// TObjectPtr<APaishoPlayerController> APaishoHero::GetPaishoController()
+// {
+// 	PaishoController = PaishoController == nullptr ? Cast<APaishoPlayerController>(Controller) : PaishoController;
+// 	return PaishoController;
+// }
+//
+// TObjectPtr<APaishoTeam> APaishoHero::GetPaishoTeam()
+// {
+// 	if(Team) { return Team; }
+//
+// 	if(APaishoGameState* GS = Cast<APaishoGameState>(GetWorld()->GetGameState()))
+// 	{
+// 		Team = GS->JoinTeam(GetPaishoController());
+// 	}
+// 	return Team;
+// }
 
-TObjectPtr<APaishoTeam> APaishoHero::GetPaishoTeam()
+void APaishoHero::PollInit()
 {
-	if(Team) { return Team; }
-
-	if(APaishoGameState* GS = Cast<APaishoGameState>(GetWorld()->GetGameState()))
+	if(PaishoController == nullptr)
 	{
-		Team = GS->JoinTeam(GetPaishoController());
+		PaishoController = PaishoController == nullptr ? Cast<APaishoPlayerController>(Controller) : PaishoController;
 	}
-	return Team;
+
+	if(PaishoController && Team == nullptr)
+	{
+		if(APaishoGameState* GS = Cast<APaishoGameState>(GetWorld()->GetGameState()))
+		{
+			Team = GS->JoinTeam(PaishoController);
+		}
+	}
 }
 
 
@@ -182,7 +197,10 @@ void APaishoHero::OnPickup(UPickupData* PickupData)
 		}
 		case EPickupType::Xp:
 		{
-			GetPaishoTeam()->CollectXp(1);
+			if(Team)
+			{
+				Team->CollectXp(1);
+			}
 			break;
 		}
 		default:

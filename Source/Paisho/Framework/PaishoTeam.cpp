@@ -2,6 +2,7 @@
 
 #include "PaishoPlayerController.h"
 #include "Paisho/Character/XpComponent.h"
+#include "Paisho/Util/DebugUtil.h"
 
 APaishoTeam::APaishoTeam()
 {
@@ -18,16 +19,26 @@ void APaishoTeam::BeginPlay()
 void APaishoTeam::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	//PRINT("TEAM MEMBERS: %d, id: %d", Players.Num(), thing);
+	thing++;
 }
 
 void APaishoTeam::Join(const TObjectPtr<APaishoPlayerController> PlayerController)
 {
-	
-	checkf(PlayerController, TEXT("PlayerController is null"));
-	
-	Players.Add(PlayerController);
-	PlayerController->BindXpComponentToHud(XpComponent);
-	PlayerController->BindToLevelUp(XpComponent);
+
+	if(PlayerController)
+	{
+		PRINT("JOINED TEAM");
+		Players.Add(PlayerController);
+		if(PlayerController->IsLocalController())
+		{
+			PRINT("LOCAL AND BINDING TO XP");
+			PlayerController->BindXpComponentToHud(XpComponent);
+			PlayerController->BindToLevelUp(XpComponent);
+		}
+
+	}
+
 }
 
 void APaishoTeam::CollectXp(const int32 Amount)

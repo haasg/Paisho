@@ -31,8 +31,9 @@ public:
     virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-	TObjectPtr<APaishoPlayerController> GetPaishoController();
-	TObjectPtr<APaishoTeam> GetPaishoTeam();
+	// TObjectPtr<APaishoPlayerController> GetPaishoController();
+	// TObjectPtr<APaishoTeam> GetPaishoTeam();
+	void PollInit();
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
