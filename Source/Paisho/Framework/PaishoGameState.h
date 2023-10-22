@@ -5,6 +5,9 @@
 #include "PaishoGameState.generated.h"
 
 
+class APaishoPlayerController;
+class APaishoTeam;
+class UXpComponent;
 class APaishoVillain;
 
 UCLASS()
@@ -13,12 +16,21 @@ class PAISHO_API APaishoGameState : public AGameStateBase
 	GENERATED_BODY()
 
 public:
-
 	APaishoGameState();
+	virtual void Tick(float DeltaSeconds) override;
+	TObjectPtr<APaishoTeam> JoinTeam(TObjectPtr<APaishoPlayerController> Controller);
+	
+protected:
 	virtual void BeginPlay() override;
 
-	virtual void Tick(float DeltaSeconds) override;
+	/* could support multiple teams in the future */
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<APaishoTeam> Team;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<APaishoTeam> TeamStateClass;
+	
+public:
 	UFUNCTION(BlueprintCallable)
 	FText GetGameTimeText();
 

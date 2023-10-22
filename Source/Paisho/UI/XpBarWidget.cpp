@@ -7,6 +7,7 @@
 
 void UXpBarWidget::BindToXpComponent(const TObjectPtr<UXpComponent> NewXpComponent)
 {
+	PRINT("BINDING XP");
 	XpComponent = NewXpComponent;
 	NewXpComponent->OnXpChanged.AddDynamic(this, &ThisClass::Refresh);
 	Refresh();

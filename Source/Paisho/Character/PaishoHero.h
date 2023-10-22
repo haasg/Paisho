@@ -5,6 +5,7 @@
 #include "PickupInterface.h"
 #include "PaishoHero.generated.h"
 
+class APaishoTeam;
 class UPickerUpperComponent;
 class APaishoPlayerController;
 class UXpComponent;
@@ -24,17 +25,23 @@ class PAISHO_API APaishoHero : public APaperZDCharacter , public IPickupInterfac
 {
 	GENERATED_BODY()
 
+public:
 	APaishoHero();
-	static APaishoHero* FromData(UHeroData* HeroData, UWorld* World);
-
-    virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
+    virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-public:
+	TObjectPtr<APaishoPlayerController> GetPaishoController();
+	TObjectPtr<APaishoTeam> GetPaishoTeam();
+
+protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<APaishoPlayerController> PaishoController;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<APaishoTeam> Team;
 	
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UHeroData> HeroData;
 
@@ -54,8 +61,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Collision")
 	TObjectPtr<UCapsuleComponent> HitboxCapsule;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-	TObjectPtr<UXpComponent> XpComponent;
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
+	// TObjectPtr<UXpComponent> XpComponent;
 	/* End Collision Components */
 
 	/* Pickup Components */

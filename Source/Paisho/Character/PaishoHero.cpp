@@ -16,8 +16,10 @@
 #include "Net/UnrealNetwork.h"
 #include "Paisho/Data/HeroData.h"
 #include "Paisho/Data/PickupData.h"
+#include "Paisho/Framework/PaishoGameState.h"
 #include "Paisho/Framework/PaishoPlayerController.h"
 #include "Paisho/Framework/PaishoPlayerState.h"
+#include "Paisho/Framework/PaishoTeam.h"
 #include "Paisho/Util/DebugUtil.h"
 #include "Paisho/Weapons/Weapon.h"
 
@@ -52,7 +54,7 @@ APaishoHero::APaishoHero()
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	Camera->bUsePawnControlRotation = false;
 
-	XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
+	//XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 	HealthBarComponent = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
 	HealthBarComponent->SetupAttachment(RootComponent);
@@ -71,16 +73,13 @@ APaishoHero::APaishoHero()
 	SpriteDirectionLeftRight->SetupAttachment(RootComponent);
 }
 
-APaishoHero* APaishoHero::FromData(UHeroData* HeroData, UWorld* World)
-{
-	return nullptr;//not sure what to do with this yet, want some better way to create a hero from data
-	// maybe i do just end up making a dumb init function to follow the spawn actor call from elsewhere :/
-}
-
 void APaishoHero::BeginPlay()
 {
     Super::BeginPlay();
 	Tags.Add(FName("Hero"));
+
+	GetPaishoController();
+	GetPaishoTeam();
 
 	if(const TObjectPtr<APaishoPlayerController> PC = Cast<APaishoPlayerController>(Controller))
 	{
@@ -88,8 +87,8 @@ void APaishoHero::BeginPlay()
 		if(IsLocallyControlled())
 		{
 			PaishoController->BindHealthComponentToHud(HealthComponent);
-			PaishoController->BindXpComponentToHud(XpComponent);
-			PaishoController->BindToLevelUp(XpComponent);
+			//PaishoController->BindXpComponentToHud(XpComponent);
+			//PaishoController->BindToLevelUp(XpComponent);
 		}
 	}
 
@@ -119,6 +118,9 @@ void APaishoHero::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
+	GetPaishoController();
+	GetPaishoTeam();
+
 	APaishoPlayerState* PS = Cast<APaishoPlayerState>(GetPlayerState());
 	if (PS && HasAuthority())
 	{
@@ -139,6 +141,24 @@ void APaishoHero::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
 
 	DOREPLIFETIME(APaishoHero, MovementIntent);
 }
+
+TObjectPtr<APaishoPlayerController> APaishoHero::GetPaishoController()
+{
+	PaishoController = PaishoController == nullptr ? Cast<APaishoPlayerController>(Controller) : PaishoController;
+	return PaishoController;
+}
+
+TObjectPtr<APaishoTeam> APaishoHero::GetPaishoTeam()
+{
+	if(Team) { return Team; }
+
+	if(APaishoGameState* GS = Cast<APaishoGameState>(GetWorld()->GetGameState()))
+	{
+		Team = GS->JoinTeam(GetPaishoController());
+	}
+	return Team;
+}
+
 
 void APaishoHero::OnPickup(UPickupData* PickupData)
 {
@@ -162,7 +182,7 @@ void APaishoHero::OnPickup(UPickupData* PickupData)
 		}
 		case EPickupType::Xp:
 		{
-			XpComponent->AddXp(1);
+			GetPaishoTeam()->CollectXp(1);
 			break;
 		}
 		default:

@@ -72,17 +72,23 @@ void APaishoPlayerController::ClientReportServerTime_Implementation(const float 
 
 void APaishoPlayerController::BindHealthComponentToHud(const TObjectPtr<UHealthComponent> HealthComponent)
 {
-	PlayerHud->BindToHealthComponent(HealthComponent);
+	if(IsLocalController() && PlayerHud)
+	{
+		PlayerHud->BindToHealthComponent(HealthComponent);
+	}
 }
 
 void APaishoPlayerController::BindXpComponentToHud(const TObjectPtr<UXpComponent> XpComponent)
 {
-	PlayerHud->BindToXpComponent(XpComponent);
+	if(IsLocalController() && PlayerHud)
+	{
+		PlayerHud->BindToXpComponent(XpComponent);
+	}
 }
 
 void APaishoPlayerController::SetMatchGameTime(const float GameTime)
 {
-	if(PlayerHud)
+	if(IsLocalController() && PlayerHud)
 	{
 		PlayerHud->SetMatchGameTime(GameTime);
 	}
@@ -90,10 +96,16 @@ void APaishoPlayerController::SetMatchGameTime(const float GameTime)
 
 void APaishoPlayerController::BindToLevelUp(TObjectPtr<UXpComponent> XpComponent)
 {
-	XpComponent->OnLevelUp.AddDynamic(this, &ThisClass::ShowLevelUpMenu);
+	if(IsLocalController())
+	{
+		XpComponent->OnLevelUp.AddDynamic(this, &ThisClass::ShowLevelUpMenu);
+	}
 }
 
 void APaishoPlayerController::ShowLevelUpMenu(int NewLevel)
 {
-	PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
+	if(IsLocalController())
+	{
+		PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
+	}
 }

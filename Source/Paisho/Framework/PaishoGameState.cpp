@@ -1,19 +1,23 @@
 #include "PaishoGameState.h"
 
+#include "PaishoTeam.h"
 #include "GameFramework/PlayerState.h"
 #include "Paisho/Character/PaishoVillain.h"
+#include "Paisho/Character/XpComponent.h"
 #include "Paisho/Util/DebugUtil.h"
 
 APaishoGameState::APaishoGameState()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	GameTime = 0;
+
+	
 }
 
 void APaishoGameState::BeginPlay()
 {
 	Super::BeginPlay();
-
+	Team = GetWorld()->SpawnActor<APaishoTeam>(TeamStateClass);
 }
 
 void APaishoGameState::Tick(float DeltaSeconds)
@@ -24,6 +28,14 @@ void APaishoGameState::Tick(float DeltaSeconds)
 	GameTime += DeltaSeconds;
 
 	if(HasAuthority()) { ServerCachePlayerLocations(); }
+}
+
+TObjectPtr<APaishoTeam> APaishoGameState::JoinTeam(TObjectPtr<APaishoPlayerController> Controller)
+{
+	if(Controller == nullptr || Team == nullptr) { return nullptr; }
+	
+	Team->Join(Controller);
+	return Team;
 }
 
 void APaishoGameState::ServerCachePlayerLocations()

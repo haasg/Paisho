@@ -29,9 +29,10 @@ class UXpComponent : public UActorComponent
 	
 public:
 	UXpComponent();
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	UFUNCTION(BlueprintCallable)
-	void AddXp(int32 Amount);
+	void CollectXp(int32 Amount);
 
 	float CurrentXp() const;
 	int CurrentLevel();
@@ -54,8 +55,11 @@ protected:
 	void CleanCacheIfDirty();
 	bool bIsDirty = true;
 	FXpInfoCache XpInfoCache;
+
+	UFUNCTION()
+	void OnRep_Xp();
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(ReplicatedUsing = OnRep_Xp)
 	int32 Xp = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

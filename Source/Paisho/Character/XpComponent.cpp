@@ -1,13 +1,20 @@
 ﻿#include "XpComponent.h"
 
 #include "Engine/CurveTable.h"
+#include "Net/UnrealNetwork.h"
 #include "Paisho/Util/DebugUtil.h"
 
 UXpComponent::UXpComponent(): XpInfoCache()
 {
 }
 
-void UXpComponent::AddXp(const int32 Amount)
+void UXpComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(UXpComponent, Xp);
+}
+
+void UXpComponent::CollectXp(const int32 Amount)
 {
 	const int PreAddXpLevel = CurrentLevel();
 	bIsDirty = true;
@@ -21,6 +28,17 @@ void UXpComponent::AddXp(const int32 Amount)
 		OnLevelUp.Broadcast(PostAddXpLevel);
 	}
 }
+
+void UXpComponent::OnRep_Xp()
+{
+	bIsDirty = true;
+	OnXpChanged.Broadcast();
+}
+
+// void UXpComponent::ServerAddXp_Implementation(int32 Amount)
+// {
+// 	// for all players
+// }
 
 float UXpComponent::CurrentXp() const
 {
@@ -113,3 +131,4 @@ void UXpComponent::CleanCacheIfDirty()
 	}
 	bIsDirty = false;
 }
+
