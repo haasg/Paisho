@@ -35,11 +35,6 @@ void UXpComponent::OnRep_Xp()
 	OnXpChanged.Broadcast();
 }
 
-// void UXpComponent::ServerAddXp_Implementation(int32 Amount)
-// {
-// 	// for all players
-// }
-
 float UXpComponent::CurrentXp() const
 {
 	return Xp;

@@ -25,11 +25,7 @@ void UXpBarWidget::Refresh()
 		const FText Text = FText::FromString(FString::Printf(TEXT("LEVEL: %d --- %d/%d"), CurrentLevel, FMath::RoundToInt(XpSinceLevelUp), FMath::RoundToInt(XpToCompleteCurrentLevel)));
 		XpText->SetText(Text);
 		XpBar->SetPercent(XpPercent);
-	}
-	else
-	{
-		ERROR("XpBarWidget refreshed without a valid XpComponent!");
-	}
+	} ELSE_ERROR("XpBarWidget refreshed without a valid XpComponent!")
 }
 
 

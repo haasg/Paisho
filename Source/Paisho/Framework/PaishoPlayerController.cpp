@@ -143,6 +143,11 @@ void APaishoPlayerController::BindToLevelUp(TObjectPtr<UXpComponent> XpComponent
 
 void APaishoPlayerController::ShowLevelUpMenu(int NewLevel)
 {
+	if(HasAuthority())
+	{
+		ServerPause();
+		
+	}
 	if(IsLocalController())
 	{
 		PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);

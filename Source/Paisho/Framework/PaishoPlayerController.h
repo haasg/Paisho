@@ -32,7 +32,7 @@ public:
 	virtual void ReceivedPlayer() override; // Sync with server clock as soon as possible
 
 protected:
-	UPROPERTY(ReplicatedUsing = OnRep_Team, VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(ReplicatedUsing = OnRep_Team, VisibleAnywhere)
 	TObjectPtr<APaishoTeam> Team;
 
 	UFUNCTION()
