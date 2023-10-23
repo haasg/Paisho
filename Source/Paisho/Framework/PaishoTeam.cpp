@@ -20,8 +20,6 @@ void APaishoTeam::BeginPlay()
 void APaishoTeam::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//PRINT("TEAM MEMBERS: %d, id: %d", Players.Num(), thing);
-	thing++;
 }
 
 void APaishoTeam::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
