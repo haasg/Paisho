@@ -39,9 +39,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<APaishoPlayerController> PaishoController;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	TObjectPtr<APaishoTeam> Team;
-	
+	// UPROPERTY(ReplicatedUsing = OnRep_Team, VisibleAnywhere, BlueprintReadOnly)
+	// TObjectPtr<APaishoTeam> Team;
+	//
+	// UFUNCTION()
+	// void OnRep_Team();
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UHeroData> HeroData;

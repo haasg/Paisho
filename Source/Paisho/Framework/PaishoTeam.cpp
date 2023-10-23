@@ -1,6 +1,7 @@
 ﻿#include "PaishoTeam.h"
 
 #include "PaishoPlayerController.h"
+#include "Net/UnrealNetwork.h"
 #include "Paisho/Character/XpComponent.h"
 #include "Paisho/Util/DebugUtil.h"
 
@@ -23,22 +24,33 @@ void APaishoTeam::Tick(float DeltaTime)
 	thing++;
 }
 
+void APaishoTeam::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(APaishoTeam, Players);
+}
+
 void APaishoTeam::Join(const TObjectPtr<APaishoPlayerController> PlayerController)
 {
-
-	if(PlayerController)
+	if(HasAuthority() && PlayerController)
 	{
-		PRINT("JOINED TEAM");
 		Players.Add(PlayerController);
 		if(PlayerController->IsLocalController())
 		{
-			PRINT("LOCAL AND BINDING TO XP");
 			PlayerController->BindXpComponentToHud(XpComponent);
 			PlayerController->BindToLevelUp(XpComponent);
 		}
-
 	}
+}
 
+void APaishoTeam::BindUIToPlayer(const TObjectPtr<APaishoPlayerController> PlayerController)
+{
+	if(PlayerController->IsLocalController())
+	{
+		PlayerController->BindXpComponentToHud(XpComponent);
+		PlayerController->BindToLevelUp(XpComponent);
+	}
 }
 
 void APaishoTeam::CollectXp(const int32 Amount)

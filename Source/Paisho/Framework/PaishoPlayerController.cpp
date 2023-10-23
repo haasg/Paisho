@@ -4,11 +4,22 @@
 #include "Paisho/Character/HealthComponent.h"
 #include "Paisho/UI/PlayerHudWidget.h"
 #include "PaishoCommonController.h"
+#include "PaishoGameState.h"
+#include "PaishoTeam.h"
+#include "Net/UnrealNetwork.h"
 #include "Paisho/Character/XpComponent.h"
 
 APaishoPlayerController::APaishoPlayerController()
 {
 	PlayerHud = nullptr;
+}
+
+void APaishoPlayerController::CollectXpForTeam(const int32 Amount)
+{
+	if(Team)
+	{
+		Team->CollectXp(Amount);
+	}
 }
 
 void APaishoPlayerController::BeginPlay()
@@ -26,8 +37,35 @@ void APaishoPlayerController::BeginPlay()
 void APaishoPlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	PollInit();
 	PollClientServerTimeSync(DeltaSeconds);
 	SetMatchGameTime(GetServerTime());
+}
+
+void APaishoPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(APaishoPlayerController, Team);
+}
+
+void APaishoPlayerController::PollInit()
+{
+	if(HasAuthority() && Team == nullptr)
+	{
+		if(APaishoGameState* GS = Cast<APaishoGameState>(GetWorld()->GetGameState()))
+		{
+			Team = GS->JoinTeam(this);
+		}
+	}
+}
+
+void APaishoPlayerController::OnRep_Team()
+{
+	if(Team)
+	{
+		Team->BindUIToPlayer(this);
+	}
 }
 
 void APaishoPlayerController::PollClientServerTimeSync(const float DeltaSeconds)
@@ -67,6 +105,7 @@ void APaishoPlayerController::ClientReportServerTime_Implementation(const float 
 	const float CurrentServerTime = TimeServerReceivedClientRequest + (RoundTripTime * 0.5);
 	ClientServerDelta = CurrentServerTime - GetWorld()->GetTimeSeconds();
 }
+
 
 
 

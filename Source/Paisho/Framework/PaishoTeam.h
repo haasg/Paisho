@@ -14,8 +14,10 @@ class PAISHO_API APaishoTeam : public AActor
 public:
 	APaishoTeam();
 	virtual void Tick(float DeltaTime) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	void Join(TObjectPtr<APaishoPlayerController> PlayerController);
+	void BindUIToPlayer(TObjectPtr<APaishoPlayerController> PlayerController);
 	void CollectXp(int32 Amount);
 
 protected:
@@ -23,7 +25,7 @@ protected:
 
 private:
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(Replicated, VisibleAnywhere)
 	TArray<TObjectPtr<APaishoPlayerController>> Players;
 	
 	UPROPERTY(VisibleAnywhere)

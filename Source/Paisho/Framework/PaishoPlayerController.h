@@ -4,6 +4,7 @@
 #include "PaishoCommonController.h"
 #include "PaishoPlayerController.generated.h"
 
+class APaishoTeam;
 class UCommonActivatableWidget;
 class UPlayerHudWidget;
 class UHealthComponent;
@@ -17,16 +18,25 @@ class PAISHO_API APaishoPlayerController : public APaishoCommonController
 public:
 	APaishoPlayerController();
 	
-	
+	void CollectXpForTeam(int32 Amount);
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	void PollInit();
+	
 	/* Sync Time Between Server and Client */
 public:
 	float GetServerTime();
 	virtual void ReceivedPlayer() override; // Sync with server clock as soon as possible
+
+protected:
+	UPROPERTY(ReplicatedUsing = OnRep_Team, VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<APaishoTeam> Team;
+
+	UFUNCTION()
+	void OnRep_Team();
 protected:
 	UFUNCTION(Server, Reliable)
 	void ServerRequestServerTime(float TimeOfClientRequest); // Client -> Server

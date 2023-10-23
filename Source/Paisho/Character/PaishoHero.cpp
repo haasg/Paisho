@@ -139,6 +139,7 @@ void APaishoHero::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(APaishoHero, MovementIntent);
+	//DOREPLIFETIME(APaishoHero, Team);
 }
 
 // TObjectPtr<APaishoPlayerController> APaishoHero::GetPaishoController()
@@ -165,14 +166,19 @@ void APaishoHero::PollInit()
 		PaishoController = PaishoController == nullptr ? Cast<APaishoPlayerController>(Controller) : PaishoController;
 	}
 
-	if(PaishoController && Team == nullptr)
-	{
-		if(APaishoGameState* GS = Cast<APaishoGameState>(GetWorld()->GetGameState()))
-		{
-			Team = GS->JoinTeam(PaishoController);
-		}
-	}
+	// if(PaishoController && Team == nullptr)
+	// {
+	// 	if(APaishoGameState* GS = Cast<APaishoGameState>(GetWorld()->GetGameState()))
+	// 	{
+	// 		if(HasAuthority())
+	// 			Team = GS->JoinTeam(PaishoController);
+	// 	}
+	// }
 }
+
+// void APaishoHero::OnRep_Team()
+// {
+// }
 
 
 void APaishoHero::OnPickup(UPickupData* PickupData)
@@ -197,9 +203,9 @@ void APaishoHero::OnPickup(UPickupData* PickupData)
 		}
 		case EPickupType::Xp:
 		{
-			if(Team)
+			if(PaishoController)
 			{
-				Team->CollectXp(1);
+				PaishoController->CollectXpForTeam(1);
 			}
 			break;
 		}

@@ -31,7 +31,6 @@ void UXpComponent::CollectXp(const int32 Amount)
 
 void UXpComponent::OnRep_Xp()
 {
-	PRINT("REPLICATED");
 	bIsDirty = true;
 	OnXpChanged.Broadcast();
 }
