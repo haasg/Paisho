@@ -53,8 +53,7 @@ APaishoHero::APaishoHero()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 	Camera->bUsePawnControlRotation = false;
-
-	//XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
+	
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 	HealthBarComponent = CreateDefaultSubobject<UHealthBarComponent>(TEXT("HealthBar"));
 	HealthBarComponent->SetupAttachment(RootComponent);
@@ -77,17 +76,6 @@ void APaishoHero::BeginPlay()
 {
     Super::BeginPlay();
 	Tags.Add(FName("Hero"));
-
-	// if(const TObjectPtr<APaishoPlayerController> PC = Cast<APaishoPlayerController>(Controller))
-	// {
-	// 	PaishoController = PC;
-	// 	if(IsLocallyControlled())
-	// 	{
-	// 		PaishoController->BindHealthComponentToHud(HealthComponent);
-	// 		//PaishoController->BindXpComponentToHud(XpComponent);
-	// 		//PaishoController->BindToLevelUp(XpComponent);
-	// 	}
-	// }
 
 	if(HeroData)
 	{

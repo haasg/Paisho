@@ -30,20 +30,13 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
     virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-
-	// TObjectPtr<APaishoPlayerController> GetPaishoController();
-	// TObjectPtr<APaishoTeam> GetPaishoTeam();
+	
 	void PollInit();
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<APaishoPlayerController> PaishoController;
-
-	// UPROPERTY(ReplicatedUsing = OnRep_Team, VisibleAnywhere, BlueprintReadOnly)
-	// TObjectPtr<APaishoTeam> Team;
-	//
-	// UFUNCTION()
-	// void OnRep_Team();
+	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UHeroData> HeroData;
@@ -63,10 +56,6 @@ public:
 	 */
 	UPROPERTY(EditAnywhere, Category = "Collision")
 	TObjectPtr<UCapsuleComponent> HitboxCapsule;
-
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-	// TObjectPtr<UXpComponent> XpComponent;
-	/* End Collision Components */
 
 	/* Pickup Components */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
