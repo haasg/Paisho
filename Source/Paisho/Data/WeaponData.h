@@ -63,5 +63,13 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 	FScalableFloat ProjectileMaxHits;
+
+	/* Level Up */
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "LevelUp")
+	UTexture2D* WeaponIcon;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "LevelUp")
+	FText WeaponName;
 	
 };
