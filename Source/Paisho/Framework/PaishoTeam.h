@@ -22,6 +22,12 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	void PollForUnpause();
+
+	UFUNCTION()
+	void HandleLevelUp(int Level);
+	
+	
 
 private:
 

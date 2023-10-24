@@ -8,6 +8,7 @@
 #include "PaishoTeam.h"
 #include "Net/UnrealNetwork.h"
 #include "Paisho/Character/XpComponent.h"
+#include "Paisho/Util/DebugUtil.h"
 
 APaishoPlayerController::APaishoPlayerController()
 {
@@ -21,6 +22,8 @@ void APaishoPlayerController::CollectXpForTeam(const int32 Amount)
 		Team->CollectXp(Amount);
 	}
 }
+
+
 
 void APaishoPlayerController::BeginPlay()
 {
@@ -47,6 +50,7 @@ void APaishoPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(APaishoPlayerController, Team);
+	DOREPLIFETIME(APaishoPlayerController, bIsWaitingForLevelUpInput);
 }
 
 void APaishoPlayerController::PollInit()
@@ -66,6 +70,32 @@ void APaishoPlayerController::OnRep_Team()
 	{
 		Team->BindUIToPlayer(this);
 	}
+}
+
+void APaishoPlayerController::InitiateLevelUp(int Level)
+{
+	/* Let the server player pause the game on level up */
+	if(HasAuthority() && IsLocalController())
+	{
+		SetPause(true);
+	}
+	/* Replicated to all clients */
+	bIsWaitingForLevelUpInput = true;
+	/* Tell each client to start the level up for their local player */
+	ClientInitiateLevelUp();
+}
+
+void APaishoPlayerController::ClientInitiateLevelUp_Implementation()
+{
+	if(IsLocalController())
+	{
+		PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
+	} ELSE_ERROR("Client RPC on non-local player controller. I don't think this should be possible");
+}
+
+void APaishoPlayerController::ServerCompleteLevelUp_Implementation()
+{
+	bIsWaitingForLevelUpInput = false;
 }
 
 void APaishoPlayerController::PollClientServerTimeSync(const float DeltaSeconds)
@@ -135,21 +165,8 @@ void APaishoPlayerController::SetMatchGameTime(const float GameTime)
 
 void APaishoPlayerController::BindToLevelUp(TObjectPtr<UXpComponent> XpComponent)
 {
-	if(IsLocalController())
-	{
-		XpComponent->OnLevelUp.AddDynamic(this, &ThisClass::ShowLevelUpMenu);
-	}
-}
-
-void APaishoPlayerController::ShowLevelUpMenu(int NewLevel)
-{
-	if(HasAuthority())
-	{
-		ServerPause();
-		
-	}
-	if(IsLocalController())
-	{
-		PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
-	}
+	// if(IsLocalController() && HasAuthority())
+	// {
+	// 	XpComponent->OnLevelUp.AddDynamic(this, &ThisClass::ShowLevelUpMenu);
+	// }
 }

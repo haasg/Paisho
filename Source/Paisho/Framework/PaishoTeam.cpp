@@ -8,6 +8,7 @@
 APaishoTeam::APaishoTeam()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bTickEvenWhenPaused = true;
 	XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
 }
 
@@ -15,11 +16,56 @@ void APaishoTeam::BeginPlay()
 {
 	Super::BeginPlay();
 	Tags.Add("AlphaTeam");
+	
+	if(HasAuthority())
+	{
+		XpComponent->OnLevelUp.AddDynamic(this, &APaishoTeam::HandleLevelUp);
+	}
 }
 
 void APaishoTeam::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	PollForUnpause();
+}
+
+void APaishoTeam::PollForUnpause()
+{
+	if(HasAuthority() && Players.Num() > 0)
+	{
+		/* Get the server player controller - probably optimize this someday */
+		APaishoPlayerController* AuthPlayer = nullptr;
+		for(const auto& Player : Players)
+		{
+			if(Player->IsLocalController())
+			{
+				AuthPlayer = Player;
+			}
+		}
+		/* We should have an auth player here since there is one team and everyone must join it. This will need to change to support multiple teams */
+		/* Could just return but want to catch possible errors for now */
+		check(AuthPlayer != nullptr); 
+
+		/* If the game isn't paused we can return */
+		if(!AuthPlayer->IsPaused()) return;
+		
+		bool bShouldStayPaused = false;
+		for(const auto& Player : Players)
+		{
+			if(Player->bIsWaitingForLevelUpInput)
+			{
+				bShouldStayPaused = true;
+				break;
+			}
+		}
+
+		/* If all players are done we can unpause */
+		if(!bShouldStayPaused)
+		{
+			AuthPlayer->SetPause(false);
+		}
+	}
 }
 
 void APaishoTeam::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -37,7 +83,18 @@ void APaishoTeam::Join(const TObjectPtr<APaishoPlayerController> PlayerControlle
 		if(PlayerController->IsLocalController())
 		{
 			PlayerController->BindXpComponentToHud(XpComponent);
-			PlayerController->BindToLevelUp(XpComponent);
+			//PlayerController->BindToLevelUp(XpComponent);
+		}
+	}
+}
+
+void APaishoTeam::HandleLevelUp(int Level)
+{
+	if(HasAuthority())
+	{
+		for(auto& Player : Players)
+		{
+			Player->InitiateLevelUp(Level);
 		}
 	}
 }
@@ -47,7 +104,10 @@ void APaishoTeam::BindUIToPlayer(const TObjectPtr<APaishoPlayerController> Playe
 	if(PlayerController->IsLocalController())
 	{
 		PlayerController->BindXpComponentToHud(XpComponent);
-		PlayerController->BindToLevelUp(XpComponent);
+		// if(HasAuthority())
+		// {
+		// 	PlayerController->BindToLevelUp(XpComponent);
+		// }
 	}
 }
 

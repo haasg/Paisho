@@ -19,6 +19,7 @@ public:
 	APaishoPlayerController();
 	
 	void CollectXpForTeam(int32 Amount);
+	void InitiateLevelUp(int Level);
 
 protected:
 	virtual void BeginPlay() override;
@@ -26,17 +27,35 @@ protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void PollInit();
 	
-	/* Sync Time Between Server and Client */
-public:
-	float GetServerTime();
-	virtual void ReceivedPlayer() override; // Sync with server clock as soon as possible
 
+	/* Team */
 protected:
 	UPROPERTY(ReplicatedUsing = OnRep_Team, VisibleAnywhere)
 	TObjectPtr<APaishoTeam> Team;
 
 	UFUNCTION()
 	void OnRep_Team();
+
+	
+
+	/* Level Up */
+protected:
+	UFUNCTION(Client, Reliable) 
+	void ClientInitiateLevelUp(); // Pops level up menu
+	
+	UFUNCTION(Server, Reliable, BlueprintCallable)
+	void ServerCompleteLevelUp(); // Tells the server a selection has been made
+public:	
+	UPROPERTY(Replicated)
+	bool bIsWaitingForLevelUpInput = false;
+
+
+
+	/* Sync Time Between Server and Client */
+public:
+	float GetServerTime();
+	virtual void ReceivedPlayer() override; // Sync with server clock as soon as possible
+	
 protected:
 	UFUNCTION(Server, Reliable)
 	void ServerRequestServerTime(float TimeOfClientRequest); // Client -> Server
@@ -51,6 +70,8 @@ protected:
 	float ClientServerDelta = 0.0; // Current approx time delta between client and server
 	float TimeSinceLastSync = 0.0; // How long since last time sync
 
+
+	
 	/* Player HUD */
 public:
 	void BindHealthComponentToHud(TObjectPtr<UHealthComponent> HealthComponent);
@@ -63,10 +84,6 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UPlayerHudWidget> PlayerHudClass;
-
-
-	UFUNCTION()
-	void ShowLevelUpMenu(int NewLevel);
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UCommonActivatableWidget> LevelUpMenu;
