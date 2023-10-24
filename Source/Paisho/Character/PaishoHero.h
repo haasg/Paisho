@@ -25,14 +25,17 @@ class PAISHO_API APaishoHero : public APaperZDCharacter , public IPickupInterfac
 {
 	GENERATED_BODY()
 
+	/* Lifetime */
 public:
 	APaishoHero();
 	virtual void Tick(float DeltaSeconds) override;
     virtual void BeginPlay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-	
 	void PollInit();
 
+
+	
+	/* Framework */
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<APaishoPlayerController> PaishoController;
@@ -41,72 +44,89 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UHeroData> HeroData;
 
-	/* Visual Components */
+
+	
+	/* Camera */
+public:
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<USpringArmComponent> SpringArm;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<UCameraComponent> Camera;
-	/* End Visual Components */
 
-	/* Collision Components */
 	
+
+	/* Collision */
+public:
 	/* This capsule sits at the center of the character and blocks movement.
 	 * This is unlike the root component capsule that detects overlap events.
 	 */
 	UPROPERTY(EditAnywhere, Category = "Collision")
 	TObjectPtr<UCapsuleComponent> HitboxCapsule;
 
-	/* Pickup Components */
+
+	
+	/* Pickup */
+public:
+	UFUNCTION(BlueprintCallable)
+	virtual void OnPickup(UPickupData* PickupData) override;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UPickerUpperComponent> PickerUpperComponent;
 
-	UFUNCTION(BlueprintCallable)
-	virtual void OnPickup(UPickupData* PickupData) override;
-	/* End Pickup Components */
 	
-	/* Combat Components */
+	
+	/* Health */
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<UHealthComponent> HealthComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<UHealthBarComponent> HealthBarComponent;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-	TObjectPtr<UStartingKit> StartingKit;
-	
+
+
+	/* Arsenal */
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<UArsenalComponent> Arsenal;
-	/* End Combat Components */
 
-	/* Visual+Movement Components */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	TObjectPtr<UStartingKit> StartingKit;
+
+	
+
+	/* Animation */
+public:
 	UPROPERTY(EditAnywhere, Category = "Visual")
 	TObjectPtr<UPaperFlipbook> IdleAnimation;
 
 	UPROPERTY(EditAnywhere, Category = "Visual")
 	TObjectPtr<UPaperFlipbook> WalkAnimation;
 
+	
+
+	/* Movement */
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UArrowComponent> FacingDirection2d; // where the character is "looking"
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UArrowComponent> SpriteDirectionLeftRight; // keeps a record of the last left-right direction the character moved in, useful for knowing things like if the player sprite is facing right or left even if they're just moving up
-
-	/* Called locally to propagate the movement intent to the server */
+	
 	UFUNCTION(BlueprintCallable)
-	void LocalSetMovementIntent(const FVector& NewMovementIntent);
+	void LocalSetMovementIntent(const FVector& NewMovementIntent); // Called locally to propagate the movement intent to the server
 
 	UFUNCTION(Server, Reliable)
 	void ServerSetMovementIntent(const FVector& NewMovementIntent);
-
-	/* Updates the visual+arrow components to reflect the new movement intent */
-	void UpdateMovementIntent(const FVector& NewMovementIntent);
-
-	UFUNCTION()
-	void OnRep_MovementIntent();
+	
+	void UpdateMovementIntent(const FVector& NewMovementIntent); // Updates the visual+arrow components to reflect the new movement intent
 	
 	UPROPERTY(ReplicatedUsing = OnRep_MovementIntent)
 	FVector MovementIntent;
+	
+	UFUNCTION()
+	void OnRep_MovementIntent();
 	
 	FVector GetFacingDirection();
 	FVector2d GetFacingDirection2d();

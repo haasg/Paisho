@@ -4,6 +4,7 @@
 #include "PaishoCommonController.h"
 #include "PaishoPlayerController.generated.h"
 
+class APaishoHero;
 class APaishoTeam;
 class UCommonActivatableWidget;
 class UPlayerHudWidget;
@@ -23,6 +24,14 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void OnPossess(APawn* InPawn) override;
+	
+
+
+	/* Hero */
+protected:
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<APaishoHero> Hero;
 	
 	
 	
@@ -42,7 +51,7 @@ protected:
 	/* Level Up */
 public:
 	void CollectXpForTeam(int32 Amount);
-	void InitiateLevelUp(int Level);
+	void AuthInitiateLevelUp(int Level);
 	
 protected:
 	UFUNCTION(Client, Reliable) 

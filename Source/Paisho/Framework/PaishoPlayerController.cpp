@@ -7,8 +7,10 @@
 #include "PaishoGameState.h"
 #include "PaishoTeam.h"
 #include "Net/UnrealNetwork.h"
+#include "Paisho/Character/PaishoHero.h"
 #include "Paisho/Character/XpComponent.h"
 #include "Paisho/Util/DebugUtil.h"
+#include "Paisho/Weapons/WeaponLevelUp.h"
 
 APaishoPlayerController::APaishoPlayerController()
 {
@@ -52,6 +54,14 @@ void APaishoPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 	DOREPLIFETIME(APaishoPlayerController, bIsWaitingForLevelUpInput);
 }
 
+void APaishoPlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	Hero = Cast<APaishoHero>(InPawn);
+	check(Hero != nullptr); // currently the player can only possess a hero
+}
+
 void APaishoPlayerController::PollJoinTeam()
 {
 	if(HasAuthority() && Team == nullptr)
@@ -63,6 +73,8 @@ void APaishoPlayerController::PollJoinTeam()
 	}
 }
 
+
+
 void APaishoPlayerController::OnRep_Team()
 {
 	if(Team)
@@ -71,7 +83,7 @@ void APaishoPlayerController::OnRep_Team()
 	}
 }
 
-void APaishoPlayerController::InitiateLevelUp(int Level)
+void APaishoPlayerController::AuthInitiateLevelUp(int Level)
 {
 	/* Let the server player pause the game on level up */
 	if(HasAuthority() && IsLocalController())
@@ -81,6 +93,8 @@ void APaishoPlayerController::InitiateLevelUp(int Level)
 	/* Replicated to all clients */
 	bIsWaitingForLevelUpInput = true;
 	/* Tell each client to start the level up for their local player */
+	TArray<FWeaponLevelUpInfo> LevelUpInfos = Pawn
+	
 	ClientInitiateLevelUp();
 }
 

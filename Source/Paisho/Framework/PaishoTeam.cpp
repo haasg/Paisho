@@ -94,7 +94,7 @@ void APaishoTeam::HandleLevelUp(int Level)
 	{
 		for(auto& Player : Players)
 		{
-			Player->InitiateLevelUp(Level);
+			Player->AuthInitiateLevelUp(Level);
 		}
 	}
 }
