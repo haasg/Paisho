@@ -54,6 +54,7 @@ void APaishoPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 
 	DOREPLIFETIME(APaishoPlayerController, Team);
 	DOREPLIFETIME(APaishoPlayerController, bIsWaitingForLevelUpInput);
+	DOREPLIFETIME(APaishoPlayerController, LevelUpIndex);
 }
 
 void APaishoPlayerController::OnPossess(APawn* InPawn)
@@ -100,6 +101,19 @@ void APaishoPlayerController::AuthInitiateLevelUp(int Level)
 	ClientInitiateLevelUp(LevelUpInfos);
 }
 
+void APaishoPlayerController::AuthCompleteLevelUp()
+{
+	ClientCompleteLevelUp();
+}
+
+void APaishoPlayerController::ClientCompleteLevelUp_Implementation()
+{
+	if(IsLocalController() && LevelUpMenu)
+	{
+		LevelUpMenu->DeactivateWidget();
+	}
+}
+
 void APaishoPlayerController::ClientInitiateLevelUp_Implementation(const TArray<FWeaponLevelUpInfo>& LevelUpInfos)
 {
 	if(IsLocalController())
@@ -107,14 +121,16 @@ void APaishoPlayerController::ClientInitiateLevelUp_Implementation(const TArray<
 		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
 		if(ULevelUpSelector* LevelUpSelector = Cast<ULevelUpSelector>(Widget))
 		{
-			LevelUpSelector->Init(LevelUpInfos);
+			LevelUpMenu = LevelUpSelector;
+			LevelUpMenu->Init(LevelUpInfos);
 		} ELSE_ERROR("LevelUpSelector cast failed and won't be init.")
 	} ELSE_ERROR("Client RPC on non-local player controller. I don't think this should be possible");
 }
 
-void APaishoPlayerController::ServerCompleteLevelUp_Implementation()
+void APaishoPlayerController::ServerCompleteLevelUp_Implementation(const int32 Index)
 {
 	bIsWaitingForLevelUpInput = false;
+	LevelUpIndex = Index;
 }
 
 void APaishoPlayerController::PollClientServerTimeSync(const float DeltaSeconds)

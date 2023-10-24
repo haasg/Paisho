@@ -64,6 +64,10 @@ void APaishoTeam::PollForUnpause()
 		if(!bShouldStayPaused)
 		{
 			AuthPlayer->SetPause(false);
+			for(const auto& Player : Players)
+			{
+				Player->AuthCompleteLevelUp();
+			}
 		}
 	}
 }

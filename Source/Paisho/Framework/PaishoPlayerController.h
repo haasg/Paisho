@@ -5,6 +5,7 @@
 #include "..\Weapons\WeaponLevelUpInfo.h"
 #include "PaishoPlayerController.generated.h"
 
+class ULevelUpSelector;
 class APaishoHero;
 class APaishoTeam;
 class UCommonActivatableWidget;
@@ -53,18 +54,29 @@ protected:
 public:
 	void CollectXpForTeam(int32 Amount);
 	void AuthInitiateLevelUp(int Level);
+	void AuthCompleteLevelUp();
 	
 protected:
 	UFUNCTION(Client, Reliable) 
 	void ClientInitiateLevelUp(const TArray<FWeaponLevelUpInfo>& LevelUpInfos); // Pops level up menu
 	
 	UFUNCTION(Server, Reliable, BlueprintCallable)
-	void ServerCompleteLevelUp(); // Tells the server a selection has been made
+	void ServerCompleteLevelUp(int32 Index); // Tells the server a selection has been made
+
+	UFUNCTION(Client, Reliable)
+	void ClientCompleteLevelUp();
+	
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<ULevelUpSelector> LevelUpMenu;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UCommonActivatableWidget> LevelUpMenuClass;
 public:	
 	UPROPERTY(Replicated)
 	bool bIsWaitingForLevelUpInput = false;
 
-
+	UPROPERTY(Replicated)
+	int32 LevelUpIndex = 0;
 
 	/* Sync Time Between Server and Client */
 public:
@@ -99,10 +111,6 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UPlayerHudWidget> PlayerHudClass;
 	
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<UCommonActivatableWidget> LevelUpMenu;
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UCommonActivatableWidget> LevelUpMenuClass;
 	
 };

@@ -6,6 +6,7 @@
 #include "LevelUpCardButton.generated.h"
 
 
+class ULevelUpSelector;
 class UCommonTextBlock;
 class UImage;
 class UCommonActivatableWidget;
@@ -21,7 +22,7 @@ class PAISHO_API ULevelUpCardButton : public UCommonButtonBase
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UCommonActivatableWidget> ParentWidget;
+	TObjectPtr<ULevelUpSelector> ParentWidget;
 
 protected:
 	UPROPERTY(VisibleAnywhere)
