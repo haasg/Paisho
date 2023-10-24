@@ -2,11 +2,11 @@
 
 #include "CoreMinimal.h"
 
-#include "WeaponLevelUp.generated.h"
+#include "WeaponLevelUpInfo.generated.h"
 
 class UWeaponData;
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct PAISHO_API FWeaponLevelUpInfo
 {
 	GENERATED_BODY()

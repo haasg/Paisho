@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "PaishoCommonController.h"
-#include "Paisho/Weapons/WeaponLevelUp.h"
+#include "..\Weapons\WeaponLevelUpInfo.h"
 #include "PaishoPlayerController.generated.h"
 
 class APaishoHero;

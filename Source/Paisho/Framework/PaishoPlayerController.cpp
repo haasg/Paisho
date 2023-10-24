@@ -11,7 +11,8 @@
 #include "Paisho/Character/PaishoHero.h"
 #include "Paisho/Character/XpComponent.h"
 #include "Paisho/Util/DebugUtil.h"
-#include "Paisho/Weapons/WeaponLevelUp.h"
+#include "..\Weapons\WeaponLevelUpInfo.h"
+#include "Paisho/UI/LevelUpSelector.h"
 
 APaishoPlayerController::APaishoPlayerController()
 {
@@ -104,6 +105,10 @@ void APaishoPlayerController::ClientInitiateLevelUp_Implementation(const TArray<
 	if(IsLocalController())
 	{
 		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
+		if(ULevelUpSelector* LevelUpSelector = Cast<ULevelUpSelector>(Widget))
+		{
+			LevelUpSelector->Init(LevelUpInfos);
+		} ELSE_ERROR("LevelUpSelector cast failed and won't be init.")
 	} ELSE_ERROR("Client RPC on non-local player controller. I don't think this should be possible");
 }
 
