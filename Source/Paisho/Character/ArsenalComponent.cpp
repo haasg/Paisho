@@ -21,3 +21,25 @@ void UArsenalComponent::Poll(float DeltaSeconds)
 		Weapon->Poll(DeltaSeconds);
 	}
 }
+
+TArray<FWeaponLevelUpInfo> UArsenalComponent::CalcWeaponLevelUpInfos(const int32 Amount) const
+{
+	if(Weapons.Num() == 0) { return TArray<FWeaponLevelUpInfo>(); }
+	
+	TArray<FWeaponLevelUpInfo> Infos;
+	for(int i = 0; i < Amount; i++)
+	{
+		FWeaponLevelUpInfo Info;
+		const TObjectPtr<AWeapon> RandomWeapon = GetRandomWeapon();
+		Info.WeaponData = RandomWeapon->GetWeaponData();
+		Info.CurrentLevel = RandomWeapon->GetWeaponLevel();
+		Infos.Add(Info);
+	}
+	return Infos;
+}
+
+TObjectPtr<AWeapon> UArsenalComponent::GetRandomWeapon() const
+{
+	if(Weapons.Num() == 0) { return nullptr; }
+	return Weapons[FMath::RandRange(0, Weapons.Num() - 1)];
+}

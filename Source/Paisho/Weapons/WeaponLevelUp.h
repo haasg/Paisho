@@ -2,6 +2,8 @@
 
 #include "CoreMinimal.h"
 
+#include "WeaponLevelUp.generated.h"
+
 class UWeaponData;
 
 USTRUCT()

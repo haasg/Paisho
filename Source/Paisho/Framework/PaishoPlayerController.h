@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "PaishoCommonController.h"
+#include "Paisho/Weapons/WeaponLevelUp.h"
 #include "PaishoPlayerController.generated.h"
 
 class APaishoHero;
@@ -55,7 +56,7 @@ public:
 	
 protected:
 	UFUNCTION(Client, Reliable) 
-	void ClientInitiateLevelUp(); // Pops level up menu
+	void ClientInitiateLevelUp(const TArray<FWeaponLevelUpInfo>& LevelUpInfos); // Pops level up menu
 	
 	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void ServerCompleteLevelUp(); // Tells the server a selection has been made

@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Paisho/Weapons/WeaponLevelUp.h"
 
 #include "ArsenalComponent.generated.h"
 
@@ -18,7 +19,11 @@ public:
 	void AddWeapon(UWeaponData* WeaponData);
 	void Poll(float DeltaSeconds);
 
+	TArray<FWeaponLevelUpInfo> CalcWeaponLevelUpInfos(int32 Amount) const;
+
 private:
 	UPROPERTY(VisibleAnywhere)
-	TArray<AWeapon*> Weapons;
+	TArray<TObjectPtr<AWeapon>> Weapons;
+
+	TObjectPtr<AWeapon> GetRandomWeapon() const;
 };

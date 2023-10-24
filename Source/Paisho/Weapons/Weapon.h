@@ -18,6 +18,9 @@ public:
 	void Poll(float DeltaSeconds);
 	virtual void Fire() {};
 
+	FORCEINLINE TObjectPtr<UWeaponData> GetWeaponData() const { return WeaponData; }
+	FORCEINLINE int32 GetWeaponLevel() const { return Level; }
+
 	void SetWeaponData(UWeaponData* NewWeaponData) {WeaponData = NewWeaponData;}
 
 protected:
@@ -25,7 +28,7 @@ protected:
 	UWeaponData* WeaponData;
 
 	UPROPERTY(VisibleAnywhere)
-	int Level = 1;
+	int32 Level = 1;
 
 	UPROPERTY(VisibleAnywhere)
 	float SecondsSinceLastFire = FLT_MAX;

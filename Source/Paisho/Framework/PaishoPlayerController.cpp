@@ -7,6 +7,7 @@
 #include "PaishoGameState.h"
 #include "PaishoTeam.h"
 #include "Net/UnrealNetwork.h"
+#include "Paisho/Character/ArsenalComponent.h"
 #include "Paisho/Character/PaishoHero.h"
 #include "Paisho/Character/XpComponent.h"
 #include "Paisho/Util/DebugUtil.h"
@@ -73,8 +74,6 @@ void APaishoPlayerController::PollJoinTeam()
 	}
 }
 
-
-
 void APaishoPlayerController::OnRep_Team()
 {
 	if(Team)
@@ -92,17 +91,19 @@ void APaishoPlayerController::AuthInitiateLevelUp(int Level)
 	}
 	/* Replicated to all clients */
 	bIsWaitingForLevelUpInput = true;
-	/* Tell each client to start the level up for their local player */
-	TArray<FWeaponLevelUpInfo> LevelUpInfos = Pawn
 	
-	ClientInitiateLevelUp();
+	check(Hero);
+	TArray<FWeaponLevelUpInfo> LevelUpInfos = Hero->Arsenal->CalcWeaponLevelUpInfos(3); // get 3 options for now
+	
+	/* Tell each client to start the level up for their local player */
+	ClientInitiateLevelUp(LevelUpInfos);
 }
 
-void APaishoPlayerController::ClientInitiateLevelUp_Implementation()
+void APaishoPlayerController::ClientInitiateLevelUp_Implementation(const TArray<FWeaponLevelUpInfo>& LevelUpInfos)
 {
 	if(IsLocalController())
 	{
-		PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
+		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
 	} ELSE_ERROR("Client RPC on non-local player controller. I don't think this should be possible");
 }
 
