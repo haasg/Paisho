@@ -14,21 +14,22 @@ UCLASS()
 class PAISHO_API APaishoPlayerController : public APaishoCommonController
 {
 	GENERATED_BODY()
-	
+
+	/* Lifetime */
 public:
 	APaishoPlayerController();
 	
-	void CollectXpForTeam(int32 Amount);
-	void InitiateLevelUp(int Level);
-
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-	void PollInit();
 	
-
+	
+	
 	/* Team */
+public:
+	void PollJoinTeam();
+	
 protected:
 	UPROPERTY(ReplicatedUsing = OnRep_Team, VisibleAnywhere)
 	TObjectPtr<APaishoTeam> Team;
@@ -39,6 +40,10 @@ protected:
 	
 
 	/* Level Up */
+public:
+	void CollectXpForTeam(int32 Amount);
+	void InitiateLevelUp(int Level);
+	
 protected:
 	UFUNCTION(Client, Reliable) 
 	void ClientInitiateLevelUp(); // Pops level up menu
@@ -55,7 +60,6 @@ public:
 public:
 	float GetServerTime();
 	virtual void ReceivedPlayer() override; // Sync with server clock as soon as possible
-	
 protected:
 	UFUNCTION(Server, Reliable)
 	void ServerRequestServerTime(float TimeOfClientRequest); // Client -> Server

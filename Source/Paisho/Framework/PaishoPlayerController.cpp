@@ -24,7 +24,6 @@ void APaishoPlayerController::CollectXpForTeam(const int32 Amount)
 }
 
 
-
 void APaishoPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -40,7 +39,7 @@ void APaishoPlayerController::BeginPlay()
 void APaishoPlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	PollInit();
+	PollJoinTeam();
 	PollClientServerTimeSync(DeltaSeconds);
 	SetMatchGameTime(GetServerTime());
 }
@@ -53,7 +52,7 @@ void APaishoPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 	DOREPLIFETIME(APaishoPlayerController, bIsWaitingForLevelUpInput);
 }
 
-void APaishoPlayerController::PollInit()
+void APaishoPlayerController::PollJoinTeam()
 {
 	if(HasAuthority() && Team == nullptr)
 	{
