@@ -31,6 +31,8 @@ protected:
 
 
 	/* Hero */
+public:
+	TObjectPtr<APaishoHero> GetHero();
 protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<APaishoHero> Hero;
@@ -102,6 +104,7 @@ protected:
 public:
 	void BindHealthComponentToHud(TObjectPtr<UHealthComponent> HealthComponent);
 	void BindXpComponentToHud(TObjectPtr<UXpComponent> XpComponent);
+	void BindTeamToHud(TObjectPtr<APaishoTeam> InTeam);
 	void SetMatchGameTime(const float GameTime);
 	
 	UPROPERTY(VisibleAnywhere)

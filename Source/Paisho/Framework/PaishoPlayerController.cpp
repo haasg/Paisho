@@ -65,6 +65,11 @@ void APaishoPlayerController::OnPossess(APawn* InPawn)
 	check(Hero != nullptr); // currently the player can only possess a hero
 }
 
+TObjectPtr<APaishoHero> APaishoPlayerController::GetHero()
+{
+	return Hero;
+}
+
 void APaishoPlayerController::PollJoinTeam()
 {
 	if(HasAuthority() && Team == nullptr)
@@ -187,6 +192,15 @@ void APaishoPlayerController::BindXpComponentToHud(const TObjectPtr<UXpComponent
 	if(IsLocalController() && PlayerHud)
 	{
 		PlayerHud->BindToXpComponent(XpComponent);
+	}
+}
+
+void APaishoPlayerController::BindTeamToHud(const TObjectPtr<APaishoTeam> InTeam)
+{
+	if(IsLocalController() && PlayerHud)
+	{
+		check(Team == InTeam); // we shouldn't bind to a team we're not on
+		PlayerHud->BindToTeam(InTeam);
 	}
 }
 

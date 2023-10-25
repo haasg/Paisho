@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Paisho/Character/HealthComponent.h"
 #include "HealthBarWidget.generated.h"
 
 class UHealthComponent;

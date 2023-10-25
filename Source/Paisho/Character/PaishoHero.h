@@ -78,6 +78,8 @@ public:
 	
 	/* Health */
 public:
+	FORCEINLINE TObjectPtr<UHealthComponent> GetHealthComponent() const { return HealthComponent; }
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<UHealthComponent> HealthComponent;
 

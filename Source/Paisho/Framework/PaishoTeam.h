@@ -20,6 +20,8 @@ public:
 	void BindUIToPlayer(TObjectPtr<APaishoPlayerController> PlayerController);
 	void CollectXp(int32 Amount);
 
+	FORCEINLINE TArray<TObjectPtr<APaishoPlayerController>> GetPlayers() const { return Players; }
+
 protected:
 	virtual void BeginPlay() override;
 	void PollForUnpause();
@@ -31,7 +33,10 @@ protected:
 
 private:
 
-	UPROPERTY(Replicated, VisibleAnywhere)
+	UFUNCTION()
+	void OnRep_Players();
+
+	UPROPERTY(ReplicatedUsing = OnRep_Players, VisibleAnywhere)
 	TArray<TObjectPtr<APaishoPlayerController>> Players;
 	
 	UPROPERTY(VisibleAnywhere)

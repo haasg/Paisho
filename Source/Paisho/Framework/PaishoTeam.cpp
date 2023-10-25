@@ -103,6 +103,14 @@ void APaishoTeam::HandleLevelUp(int Level)
 	}
 }
 
+void APaishoTeam::OnRep_Players()
+{
+	for(const auto& Player : Players)
+	{
+		Player->BindTeamToHud(this);	
+	}
+}
+
 void APaishoTeam::BindUIToPlayer(const TObjectPtr<APaishoPlayerController> PlayerController)
 {
 	if(PlayerController->IsLocalController())

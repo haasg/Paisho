@@ -5,6 +5,8 @@
 
 #include "PlayerHudWidget.generated.h"
 
+class UTeammateWidget;
+class UHorizontalBox;
 class UGameTimeWidget;
 class UHealthBarWidget;
 class UXpBarWidget;
@@ -17,6 +19,7 @@ class UPlayerHudWidget : public UUserWidget
 public:
 	void BindToHealthComponent(TObjectPtr<class UHealthComponent> HealthComponent);
 	void BindToXpComponent(TObjectPtr<class UXpComponent> XpComponent);
+	void BindToTeam(TObjectPtr<class APaishoTeam> Team);
 	void SetMatchGameTime(const int32 GameTime);
 
 protected:
@@ -32,6 +35,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UXpBarWidget> XpBarWidget;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UHorizontalBox> TeammatesBox;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UTeammateWidget> TeammateWidgetClass;
 	
 	
 };
