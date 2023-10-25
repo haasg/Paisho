@@ -103,7 +103,6 @@ public:
 	void BindHealthComponentToHud(TObjectPtr<UHealthComponent> HealthComponent);
 	void BindXpComponentToHud(TObjectPtr<UXpComponent> XpComponent);
 	void SetMatchGameTime(const float GameTime);
-	void BindToLevelUp(TObjectPtr<UXpComponent> XpComponent);
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UPlayerHudWidget> PlayerHud;

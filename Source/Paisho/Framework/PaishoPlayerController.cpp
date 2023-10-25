@@ -197,11 +197,3 @@ void APaishoPlayerController::SetMatchGameTime(const float GameTime)
 		PlayerHud->SetMatchGameTime(GameTime);
 	}
 }
-
-void APaishoPlayerController::BindToLevelUp(TObjectPtr<UXpComponent> XpComponent)
-{
-	// if(IsLocalController() && HasAuthority())
-	// {
-	// 	XpComponent->OnLevelUp.AddDynamic(this, &ThisClass::ShowLevelUpMenu);
-	// }
-}
