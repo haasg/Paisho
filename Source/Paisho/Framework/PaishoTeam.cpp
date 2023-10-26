@@ -107,7 +107,11 @@ void APaishoTeam::OnRep_Players()
 {
 	for(const auto& Player : Players)
 	{
-		Player->BindTeamToHud(this);	
+		if(Player)
+		{
+			Player->BindTeamToHud(this);	
+		} ELSE_ERROR("DONT THINK THIS SHOULD HAPPEN")
+		
 	}
 }
 

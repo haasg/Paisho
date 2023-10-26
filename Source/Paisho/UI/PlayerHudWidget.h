@@ -6,7 +6,7 @@
 #include "PlayerHudWidget.generated.h"
 
 class UTeammateWidget;
-class UHorizontalBox;
+class UVerticalBox;
 class UGameTimeWidget;
 class UHealthBarWidget;
 class UXpBarWidget;
@@ -36,7 +36,7 @@ protected:
 	TObjectPtr<UXpBarWidget> XpBarWidget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UHorizontalBox> TeammatesBox;
+	TObjectPtr<UVerticalBox> TeammatesBox;
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UTeammateWidget> TeammateWidgetClass;

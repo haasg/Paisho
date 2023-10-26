@@ -4,7 +4,7 @@
 #include "HealthBarWidget.h"
 #include "XpBarWidget.h"
 #include "TeammateWidget.h"
-#include "Components/HorizontalBox.h"
+#include "Components/VerticalBox.h"
 #include "Paisho/Character/HealthComponent.h"
 #include "Paisho/Framework/PaishoPlayerController.h"
 #include "Paisho/Framework/PaishoTeam.h"

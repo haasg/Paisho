@@ -152,6 +152,10 @@ void APaishoHero::PollInit()
 	if(PaishoController == nullptr)
 	{
 		PaishoController = PaishoController == nullptr ? Cast<APaishoPlayerController>(Controller) : PaishoController;
+		if(PaishoController)
+		{
+			PaishoController->BindHealthComponentToHud(HealthComponent);
+		}
 	}
 
 	// if(PaishoController && Team == nullptr)
