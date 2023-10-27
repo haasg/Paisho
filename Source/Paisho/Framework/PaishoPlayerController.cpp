@@ -199,7 +199,7 @@ void APaishoPlayerController::BindTeamToHud(const TObjectPtr<APaishoTeam> InTeam
 {
 	if(IsLocalController() && PlayerHud)
 	{
-		check(Team == InTeam); // we shouldn't bind to a team we're not on
+		//check(Team == InTeam); // we shouldn't bind to a team we're not on
 		PlayerHud->BindToTeam(InTeam);
 	}
 }

@@ -25,6 +25,7 @@ void UPlayerHudWidget::BindToTeam(const TObjectPtr<APaishoTeam> Team)
 	
 	for(const auto& Player : Team->GetPlayers())
 	{
+		if(!Player) continue; 
 		if(const TObjectPtr<APaishoHero> Hero = Player->GetHero())
 		{
 			TObjectPtr<UTeammateWidget> TeammateWidget = CreateWidget<UTeammateWidget>(GetWorld(), TeammateWidgetClass);
