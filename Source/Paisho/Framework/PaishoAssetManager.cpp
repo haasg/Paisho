@@ -5,6 +5,7 @@
 const FPrimaryAssetType	UPaishoAssetManager::HeroType = TEXT("HeroData");
 const FPrimaryAssetType	UPaishoAssetManager::VillainType = TEXT("VillainData");
 const FPrimaryAssetType	UPaishoAssetManager::WeaponType = TEXT("WeaponData");
+const FPrimaryAssetType	UPaishoAssetManager::ElementData = TEXT("ElementData");
 
 UPaishoAssetManager& UPaishoAssetManager::Get()
 {

@@ -3,6 +3,7 @@
 #include "ArsenalComponent.h"
 #include "HealthBarComponent.h"
 #include "HealthComponent.h"
+#include "ElementalKnowledgeComponent.h"
 #include "PaperFlipbook.h"
 #include "PaperFlipbookComponent.h"
 #include "PickerUpperComponent.h"
@@ -10,7 +11,7 @@
 #include "XpComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/ArrowComponent.h"
-#include "Components/CapsuleComponent.h"
+#include "Components/CapsuleComponent.h" 
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Net/UnrealNetwork.h"
@@ -61,6 +62,8 @@ APaishoHero::APaishoHero()
 	HealthBarComponent->SetRelativeRotation(HealthBarRotation);
 	// const FVector HealthBarOffset = FVector(0, 200, 0);
 	// HealthBar->SetRelativeLocation(HealthBarOffset);
+	ElementalKnowledgeComponent = CreateDefaultSubobject<UElementalKnowledgeComponent>(TEXT("ElementalKnowledgeComponent"));
+	
 	Arsenal = CreateDefaultSubobject<UArsenalComponent>(TEXT("Arsenal"));
 
 

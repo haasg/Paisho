@@ -5,6 +5,7 @@
 #include "PickupInterface.h"
 #include "PaishoHero.generated.h"
 
+class UElementalKnowledgeComponent;
 class APaishoTeam;
 class UPickerUpperComponent;
 class APaishoPlayerController;
@@ -85,6 +86,16 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<UHealthBarComponent> HealthBarComponent;
+
+
+
+	/* Elemental Knowledge */
+public:
+	FORCEINLINE TObjectPtr<UElementalKnowledgeComponent> GetElementalKnowledgeComponent() const { return ElementalKnowledgeComponent; }
+
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UElementalKnowledgeComponent> ElementalKnowledgeComponent;
 	
 
 

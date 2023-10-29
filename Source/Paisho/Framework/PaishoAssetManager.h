@@ -16,5 +16,6 @@ public:
 	static const FPrimaryAssetType HeroType;
 	static const FPrimaryAssetType VillainType;
 	static const FPrimaryAssetType WeaponType;
+	static const FPrimaryAssetType ElementData;
 	
 };
