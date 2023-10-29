@@ -85,7 +85,7 @@ void APaishoPlayerController::OnRep_Team()
 {
 	if(Team)
 	{
-		Team->BindUIToPlayer(this);
+		//Team->BindUIToPlayer(this);
 	}
 }
 

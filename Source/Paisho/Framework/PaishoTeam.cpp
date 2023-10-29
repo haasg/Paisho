@@ -115,17 +115,17 @@ void APaishoTeam::OnRep_Players()
 	}
 }
 
-void APaishoTeam::BindUIToPlayer(const TObjectPtr<APaishoPlayerController> PlayerController)
-{
-	if(PlayerController->IsLocalController())
-	{
-		PlayerController->BindXpComponentToHud(XpComponent);
-		// if(HasAuthority())
-		// {
-		// 	PlayerController->BindToLevelUp(XpComponent);
-		// }
-	}
-}
+// void APaishoTeam::BindUIToPlayer(const TObjectPtr<APaishoPlayerController> PlayerController)
+// {
+// 	if(PlayerController->IsLocalController())
+// 	{
+// 		PlayerController->BindXpComponentToHud(XpComponent);
+// 		// if(HasAuthority())
+// 		// {
+// 		// 	PlayerController->BindToLevelUp(XpComponent);
+// 		// }
+// 	}
+// }
 
 void APaishoTeam::CollectXp(const int32 Amount)
 {
