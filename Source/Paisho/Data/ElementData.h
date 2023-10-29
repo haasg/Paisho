@@ -17,7 +17,7 @@ public:
 	FText Name;
 
 	UPROPERTY(EditDefaultsOnly)
-	EElement ElementType;
+	EElement Element;
 
 	UPROPERTY(EditDefaultsOnly)
 	EElement ElementWeakness;

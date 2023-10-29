@@ -33,7 +33,14 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+
+
+	/* Knowledge */
 public:
+	void AddKnowledge(const EElement Element, int32 Amount);
+	TArray<FElementalKnowledgeLevel> GetKnowledge() const;
+		
+protected:
 	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly)
 	TArray<FElementalKnowledgeLevel> ElementalKnowledge;
 	
