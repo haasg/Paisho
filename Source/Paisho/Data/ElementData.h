@@ -5,7 +5,7 @@
 #include "ElementType.h"
 #include "ElementData.generated.h"
 
-class UImage;
+class UTexture2D;
 
 UCLASS()
 class PAISHO_API UElementData : public UPrimaryDataAsset
@@ -20,5 +20,11 @@ public:
 	EElement ElementType;
 
 	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UImage> Icon;
+	EElement ElementWeakness;
+
+	UPROPERTY(EditDefaultsOnly)
+	EElement ElementStrength;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UTexture2D> Icon;
 };
