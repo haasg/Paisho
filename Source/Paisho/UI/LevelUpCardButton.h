@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "CommonButtonBase.h"
-#include "Paisho/Weapons/WeaponLevelUpInfo.h"
+#include "Paisho/Data/LevelUpTypes.h"
 #include "LevelUpCardButton.generated.h"
 
 

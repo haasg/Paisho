@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "..\Weapons\WeaponLevelUpInfo.h"
+#include "Paisho/Data/LevelUpTypes.h"
 
 #include "ArsenalComponent.generated.h"
 

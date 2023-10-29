@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "CommonActivatableWidget.h"
-#include "Paisho/Weapons/WeaponLevelUpInfo.h"
+#include "Paisho/Data/LevelUpTypes.h"
 #include "LevelUpSelector.generated.h"
 
 class UHorizontalBox;

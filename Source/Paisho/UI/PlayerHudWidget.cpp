@@ -9,6 +9,14 @@
 #include "Paisho/Framework/PaishoPlayerController.h"
 #include "Paisho/Framework/PaishoTeam.h"
 
+void UPlayerHudWidget::Poll(const TObjectPtr<APaishoPlayerController> LocalController)
+{
+	if(TObjectPtr<APaishoHero> Hero = LocalController->GetHero())
+	{
+		
+	}
+}
+
 void UPlayerHudWidget::BindToHealthComponent(const TObjectPtr<UHealthComponent> HealthComponent)
 {
 	HealthBarWidget->BindToHealthComponent(HealthComponent);
@@ -19,21 +27,21 @@ void UPlayerHudWidget::BindToXpComponent(const TObjectPtr<UXpComponent> XpCompon
 	XpBarWidget->BindToXpComponent(XpComponent);
 }
 
-void UPlayerHudWidget::BindToTeam(const TObjectPtr<APaishoTeam> Team)
-{
-	TeammatesBox->ClearChildren();
-	
-	for(const auto& Player : Team->GetPlayers())
-	{
-		if(!Player) continue; 
-		if(const TObjectPtr<APaishoHero> Hero = Player->GetHero())
-		{
-			TObjectPtr<UTeammateWidget> TeammateWidget = CreateWidget<UTeammateWidget>(GetWorld(), TeammateWidgetClass);
-			TeammateWidget->BindToHero(Hero);
-			TeammatesBox->AddChild(TeammateWidget);
-		}
-	}
-}
+// void UPlayerHudWidget::BindToTeam(const TObjectPtr<APaishoTeam> Team)
+// {
+// 	TeammatesBox->ClearChildren();
+// 	
+// 	for(const auto& Player : Team->GetPlayers())
+// 	{
+// 		if(!Player) continue; 
+// 		if(const TObjectPtr<APaishoHero> Hero = Player->GetHero())
+// 		{
+// 			TObjectPtr<UTeammateWidget> TeammateWidget = CreateWidget<UTeammateWidget>(GetWorld(), TeammateWidgetClass);
+// 			TeammateWidget->BindToHero(Hero);
+// 			TeammatesBox->AddChild(TeammateWidget);
+// 		}
+// 	}
+// }
 
 void UPlayerHudWidget::SetMatchGameTime(const int32 GameTime)
 {

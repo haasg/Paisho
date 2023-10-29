@@ -109,7 +109,7 @@ void APaishoTeam::OnRep_Players()
 	{
 		if(Player)
 		{
-			Player->BindTeamToHud(this);	
+			//Player->BindTeamToHud(this);	
 		} ELSE_ERROR("DONT THINK THIS SHOULD HAPPEN")
 		
 	}

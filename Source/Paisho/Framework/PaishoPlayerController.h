@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "PaishoCommonController.h"
-#include "..\Weapons\WeaponLevelUpInfo.h"
+#include "Paisho/Data/LevelUpTypes.h"
 #include "PaishoPlayerController.generated.h"
 
 class ULevelUpSelector;
@@ -102,9 +102,10 @@ protected:
 	
 	/* Player HUD */
 public:
+	void PollHud();
 	void BindHealthComponentToHud(TObjectPtr<UHealthComponent> HealthComponent);
 	void BindXpComponentToHud(TObjectPtr<UXpComponent> XpComponent);
-	void BindTeamToHud(TObjectPtr<APaishoTeam> InTeam);
+	//void BindTeamToHud(TObjectPtr<APaishoTeam> InTeam);
 	void SetMatchGameTime(const float GameTime);
 	
 	UPROPERTY(VisibleAnywhere)

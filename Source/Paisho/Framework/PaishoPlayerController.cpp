@@ -11,7 +11,6 @@
 #include "Paisho/Character/PaishoHero.h"
 #include "Paisho/Character/XpComponent.h"
 #include "Paisho/Util/DebugUtil.h"
-#include "..\Weapons\WeaponLevelUpInfo.h"
 #include "Paisho/UI/LevelUpSelector.h"
 
 APaishoPlayerController::APaishoPlayerController()
@@ -46,6 +45,7 @@ void APaishoPlayerController::Tick(float DeltaSeconds)
 	PollJoinTeam();
 	PollClientServerTimeSync(DeltaSeconds);
 	SetMatchGameTime(GetServerTime());
+	PollHud();
 }
 
 void APaishoPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -176,8 +176,13 @@ void APaishoPlayerController::ClientReportServerTime_Implementation(const float 
 	ClientServerDelta = CurrentServerTime - GetWorld()->GetTimeSeconds();
 }
 
-
-
+void APaishoPlayerController::PollHud()
+{
+	if(IsLocalController() && PlayerHud)
+	{
+		PlayerHud->Poll(this);
+	}
+}
 
 void APaishoPlayerController::BindHealthComponentToHud(const TObjectPtr<UHealthComponent> HealthComponent)
 {
@@ -195,14 +200,14 @@ void APaishoPlayerController::BindXpComponentToHud(const TObjectPtr<UXpComponent
 	}
 }
 
-void APaishoPlayerController::BindTeamToHud(const TObjectPtr<APaishoTeam> InTeam)
-{
-	if(IsLocalController() && PlayerHud)
-	{
-		//check(Team == InTeam); // we shouldn't bind to a team we're not on
-		PlayerHud->BindToTeam(InTeam);
-	}
-}
+// void APaishoPlayerController::BindTeamToHud(const TObjectPtr<APaishoTeam> InTeam)
+// {
+// 	if(IsLocalController() && PlayerHud)
+// 	{
+// 		//check(Team == InTeam); // we shouldn't bind to a team we're not on
+// 		PlayerHud->BindToTeam(InTeam);
+// 	}
+// }
 
 void APaishoPlayerController::SetMatchGameTime(const float GameTime)
 {
