@@ -15,18 +15,19 @@ void UElementalKnowledgeComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	/* Initialize elemental knowledge to 0 */
-	if(const TObjectPtr<UPaishoGameInstance> GI = GetWorld()->GetGameInstance<UPaishoGameInstance>())
+	for (uint8 i = 0; i < static_cast<uint8>(EElement::Max); i++)
 	{
-		for(const auto& ElementData : GI->GetElementDataAtlas())
-		{
-			FElementalKnowledgeLevel Knowledge;
-			Knowledge.Element = ElementData->Element;
-			Knowledge.Level = 0;
-			ElementalKnowledge.Add(Knowledge);
-		}
-	} ELSE_ERROR("Invalid game instance when initalizing elemental knowledge component")
+		const EElement Element = static_cast<EElement>(i);
+		FElementalKnowledgeLevel Knowledge = FElementalKnowledgeLevel{Element, 0};
+		ElementalKnowledge.Add(Knowledge);
+	}
+}
 
+void UElementalKnowledgeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UElementalKnowledgeComponent, ElementalKnowledge);
 }
 
 void UElementalKnowledgeComponent::AddKnowledge(const EElement Element, const int32 Amount)
@@ -44,12 +45,5 @@ void UElementalKnowledgeComponent::AddKnowledge(const EElement Element, const in
 TArray<FElementalKnowledgeLevel> UElementalKnowledgeComponent::GetKnowledge() const
 {
 	return ElementalKnowledge;
-}
-
-void UElementalKnowledgeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	DOREPLIFETIME(UElementalKnowledgeComponent, ElementalKnowledge);
 }
 

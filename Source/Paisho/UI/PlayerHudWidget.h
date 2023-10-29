@@ -51,8 +51,6 @@ protected:
 
 	/* Elements */
 protected:
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UElementsWidget> ElementsWidget;
-	
-	
 };

@@ -4,12 +4,16 @@
 #include "CommonUserWidget.h"
 #include "ElementsWidget.generated.h"
 
+struct FElementalKnowledgeLevel;
 class UCommonTextBlock;
 
 UCLASS()
 class PAISHO_API UElementsWidget : public UCommonUserWidget
 {
 	GENERATED_BODY()
+
+public:
+	void SetElementLevel(const FElementalKnowledgeLevel& Knowledge);
 
 protected:
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))

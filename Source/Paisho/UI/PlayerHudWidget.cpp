@@ -1,19 +1,30 @@
 ﻿#include "PlayerHudWidget.h"
 
+#include "ElementsWidget.h"
 #include "GameTimeWidget.h"
 #include "HealthBarWidget.h"
 #include "XpBarWidget.h"
 #include "TeammateWidget.h"
 #include "Components/VerticalBox.h"
 #include "Paisho/Character/HealthComponent.h"
+#include "Paisho/Character/ElementalKnowledgeComponent.h"
+#include "Paisho/Character/PaishoHero.h"
 #include "Paisho/Framework/PaishoPlayerController.h"
 #include "Paisho/Framework/PaishoTeam.h"
+#include "Paisho/Util/DebugUtil.h"
 
 void UPlayerHudWidget::Poll(const TObjectPtr<APaishoPlayerController> LocalController)
 {
 	if(TObjectPtr<APaishoHero> Hero = LocalController->GetHero())
 	{
-		
+		if(TObjectPtr<UElementalKnowledgeComponent> Knowledge = Hero->GetElementalKnowledgeComponent())
+		{
+			PRINT("SETTING KNOWLEDGE");
+			for(const auto& KnowledgeLevel : Knowledge->GetKnowledge())
+			{
+				ElementsWidget->SetElementLevel(KnowledgeLevel);
+			}
+		}
 	}
 }
 
