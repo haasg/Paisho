@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "Paisho/Data/ElementType.h"
 #include "PaishoGameInstance.generated.h"
 
 class UElementData;
@@ -15,15 +16,15 @@ class PAISHO_API UPaishoGameInstance : public UGameInstance
 public:
 	virtual void Init() override;
 
-	
-	
+
 	/* Element Data */
 public:
-	FORCEINLINE TArray<TObjectPtr<UElementData>> GetElementDataAtlas() const { return ElementDataAtlas; }
+	FORCEINLINE TMap<EElement, TObjectPtr<UElementData>> GetElementDataAtlas() const { return ElementDataAtlas; }
+	TObjectPtr<UElementData> GetElementData(const EElement Element);
 protected:
 	void LoadDataAssets();
 	void ElementAssetsLoadComplete();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	TArray<TObjectPtr<class UElementData>> ElementDataAtlas;
+	TMap<EElement, TObjectPtr<UElementData>> ElementDataAtlas;
 };

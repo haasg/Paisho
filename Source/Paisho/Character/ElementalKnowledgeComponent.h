@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Paisho/Data/ElementType.h"
+#include "Paisho/Data/LevelUpTypes.h"
 #include "ElementalKnowledgeComponent.generated.h"
 
 
@@ -38,6 +39,7 @@ protected:
 	/* Knowledge */
 public:
 	void AddKnowledge(const EElement Element, int32 Amount);
+	TArray<FElementLevelUpInfo> CalcElementLevelUpInfos(int32 Amount);
 	TArray<FElementalKnowledgeLevel> GetKnowledge() const;
 		
 protected:

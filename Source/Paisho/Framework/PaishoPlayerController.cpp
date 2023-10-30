@@ -8,6 +8,7 @@
 #include "PaishoTeam.h"
 #include "Net/UnrealNetwork.h"
 #include "Paisho/Character/ArsenalComponent.h"
+#include "Paisho/Character/ElementalKnowledgeComponent.h"
 #include "Paisho/Character/PaishoHero.h"
 #include "Paisho/Character/XpComponent.h"
 #include "Paisho/Util/DebugUtil.h"
@@ -101,10 +102,10 @@ void APaishoPlayerController::AuthInitiateLevelUp(int Level)
 	bIsWaitingForLevelUpInput = true;
 	
 	check(Hero);
-	TArray<FWeaponLevelUpInfo> LevelUpInfos = Hero->Arsenal->CalcWeaponLevelUpInfos(3); // get 3 options for now
-	
+	TArray<FWeaponLevelUpInfo> WeaponLevelUpInfos = Hero->Arsenal->CalcWeaponLevelUpInfos(3); // get 3 options for now
+	TArray<FElementLevelUpInfo> ElementLevelUpInfos = Hero->GetElementalKnowledgeComponent()->CalcElementLevelUpInfos(6); // all options for now	
 	/* Tell each client to start the level up for their local player */
-	ClientInitiateLevelUp(LevelUpInfos);
+	ClientInitiateLevelUp(WeaponLevelUpInfos);
 }
 
 void APaishoPlayerController::AuthCompleteLevelUp()

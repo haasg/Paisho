@@ -11,6 +11,16 @@ void UPaishoGameInstance::Init()
 	LoadDataAssets();
 }
 
+TObjectPtr<UElementData> UPaishoGameInstance::GetElementData(const EElement Element) 
+{
+	const TObjectPtr<UElementData>* MapElement = ElementDataAtlas.Find(Element);
+	if(MapElement == nullptr)
+	{
+		return nullptr;
+	}
+	return *MapElement;
+}
+
 void UPaishoGameInstance::LoadDataAssets()
 {
 	LOG("PAISHO STARTUP: Initiating Asset Loading");
@@ -39,7 +49,7 @@ void UPaishoGameInstance::ElementAssetsLoadComplete()
 		if (UElementData* ElementData = Cast<UElementData>(AssetManager.GetPrimaryAssetObject(ElementId)))
 		{
 			VERBOSE("LOADED ITEM ASSET: %s", *ElementData->GetPrimaryAssetId().ToString());
-			ElementDataAtlas.Add(ElementData);
+			ElementDataAtlas.Add(ElementData->Element, ElementData);
 		}
 		else
 		{

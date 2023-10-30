@@ -2,6 +2,7 @@
 
 #include "Net/UnrealNetwork.h"
 #include "Paisho/Data/ElementData.h"
+#include "Paisho/Framework/PaishoGameInstance.h"
 #include "Paisho/Util/DebugUtil.h"
 
 
@@ -16,7 +17,6 @@ void UElementalKnowledgeComponent::BeginPlay()
 
 	if(GetOwner()->HasAuthority())
 	{
-		PRINT("ELEMENTAL BEGIN PLAY");
 		for (uint8 i = 0; i < static_cast<uint8>(EElement::Max); i++)
 		{
 			const EElement Element = static_cast<EElement>(i);
@@ -43,6 +43,20 @@ void UElementalKnowledgeComponent::AddKnowledge(const EElement Element, const in
 			return;
 		}
 	}
+}
+
+TArray<FElementLevelUpInfo> UElementalKnowledgeComponent::CalcElementLevelUpInfos(int32 Amount)
+{
+	const TObjectPtr<UPaishoGameInstance> GI = GetWorld()->GetGameInstance<UPaishoGameInstance>();
+	if(GI == nullptr) return TArray<FElementLevelUpInfo>();
+	
+	TArray<FElementLevelUpInfo> KnowledgeOptions;
+	for(const auto& Knowledge : ElementalKnowledge)
+	{
+		FElementLevelUpInfo KnowledgeOption = FElementLevelUpInfo{GI->GetElementData(Knowledge.Element), Knowledge.Level + 1};
+		KnowledgeOptions.Add(KnowledgeOption);
+	}
+	return KnowledgeOptions;
 }
 
 TArray<FElementalKnowledgeLevel> UElementalKnowledgeComponent::GetKnowledge() const
