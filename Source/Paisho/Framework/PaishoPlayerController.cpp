@@ -105,7 +105,8 @@ void APaishoPlayerController::AuthInitiateLevelUp(int Level)
 	TArray<FWeaponLevelUpInfo> WeaponLevelUpInfos = Hero->Arsenal->CalcWeaponLevelUpInfos(3); // get 3 options for now
 	TArray<FElementLevelUpInfo> ElementLevelUpInfos = Hero->GetElementalKnowledgeComponent()->CalcElementLevelUpInfos(6); // all options for now	
 	/* Tell each client to start the level up for their local player */
-	ClientInitiateLevelUp(WeaponLevelUpInfos);
+	//ClientInitiateLevelUp(WeaponLevelUpInfos);
+	ClientInitiateElementLevelUp(ElementLevelUpInfos);
 }
 
 void APaishoPlayerController::AuthCompleteLevelUp()
@@ -125,7 +126,7 @@ void APaishoPlayerController::ClientInitiateLevelUp_Implementation(const TArray<
 {
 	if(IsLocalController())
 	{
-		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpWeaponMenuClass);
+		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
 		if(ULevelUpSelectorWidget* LevelUpSelector = Cast<ULevelUpSelectorWidget>(Widget))
 		{
 			LevelUpMenu = LevelUpSelector;
@@ -139,11 +140,11 @@ void APaishoPlayerController::ClientInitiateElementLevelUp_Implementation(
 {
 	if(IsLocalController())
 	{
-		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpElementMenuClass);
+		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
 		if(ULevelUpSelectorWidget* LevelUpSelector = Cast<ULevelUpSelectorWidget>(Widget))
 		{
 			LevelUpMenu = LevelUpSelector;
-			//LevelUpMenu->Init(LevelUpInfos);
+			LevelUpMenu->Init(LevelUpInfos);
 		} ELSE_ERROR("LevelUpSelector cast failed and won't be init.")
 	} ELSE_ERROR("Client RPC on non-local player controller. I don't think this should be possible");
 }

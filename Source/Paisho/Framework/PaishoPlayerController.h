@@ -75,10 +75,8 @@ protected:
 	TObjectPtr<ULevelUpSelectorWidget> LevelUpMenu;
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UCommonActivatableWidget> LevelUpWeaponMenuClass;
-
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UCommonActivatableWidget> LevelUpElementMenuClass;
+	TSubclassOf<UCommonActivatableWidget> LevelUpMenuClass;
+	
 public:	
 	UPROPERTY(Replicated)
 	bool bIsWaitingForLevelUpInput = false;

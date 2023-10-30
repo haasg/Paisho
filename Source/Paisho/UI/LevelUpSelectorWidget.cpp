@@ -10,6 +10,8 @@
 
 void ULevelUpSelectorWidget::Init(const TArray<FWeaponLevelUpInfo>& InWeaponLevelUpInfos)
 {
+	CardBox->ClearChildren();
+	LevelUpCardButtons.Empty();
 	for(auto& LevelUpInfo : InWeaponLevelUpInfos)
 	{
 		const TObjectPtr<ULevelUpCardButtonBase> LevelUpCardButton = CreateWidget<ULevelUpCardButtonBase>(GetWorld(), WeaponLevelUpCardButtonClass);
@@ -26,6 +28,8 @@ void ULevelUpSelectorWidget::Init(const TArray<FWeaponLevelUpInfo>& InWeaponLeve
 
 void ULevelUpSelectorWidget::Init(const TArray<FElementLevelUpInfo>& InElementLevelUpInfos)
 {
+	CardBox->ClearChildren();
+	LevelUpCardButtons.Empty();
 	for(auto& ElementLevelUpInfo : InElementLevelUpInfos)
 	{
 		const TObjectPtr<ULevelUpCardButtonBase> LevelUpCardButton = CreateWidget<ULevelUpCardButtonBase>(GetWorld(), ElementLevelUpCardButtonClass);
