@@ -1,7 +1,6 @@
 ﻿#include "ElementalKnowledgeComponent.h"
 
 #include "Net/UnrealNetwork.h"
-#include "Paisho/Framework/PaishoGameInstance.h"
 #include "Paisho/Data/ElementData.h"
 #include "Paisho/Util/DebugUtil.h"
 
@@ -15,11 +14,15 @@ void UElementalKnowledgeComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (uint8 i = 0; i < static_cast<uint8>(EElement::Max); i++)
+	if(GetOwner()->HasAuthority())
 	{
-		const EElement Element = static_cast<EElement>(i);
-		FElementalKnowledgeLevel Knowledge = FElementalKnowledgeLevel{Element, 0};
-		ElementalKnowledge.Add(Knowledge);
+		PRINT("ELEMENTAL BEGIN PLAY");
+		for (uint8 i = 0; i < static_cast<uint8>(EElement::Max); i++)
+		{
+			const EElement Element = static_cast<EElement>(i);
+			FElementalKnowledgeLevel Knowledge = FElementalKnowledgeLevel{Element, 0};
+			ElementalKnowledge.Add(Knowledge);
+		}
 	}
 }
 

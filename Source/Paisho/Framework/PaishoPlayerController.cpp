@@ -67,6 +67,7 @@ void APaishoPlayerController::OnPossess(APawn* InPawn)
 
 TObjectPtr<APaishoHero> APaishoPlayerController::GetHero()
 {
+	Hero = Hero == nullptr ? Cast<APaishoHero>(GetPawn()) : Hero;
 	return Hero;
 }
 
