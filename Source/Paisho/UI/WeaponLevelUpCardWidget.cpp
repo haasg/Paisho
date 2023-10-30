@@ -1,17 +1,16 @@
-﻿#include "LevelUpCardButton.h"
+﻿#include "WeaponLevelUpCardWidget.h"
 
 #include "CommonTextBlock.h"
-#include "LevelUpSelectorWidget.h"
 #include "Components/Image.h"
 #include "Paisho/Data/WeaponData.h"
 
-void ULevelUpCardButton::SetWeaponLevelUpInfo(const FWeaponLevelUpInfo& InWeaponLevelUpInfo)
+void UWeaponLevelUpCardWidget::SetWeaponLevelUpInfo(const FWeaponLevelUpInfo& InWeaponLevelUpInfo)
 {
 	WeaponLevelUpInfo = InWeaponLevelUpInfo;
 	Refresh();
 }
 
-void ULevelUpCardButton::Refresh()
+void UWeaponLevelUpCardWidget::Refresh()
 {
 	if(WeaponLevelUpInfo.WeaponData)
 	{
@@ -19,18 +18,9 @@ void ULevelUpCardButton::Refresh()
 		WeaponNameText->SetText(WeaponLevelUpInfo.WeaponData->WeaponName);
 		WeaponLevelText->SetText(FText::AsNumber(WeaponLevelUpInfo.CurrentLevel + 1));
 	}
-	
 }
 
-void ULevelUpCardButton::Reset()
+void UWeaponLevelUpCardWidget::Reset()
 {
 	SetColorAndOpacity(FLinearColor::White);
-}
-
-void ULevelUpCardButton::NativeOnPressed()
-{
-	Super::NativeOnPressed();
-
-	SetColorAndOpacity(FLinearColor::Blue);
-	ParentWidget->ButtonPressed(Index);
 }

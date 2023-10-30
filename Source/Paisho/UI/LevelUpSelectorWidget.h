@@ -6,7 +6,7 @@
 #include "LevelUpSelectorWidget.generated.h"
 
 class UHorizontalBox;
-class ULevelUpCardButton;
+class ULevelUpCardButtonBase;
 
 UCLASS(Abstract)
 class PAISHO_API ULevelUpSelectorWidget : public UCommonActivatableWidget
@@ -14,8 +14,8 @@ class PAISHO_API ULevelUpSelectorWidget : public UCommonActivatableWidget
 	GENERATED_BODY()
 
 public:
-	UFUNCTION()
 	void Init(const TArray<FWeaponLevelUpInfo>& InWeaponLevelUpInfos);
+	void Init(const TArray<FElementLevelUpInfo>& InElementLevelUpInfos);
 
 	void ButtonPressed(int32 Index);
 
@@ -27,8 +27,8 @@ protected:
 	TObjectPtr<UHorizontalBox> CardBox;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	TArray<TObjectPtr<ULevelUpCardButton>> LevelUpCardButtons;
+	TArray<TObjectPtr<ULevelUpCardButtonBase>> LevelUpCardButtons;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<ULevelUpCardButton> LevelUpCardButtonClass;
+	TSubclassOf<ULevelUpCardButtonBase> LevelUpCardButtonClass;
 };
