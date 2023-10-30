@@ -12,7 +12,7 @@
 #include "Paisho/Character/PaishoHero.h"
 #include "Paisho/Character/XpComponent.h"
 #include "Paisho/Util/DebugUtil.h"
-#include "Paisho/UI/LevelUpSelector.h"
+#include "Paisho/UI/LevelUpSelectorWidget.h"
 
 APaishoPlayerController::APaishoPlayerController()
 {
@@ -126,7 +126,7 @@ void APaishoPlayerController::ClientInitiateLevelUp_Implementation(const TArray<
 	if(IsLocalController())
 	{
 		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpWeaponMenuClass);
-		if(ULevelUpSelector* LevelUpSelector = Cast<ULevelUpSelector>(Widget))
+		if(ULevelUpSelectorWidget* LevelUpSelector = Cast<ULevelUpSelectorWidget>(Widget))
 		{
 			LevelUpMenu = LevelUpSelector;
 			LevelUpMenu->Init(LevelUpInfos);
@@ -140,7 +140,7 @@ void APaishoPlayerController::ClientInitiateElementLevelUp_Implementation(
 	if(IsLocalController())
 	{
 		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpElementMenuClass);
-		if(ULevelUpSelector* LevelUpSelector = Cast<ULevelUpSelector>(Widget))
+		if(ULevelUpSelectorWidget* LevelUpSelector = Cast<ULevelUpSelectorWidget>(Widget))
 		{
 			LevelUpMenu = LevelUpSelector;
 			//LevelUpMenu->Init(LevelUpInfos);

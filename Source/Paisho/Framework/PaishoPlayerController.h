@@ -5,7 +5,7 @@
 #include "Paisho/Data/LevelUpTypes.h"
 #include "PaishoPlayerController.generated.h"
 
-class ULevelUpSelector;
+class ULevelUpSelectorWidget;
 class APaishoHero;
 class APaishoTeam;
 class UCommonActivatableWidget;
@@ -72,7 +72,7 @@ protected:
 	void ClientCompleteLevelUp();
 	
 	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<ULevelUpSelector> LevelUpMenu;
+	TObjectPtr<ULevelUpSelectorWidget> LevelUpMenu;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UCommonActivatableWidget> LevelUpWeaponMenuClass;

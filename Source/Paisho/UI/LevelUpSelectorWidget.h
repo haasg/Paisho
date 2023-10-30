@@ -3,13 +3,13 @@
 #include "CoreMinimal.h"
 #include "CommonActivatableWidget.h"
 #include "Paisho/Data/LevelUpTypes.h"
-#include "LevelUpSelector.generated.h"
+#include "LevelUpSelectorWidget.generated.h"
 
 class UHorizontalBox;
 class ULevelUpCardButton;
 
 UCLASS(Abstract)
-class PAISHO_API ULevelUpSelector : public UCommonActivatableWidget
+class PAISHO_API ULevelUpSelectorWidget : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 

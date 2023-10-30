@@ -1,4 +1,4 @@
-﻿#include "LevelUpSelector.h"
+﻿#include "LevelUpSelectorWidget.h"
 
 #include "LevelUpCardButton.h"
 #include "Components/HorizontalBox.h"
@@ -6,7 +6,7 @@
 #include "Paisho/Util/DebugUtil.h"
 
 
-void ULevelUpSelector::Init(const TArray<FWeaponLevelUpInfo>& InWeaponLevelUpInfos)
+void ULevelUpSelectorWidget::Init(const TArray<FWeaponLevelUpInfo>& InWeaponLevelUpInfos)
 {
 	for(auto& LevelUpInfo : InWeaponLevelUpInfos)
 	{
@@ -19,17 +19,16 @@ void ULevelUpSelector::Init(const TArray<FWeaponLevelUpInfo>& InWeaponLevelUpInf
 	}
 }
 
-void ULevelUpSelector::ButtonPressed(int32 Index)
+void ULevelUpSelectorWidget::ButtonPressed(int32 Index)
 {
-	for(auto& Button : LevelUpCardButtons)
+	for(const auto& Button : LevelUpCardButtons)
 	{
 		if(Index != Button->Index)
 		{
 			Button->Reset();
 		}
 	}
-	TObjectPtr<APaishoPlayerController> PC = Cast<APaishoPlayerController>(GetOwningPlayer());
-	if(PC)
+	if(const TObjectPtr<APaishoPlayerController> PC = Cast<APaishoPlayerController>(GetOwningPlayer()))
 	{
 		PC->ServerCompleteLevelUp(Index);
 	}

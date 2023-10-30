@@ -6,7 +6,7 @@
 #include "LevelUpCardButton.generated.h"
 
 
-class ULevelUpSelector;
+class ULevelUpSelectorWidget;
 class UCommonTextBlock;
 class UImage;
 class UCommonActivatableWidget;
@@ -31,7 +31,7 @@ public:
 	int32 Index;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<ULevelUpSelector> ParentWidget;
+	TObjectPtr<ULevelUpSelectorWidget> ParentWidget;
 
 protected:
 	

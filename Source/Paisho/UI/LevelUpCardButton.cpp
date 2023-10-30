@@ -1,7 +1,7 @@
 ﻿#include "LevelUpCardButton.h"
 
 #include "CommonTextBlock.h"
-#include "LevelUpSelector.h"
+#include "LevelUpSelectorWidget.h"
 #include "Components/Image.h"
 #include "Paisho/Data/WeaponData.h"
 
