@@ -27,15 +27,10 @@ void ULevelUpCardButton::Reset()
 	SetColorAndOpacity(FLinearColor::White);
 }
 
-void ULevelUpCardButton::Pressed()
-{
-	SetColorAndOpacity(FLinearColor::Blue);
-	ParentWidget->ButtonPressed(Index);
-}
-
 void ULevelUpCardButton::NativeOnPressed()
 {
 	Super::NativeOnPressed();
 
-	Pressed();
+	SetColorAndOpacity(FLinearColor::Blue);
+	ParentWidget->ButtonPressed(Index);
 }

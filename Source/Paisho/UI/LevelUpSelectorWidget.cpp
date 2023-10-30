@@ -19,7 +19,7 @@ void ULevelUpSelectorWidget::Init(const TArray<FWeaponLevelUpInfo>& InWeaponLeve
 	}
 }
 
-void ULevelUpSelectorWidget::ButtonPressed(int32 Index)
+void ULevelUpSelectorWidget::ButtonPressed(const int32 Index)
 {
 	for(const auto& Button : LevelUpCardButtons)
 	{
