@@ -1,5 +1,6 @@
 ﻿#include "LevelUpSelectorWidget.h"
 
+#include "ElementLevelUpCardWidget.h"
 #include "LevelUpCardButtonBase.h"
 #include "WeaponLevelUpCardWidget.h"
 #include "Components/HorizontalBox.h"
@@ -11,7 +12,7 @@ void ULevelUpSelectorWidget::Init(const TArray<FWeaponLevelUpInfo>& InWeaponLeve
 {
 	for(auto& LevelUpInfo : InWeaponLevelUpInfos)
 	{
-		const TObjectPtr<ULevelUpCardButtonBase> LevelUpCardButton = CreateWidget<ULevelUpCardButtonBase>(GetWorld(), LevelUpCardButtonClass);
+		const TObjectPtr<ULevelUpCardButtonBase> LevelUpCardButton = CreateWidget<ULevelUpCardButtonBase>(GetWorld(), WeaponLevelUpCardButtonClass);
 		if(TObjectPtr<UWeaponLevelUpCardWidget> WeaponLevelUpCard = Cast<UWeaponLevelUpCardWidget>(LevelUpCardButton))
 		{
 			WeaponLevelUpCard->SetWeaponLevelUpInfo(LevelUpInfo);
@@ -19,14 +20,24 @@ void ULevelUpSelectorWidget::Init(const TArray<FWeaponLevelUpInfo>& InWeaponLeve
 			WeaponLevelUpCard->Index = LevelUpCardButtons.Num();
 			LevelUpCardButtons.Add(WeaponLevelUpCard);
 			CardBox->AddChild(WeaponLevelUpCard);
-		}
-		// DO ELEMNET CARD HERE TODO: 
-
+		} ELSE_ERROR("Level up widget was of wrong type, won't be setup properly")
 	}
 }
 
 void ULevelUpSelectorWidget::Init(const TArray<FElementLevelUpInfo>& InElementLevelUpInfos)
 {
+	for(auto& ElementLevelUpInfo : InElementLevelUpInfos)
+	{
+		const TObjectPtr<ULevelUpCardButtonBase> LevelUpCardButton = CreateWidget<ULevelUpCardButtonBase>(GetWorld(), ElementLevelUpCardButtonClass);
+		if(TObjectPtr<UElementLevelUpCardWidget> ElementLevelUpCard = Cast<UElementLevelUpCardWidget>(LevelUpCardButton))
+		{
+			ElementLevelUpCard->SetElementLevelUpInfo(ElementLevelUpInfo);
+			ElementLevelUpCard->ParentWidget = this;
+			ElementLevelUpCard->Index = LevelUpCardButtons.Num();
+			LevelUpCardButtons.Add(ElementLevelUpCard);
+			CardBox->AddChild(ElementLevelUpCard);
+		} ELSE_ERROR("Level up widget was of wrong type, won't be setup properly")
+	}
 }
 
 void ULevelUpSelectorWidget::ButtonPressed(const int32 Index)

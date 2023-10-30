@@ -30,5 +30,8 @@ protected:
 	TArray<TObjectPtr<ULevelUpCardButtonBase>> LevelUpCardButtons;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<ULevelUpCardButtonBase> LevelUpCardButtonClass;
+	TSubclassOf<ULevelUpCardButtonBase> WeaponLevelUpCardButtonClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<ULevelUpCardButtonBase> ElementLevelUpCardButtonClass;
 };

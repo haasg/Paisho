@@ -20,11 +20,11 @@ protected:
 	FWeaponLevelUpInfo WeaponLevelUpInfo;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	UCommonTextBlock* WeaponNameText;
+	TObjectPtr<UCommonTextBlock> WeaponNameText;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	UImage* WeaponImage;
+	TObjectPtr<UImage> WeaponImage;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	UCommonTextBlock* WeaponLevelText;
+	TObjectPtr<UCommonTextBlock> WeaponLevelText;
 };
