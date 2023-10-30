@@ -14,10 +14,18 @@ class PAISHO_API ULevelUpSelector : public UCommonActivatableWidget
 	GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION()
 	void Init(const TArray<FWeaponLevelUpInfo>& InWeaponLevelUpInfos);
+
+	void ButtonPressed(int32 Index);
+
+	UPROPERTY(VisibleAnywhere)
+	int32 SelectedIndex = -5;
 	
 protected:
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	TObjectPtr<UHorizontalBox> CardBox;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TArray<TObjectPtr<ULevelUpCardButton>> LevelUpCardButtons;
 

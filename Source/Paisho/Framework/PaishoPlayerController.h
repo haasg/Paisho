@@ -61,10 +61,13 @@ public:
 protected:
 	UFUNCTION(Client, Reliable) 
 	void ClientInitiateLevelUp(const TArray<FWeaponLevelUpInfo>& LevelUpInfos); // Pops level up menu
-	
+
+	UFUNCTION(Client, Reliable)
+	void ClientInitiateElementLevelUp(const TArray<FElementLevelUpInfo>& LevelUpInfos); // Pops level up menu
+public:
 	UFUNCTION(Server, Reliable, BlueprintCallable)
 	void ServerCompleteLevelUp(int32 Index); // Tells the server a selection has been made
-
+protected:
 	UFUNCTION(Client, Reliable)
 	void ClientCompleteLevelUp();
 	
@@ -72,7 +75,10 @@ protected:
 	TObjectPtr<ULevelUpSelector> LevelUpMenu;
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UCommonActivatableWidget> LevelUpMenuClass;
+	TSubclassOf<UCommonActivatableWidget> LevelUpWeaponMenuClass;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UCommonActivatableWidget> LevelUpElementMenuClass;
 public:	
 	UPROPERTY(Replicated)
 	bool bIsWaitingForLevelUpInput = false;

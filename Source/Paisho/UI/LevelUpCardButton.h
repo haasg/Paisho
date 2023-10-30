@@ -15,16 +15,27 @@ UCLASS(Abstract)
 class PAISHO_API ULevelUpCardButton : public UCommonButtonBase
 {
 	GENERATED_BODY()
-
+	
+public:
 	UFUNCTION(BlueprintCallable)
 	void SetWeaponLevelUpInfo(const FWeaponLevelUpInfo& InWeaponLevelUpInfo);
 	void Refresh();
+	void Reset();
 
-public:
+	UFUNCTION()
+	void Pressed();
+
+	virtual void NativeOnPressed() override;
+
+	UPROPERTY()
+	int32 Index;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<ULevelUpSelector> ParentWidget;
 
 protected:
+	
+	
 	UPROPERTY(VisibleAnywhere)
 	FWeaponLevelUpInfo WeaponLevelUpInfo;
 

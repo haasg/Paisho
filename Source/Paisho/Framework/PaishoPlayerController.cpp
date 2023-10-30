@@ -125,11 +125,25 @@ void APaishoPlayerController::ClientInitiateLevelUp_Implementation(const TArray<
 {
 	if(IsLocalController())
 	{
-		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpMenuClass);
+		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpWeaponMenuClass);
 		if(ULevelUpSelector* LevelUpSelector = Cast<ULevelUpSelector>(Widget))
 		{
 			LevelUpMenu = LevelUpSelector;
 			LevelUpMenu->Init(LevelUpInfos);
+		} ELSE_ERROR("LevelUpSelector cast failed and won't be init.")
+	} ELSE_ERROR("Client RPC on non-local player controller. I don't think this should be possible");
+}
+
+void APaishoPlayerController::ClientInitiateElementLevelUp_Implementation(
+	const TArray<FElementLevelUpInfo>& LevelUpInfos)
+{
+	if(IsLocalController())
+	{
+		UCommonActivatableWidget* Widget = PushWidgetToLayerStack(EWidgetLayer::Game, LevelUpElementMenuClass);
+		if(ULevelUpSelector* LevelUpSelector = Cast<ULevelUpSelector>(Widget))
+		{
+			LevelUpMenu = LevelUpSelector;
+			//LevelUpMenu->Init(LevelUpInfos);
 		} ELSE_ERROR("LevelUpSelector cast failed and won't be init.")
 	} ELSE_ERROR("Client RPC on non-local player controller. I don't think this should be possible");
 }
