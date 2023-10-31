@@ -16,10 +16,8 @@ TObjectPtr<UElementData> UPaishoGameInstance::GetElementData(const EElement Elem
 	const TObjectPtr<UElementData>* MapElement = ElementDataAtlas.Find(Element);
 	if(MapElement == nullptr)
 	{
-		PRINT("FOUND NULL");
 		return nullptr;
 	}
-	PRINT("FOUND NOT NULL");
 	return *MapElement;
 }
 
