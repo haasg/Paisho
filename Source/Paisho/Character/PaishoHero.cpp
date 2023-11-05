@@ -30,12 +30,14 @@ APaishoHero::APaishoHero()
 	//SetReplicatedMovement(true);
 
 	GetCapsuleComponent()->SetCollisionProfileName(FName("HeroCoreBlock"));
+	GetCapsuleComponent()->ComponentTags.Add(FName("HeroCoreBlock"));
 	GetCapsuleComponent()->SetCapsuleHalfHeight(1000.0);
 	GetCapsuleComponent()->SetCapsuleRadius(40.0);
 	SetRootComponent(GetCapsuleComponent());
 
 	HitboxCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("HitboxCapsule"));
 	HitboxCapsule->SetCollisionProfileName(FName("HeroHitbox"));
+	HitboxCapsule->ComponentTags.Add(FName("HeroHitbox"));
 	HitboxCapsule->SetCapsuleHalfHeight(1000.0);
 	HitboxCapsule->SetCapsuleRadius(50.0);
 	HitboxCapsule->SetupAttachment(RootComponent);

@@ -115,13 +115,17 @@ void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AAc
                                    UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if(!HasAuthority()) return;
-	
-	if(UHealthComponent* OtherHealth = OtherActor->FindComponentByClass<UHealthComponent>())
+
+	if(OtherComp->ComponentHasTag("HeroHitbox"))
 	{
-		PRINT("DAMAGE: %f, FROM: %s, TO: %s", VillainData->Damage, *OverlappedComponent->GetName(), *OtherComp->GetName());
-		PRINT("COLLISION PROFILES: %s, %s", *OverlappedComponent->GetCollisionProfileName().ToString(), *OtherComp->GetCollisionProfileName().ToString());
-		OtherHealth->TakeDamage(VillainData->Damage);
-		//HitParticleFxEvent(WeaponData->GetDamage(Level));
+		if(UHealthComponent* OtherHealth = OtherActor->FindComponentByClass<UHealthComponent>())
+		{
+			PRINT("DAMAGE: %f, FROM: %s, TO: %s", VillainData->Damage, *OverlappedComponent->GetName(), *OtherComp->GetName());
+			PRINT("COLLISION PROFILES: %s, %s", *OverlappedComponent->GetCollisionProfileName().ToString(), *OtherComp->GetCollisionProfileName().ToString());
+			OtherHealth->TakeDamage(VillainData->Damage);
+			//HitParticleFxEvent(WeaponData->GetDamage(Level));
+		}
 	}
+
 }
 
