@@ -30,6 +30,7 @@ APaishoHero::APaishoHero()
 	//SetReplicatedMovement(true);
 
 	GetCapsuleComponent()->SetCollisionProfileName(FName("HeroCoreBlock"));
+	//GetCapsuleComponent()->
 	GetCapsuleComponent()->SetCapsuleHalfHeight(1000.0);
 	GetCapsuleComponent()->SetCapsuleRadius(40.0);
 	SetRootComponent(GetCapsuleComponent());

@@ -105,8 +105,15 @@ void APaishoPlayerController::AuthInitiateLevelUp(int Level)
 	TArray<FWeaponLevelUpInfo> WeaponLevelUpInfos = Hero->Arsenal->CalcWeaponLevelUpInfos(3); // get 3 options for now
 	TArray<FElementLevelUpInfo> ElementLevelUpInfos = Hero->GetElementalKnowledgeComponent()->CalcElementLevelUpInfos(6); // all options for now	
 	/* Tell each client to start the level up for their local player */
-	//ClientInitiateLevelUp(WeaponLevelUpInfos);
-	ClientInitiateElementLevelUp(ElementLevelUpInfos);
+
+	if(Level % 2 == 0)
+	{
+		ClientInitiateLevelUp(WeaponLevelUpInfos);
+	} else
+	{
+		ClientInitiateElementLevelUp(ElementLevelUpInfos);
+	}
+	
 }
 
 void APaishoPlayerController::AuthCompleteLevelUp()
