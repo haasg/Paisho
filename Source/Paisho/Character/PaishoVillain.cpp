@@ -78,7 +78,7 @@ void APaishoVillain::Tick(float DeltaSeconds)
 			if(const TOptional<FVector> MaybePlayerLocation = PaishoGameState->ServerGetClosestPlayerTo(MyLocation))
 			{
 				const FVector TargetDirection = (MaybePlayerLocation.GetValue() - MyLocation).GetSafeNormal2D();
-				const FVector DesiredVelocity = TargetDirection * 100.f;
+				const FVector DesiredVelocity = TargetDirection * 1000.f;
 			
 				CapsuleComponent->AddForce(DesiredVelocity, NAME_None, true);
 			}
