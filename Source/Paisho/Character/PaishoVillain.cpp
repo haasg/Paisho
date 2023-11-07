@@ -120,8 +120,6 @@ void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	{
 		if(UHealthComponent* OtherHealth = OtherActor->FindComponentByClass<UHealthComponent>())
 		{
-			PRINT("DAMAGE: %f, FROM: %s, TO: %s", VillainData->Damage, *OverlappedComponent->GetName(), *OtherComp->GetName());
-			PRINT("COLLISION PROFILES: %s, %s", *OverlappedComponent->GetCollisionProfileName().ToString(), *OtherComp->GetCollisionProfileName().ToString());
 			OtherHealth->TakeDamage(VillainData->Damage);
 			//HitParticleFxEvent(WeaponData->GetDamage(Level));
 		}
