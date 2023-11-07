@@ -9,6 +9,7 @@
 #include "Paisho/Data/VillainData.h"
 #include "Paisho/Framework/PaishoGameState.h"
 #include "Paisho/GameWorld/Pickup.h"
+#include "Paisho/Character/PaishoHero.h"
 #include "Paisho/Util/DebugUtil.h"
 
 APaishoVillain::APaishoVillain()
@@ -48,7 +49,8 @@ void APaishoVillain::BeginPlay()
 		//GetCharacterMovement()->MaxWalkSpeed = VillainData->MovementSpeed;
 	} ELSE_ERROR("Villain BeginPlay with nullptr VillainData");
 
-	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::HandleOverlap);
+	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnOverlapBegin);
+	CapsuleComponent->OnComponentEndOverlap.AddDynamic(this, &ThisClass::OnOverlapEnd);
 	
 	Health->OnDeath.AddDynamic(this, &ThisClass::OnDeath);
 
@@ -111,7 +113,7 @@ void APaishoVillain::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	} ELSE_ERROR("Villain death with nullptr GameState")
 }
 
-void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+void APaishoVillain::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
                                    UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if(!HasAuthority()) return;
@@ -120,10 +122,27 @@ void APaishoVillain::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	{
 		if(UHealthComponent* OtherHealth = OtherActor->FindComponentByClass<UHealthComponent>())
 		{
-			OtherHealth->TakeDamage(VillainData->Damage);
+			//OtherHealth->TakeDamage(VillainData->Damage);
+			
 			//HitParticleFxEvent(WeaponData->GetDamage(Level));
+			if(APaishoHero* Hero = Cast<APaishoHero>(OtherActor))
+			{
+				Hero->VillainsDoingDamageToMe.AddUnique(this);
+			}
+			
 		}
 	}
 
+}
+
+void APaishoVillain::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if(OtherComp->ComponentHasTag("HeroHitbox"))
+	{
+		if(APaishoHero* Hero = Cast<APaishoHero>(OtherActor))
+		{
+			Hero->VillainsDoingDamageToMe.Remove(this);
+		}
+	}
 }
 

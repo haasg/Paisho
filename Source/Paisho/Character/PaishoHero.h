@@ -5,6 +5,7 @@
 #include "PickupInterface.h"
 #include "PaishoHero.generated.h"
 
+class APaishoVillain;
 class UElementalKnowledgeComponent;
 class APaishoTeam;
 class UPickerUpperComponent;
@@ -86,6 +87,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	TObjectPtr<UHealthBarComponent> HealthBarComponent;
+
+	void PollDamage(float DeltaSeconds);
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
+	TArray<TObjectPtr<APaishoVillain>> VillainsDoingDamageToMe;
 
 
 

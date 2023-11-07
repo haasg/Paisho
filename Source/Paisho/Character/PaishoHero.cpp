@@ -16,7 +16,9 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "Paisho/Data/HeroData.h"
+#include "Paisho/Character/PaishoVillain.h"
 #include "Paisho/Data/PickupData.h"
+#include "Paisho/Data/VillainData.h"
 #include "Paisho/Framework/PaishoGameState.h"
 #include "Paisho/Framework/PaishoPlayerController.h"
 #include "Paisho/Framework/PaishoPlayerState.h"
@@ -124,6 +126,8 @@ void APaishoHero::Tick(float DeltaSeconds)
 	{
 		Arsenal->Poll(DeltaSeconds);
 	}
+
+	PollDamage(DeltaSeconds);
 }
 
 void APaishoHero::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -209,6 +213,21 @@ void APaishoHero::OnPickup(UPickupData* PickupData)
 		{
 			ERROR("Unhandled PickupType");
 			break;
+		}
+	}
+}
+
+void APaishoHero::PollDamage(float DeltaSeconds)
+{
+	VillainsDoingDamageToMe.RemoveAll([](const APaishoVillain* Ptr){
+		return Ptr == nullptr;
+	}); 
+	
+	for(auto& Villain : VillainsDoingDamageToMe)
+	{
+		if(IsValid(Villain) && Villain->VillainData != nullptr)
+		{
+			HealthComponent->TakeDamage(Villain->VillainData->Damage * DeltaSeconds);
 		}
 	}
 }
