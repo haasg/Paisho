@@ -47,6 +47,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UPickupData> PickupData;
 
+
+	/* Damage */
+public:
+	UPROPERTY(VisibleAnywhere)
+	float DamageCooldownSeconds = 0.5; // How long before a villain to apply damaage again
+
+	UPROPERTY(VisibleAnywhere)
+	float TimeSinceLastDamage = 0.0;
 	
 	
 private:

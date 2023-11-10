@@ -66,6 +66,8 @@ void APaishoVillain::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
+	TimeSinceLastDamage += DeltaSeconds;
+
 	// TODO: Cache the gamestate as paishogamestate
 	// TODO: Only run on the server
 	// TODO: Make sure villain location is replicated
@@ -122,9 +124,14 @@ void APaishoVillain::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AA
 	{
 		if(UHealthComponent* OtherHealth = OtherActor->FindComponentByClass<UHealthComponent>())
 		{
-			//OtherHealth->TakeDamage(VillainData->Damage);
-			
-			//HitParticleFxEvent(WeaponData->GetDamage(Level));
+			/* Limit how often a villain can apply damage through contact */
+			if(TimeSinceLastDamage > DamageCooldownSeconds)
+			{
+				OtherHealth->TakeDamage(VillainData->ContactDamage);
+				TimeSinceLastDamage = 0.0;
+			}
+
+			/* Add villain to hero overlap list to track damage over time */
 			if(APaishoHero* Hero = Cast<APaishoHero>(OtherActor))
 			{
 				Hero->VillainsDoingDamageToMe.AddUnique(this);

@@ -227,7 +227,7 @@ void APaishoHero::PollDamage(float DeltaSeconds)
 	{
 		if(IsValid(Villain) && Villain->VillainData != nullptr)
 		{
-			HealthComponent->TakeDamage(Villain->VillainData->Damage * DeltaSeconds);
+			HealthComponent->TakeDamage(Villain->VillainData->OverlapDamagePerSecond * DeltaSeconds);
 		}
 	}
 }

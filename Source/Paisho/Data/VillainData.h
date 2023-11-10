@@ -25,8 +25,11 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	float MovementSpeed = 100.0;
 
-	UPROPERTY(EditDefaultsOnly)
-	float Damage = 1.0;
+	UPROPERTY(EditDefaultsOnly, Category = "Damage")
+	float ContactDamage = 1.0;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Damage")
+	float OverlapDamagePerSecond = 1.0;
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UPaperFlipbook> WalkAnimation;
