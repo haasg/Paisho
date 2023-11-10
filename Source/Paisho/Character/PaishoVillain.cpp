@@ -7,7 +7,6 @@
 #include "Paisho/Framework/PaishoGameState.h"
 #include "Paisho/Data/PickupData.h"
 #include "Paisho/Data/VillainData.h"
-#include "Paisho/Framework/PaishoGameState.h"
 #include "Paisho/GameWorld/Pickup.h"
 #include "Paisho/Character/PaishoHero.h"
 #include "Paisho/Util/DebugUtil.h"
@@ -46,7 +45,6 @@ void APaishoVillain::BeginPlay()
 	{
 		Health->Init(VillainData->StartingHealth, VillainData->StartingHealth);
 		HealthBar->Init(Health);
-		//GetCharacterMovement()->MaxWalkSpeed = VillainData->MovementSpeed;
 	} ELSE_ERROR("Villain BeginPlay with nullptr VillainData");
 
 	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnOverlapBegin);

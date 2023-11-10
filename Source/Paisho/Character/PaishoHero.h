@@ -46,7 +46,7 @@ public:
 
 	
 	/* Camera */
-public:
+protected:
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	TObjectPtr<USpringArmComponent> SpringArm;
 
