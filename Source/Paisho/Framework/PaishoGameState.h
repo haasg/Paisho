@@ -38,7 +38,7 @@ public:
 	float GetGameTime();
 
 	/* Player Locations */
-	TOptional<FVector> ServerGetClosestPlayerTo(const FVector& Location);
+	TOptional<FVector> AuthGetClosestPlayerTo(const FVector& Location);
 	TOptional<FVector> ServerGetRandomPlayerLocation();
 protected:
 	void ServerCachePlayerLocations();

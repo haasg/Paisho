@@ -27,7 +27,7 @@ class PAISHO_API APaishoHero : public APaperZDCharacter , public IPickupInterfac
 {
 	GENERATED_BODY()
 
-	/* Lifetime */
+	/* Framework */
 public:
 	APaishoHero();
 	virtual void Tick(float DeltaSeconds) override;
@@ -35,9 +35,6 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void PollInit();
 
-
-	
-	/* Framework */
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<APaishoPlayerController> PaishoController;

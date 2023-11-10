@@ -65,28 +65,29 @@ void APaishoVillain::BeginPlay()
 void APaishoVillain::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
-	TimeSinceLastDamage += DeltaSeconds;
-
-	// TODO: Cache the gamestate as paishogamestate
-	// TODO: Only run on the server
-	// TODO: Make sure villain location is replicated
+	
 	if(HasAuthority())
 	{
-		AGameStateBase* GameState = GetWorld()->GetGameState();
-		if(APaishoGameState* PaishoGameState = Cast<APaishoGameState>(GameState))
+		TimeSinceLastDamage += DeltaSeconds;
+		
+		if(APaishoGameState* GS = GetGameState())
 		{
 			const FVector MyLocation = GetActorLocation();
-			if(const TOptional<FVector> MaybePlayerLocation = PaishoGameState->ServerGetClosestPlayerTo(MyLocation))
+			if(const TOptional<FVector> MaybePlayerLocation = GS->AuthGetClosestPlayerTo(MyLocation))
 			{
 				const FVector TargetDirection = (MaybePlayerLocation.GetValue() - MyLocation).GetSafeNormal2D();
 				const FVector DesiredVelocity = TargetDirection * 1000.f;
 			
 				CapsuleComponent->AddForce(DesiredVelocity, NAME_None, true);
 			}
-
 		}
 	}
+}
+
+TObjectPtr<APaishoGameState> APaishoVillain::GetGameState()
+{
+	PaishoGameState = PaishoGameState == nullptr ? GetWorld()->GetGameState<APaishoGameState>() : PaishoGameState;
+	return PaishoGameState;
 }
 
 /* It's possible the server will fully destroy the actor before a client is able to run this OnDeath() function */
@@ -115,8 +116,10 @@ void APaishoVillain::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	} ELSE_ERROR("Villain death with nullptr GameState")
 }
 
+
+
 void APaishoVillain::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                                   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                    UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if(!HasAuthority()) return;
 

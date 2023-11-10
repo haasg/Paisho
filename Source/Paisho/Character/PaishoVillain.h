@@ -3,6 +3,7 @@
 #include "PaperZDCharacter.h"
 #include "PaishoVillain.generated.h"
 
+class APaishoGameState;
 class UPickupData;
 class UPaperSpriteComponent;
 class UVillainData;
@@ -13,21 +14,28 @@ UCLASS()
 class PAISHO_API APaishoVillain : public AActor
 {
 	GENERATED_BODY()
-	
+
+	/* Framework */
 public:
 	APaishoVillain();
-
+	
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-
+	
 public:
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UVillainData> VillainData;
 
+	TObjectPtr<APaishoGameState> GetGameState();
+	
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<APaishoGameState> PaishoGameState;
+
+	
 	/* Combat Components */
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	UHealthComponent* Health;
 

@@ -71,7 +71,7 @@ float APaishoGameState::GetGameTime()
 	return GameTime;
 }
 
-TOptional<FVector> APaishoGameState::ServerGetClosestPlayerTo(const FVector& Location)
+TOptional<FVector> APaishoGameState::AuthGetClosestPlayerTo(const FVector& Location)
 {
 	if(HasAuthority())
 	{
@@ -90,7 +90,7 @@ TOptional<FVector> APaishoGameState::ServerGetClosestPlayerTo(const FVector& Loc
 	} 
 
 
-    checkf(false, TEXT("ServerGetClosestPlayerTo called on client"));
+    checkf(false, TEXT("AuthGetClosestPlayerTo called on client"));
 	return TOptional<FVector>();
 }
 
